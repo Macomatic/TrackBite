@@ -9,6 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DiabeticMealTracker">
+        <activity android:name=".Data_Analysis_Page"></activity>
+        <activity android:name=".Notification_Page" />
+        <activity android:name=".Exercise_Page" />
+        <activity android:name=".Database_Page" />
+        <activity android:name=".Input_Page" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

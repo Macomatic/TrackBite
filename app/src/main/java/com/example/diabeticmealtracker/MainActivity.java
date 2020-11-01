@@ -2,7 +2,9 @@ package com.example.diabeticmealtracker;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -11,4 +13,30 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
+
+    public void inputButtonClick (View view){
+        Intent intent = new Intent (getApplicationContext(), Input_Page.class);
+        startActivity(intent);
+    }
+
+    public void exerciseButtonClick (View view){
+        Intent intent = new Intent (getApplicationContext(), Exercise_Page.class);
+        startActivity(intent);
+    }
+
+    public void data_analysisButtonClick (View view){
+        Intent intent = new Intent (getApplicationContext(), Data_Analysis_Page.class);
+        startActivity(intent);
+    }
+
+    public void notifcationButtonClick (View view){
+        Intent intent = new Intent (getApplicationContext(), Notification_Page.class);
+        startActivity(intent);
+    }
+
+    public void databaseButtonClick (View view){
+        Intent intent = new Intent (getApplicationContext(), Database_Page.class);
+        startActivity(intent);
+    }
+
 }
