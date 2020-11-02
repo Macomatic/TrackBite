@@ -6,4 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".Exercise_Page">
 
+    <TextView
+        android:id="@+id/exercise_homepage"
+        android:layout_width="297dp"
+        android:layout_height="54dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginLeft="60dp"
+        android:layout_marginTop="67dp"
+        android:layout_marginEnd="54dp"
+        android:layout_marginRight="54dp"
+        android:gravity="center"
+        android:text="Please Select the exercise you would like to do"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

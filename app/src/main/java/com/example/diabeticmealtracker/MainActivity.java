@@ -1,6 +1,7 @@
 package com.example.diabeticmealtracker;
 
 import androidx.appcompat.app.AppCompatActivity;
+import com.google.firebase.database.FirebaseDatabase;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -38,5 +39,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent (getApplicationContext(), Database_Page.class);
         startActivity(intent);
     }
+
+
 
 }
