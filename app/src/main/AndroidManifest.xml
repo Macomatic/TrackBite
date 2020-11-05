@@ -9,7 +9,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DiabeticMealTracker">
-        <activity android:name=".Data_Analysis_Page"></activity>
+        <activity android:name=".Notifcation_setup_exercise"></activity>
+        <activity
+            android:name=".Notifcation_Setup_Meal"
+            android:label="@string/title_activity_notifcation__setup__meal"
+            android:theme="@style/Theme.DiabeticMealTracker.NoActionBar" />
+        <activity android:name=".Second_Notification_Page" />
+        <activity android:name=".Data_Analysis_Page" />
         <activity android:name=".Notification_Page" />
         <activity android:name=".Exercise_Page" />
         <activity android:name=".Database_Page" />
