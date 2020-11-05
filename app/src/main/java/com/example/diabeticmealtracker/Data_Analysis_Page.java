@@ -20,8 +20,4 @@ public class Data_Analysis_Page extends AppCompatActivity {
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference("diabetic-mealtime-tracker");
 
-    protected void onStart(){
-        //myRef.child("diabetic-mealtime-tracker").setValue("Hello, World!");
-    }
-
 }

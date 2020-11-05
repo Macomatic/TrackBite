@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ManualInput">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="559dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="71dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="30sp" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="301dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="Which manual input would you like to use?"
+            android:textSize="24sp" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="50sp" />
+
+        <Button
+            android:id="@+id/basicinput"
+            android:layout_width="199dp"
+            android:layout_height="wrap_content"
+            android:onClick="onBasicInput"
+            android:text="Basic Input" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="30sp" />
+
+        <Button
+            android:id="@+id/detailedinput"
+            android:layout_width="200sp"
+            android:layout_height="wrap_content"
+            android:text="Detailed Input" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="30sp" />
+
+        <Button
+            android:id="@+id/manualback"
+            android:layout_width="201dp"
+            android:layout_height="wrap_content"
+            android:text="back" />
+    </LinearLayout>
+</RelativeLayout>
