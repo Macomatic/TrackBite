@@ -6,20 +6,21 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-public class Input_Page extends AppCompatActivity {
+public class Manual_Input extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_input_page);
+        setContentView(R.layout.activity_manual__input);
     }
 
-    public void onManualInput(View view){
-        Intent intent = new Intent (Input_Page.this, Manual_Input.class);
+    public void onBasicInput(View view){
+        Intent intent = new Intent (Manual_Input.this, Basic_Input.class);
         startActivity(intent);
     }
-    public void onBarcodeScan(View view){
-        Intent intent = new Intent (Input_Page.this, Barcode_Scan.class);
+
+    public void onDetailedInput(View view){
+        Intent intent = new Intent (Manual_Input.this, Detailed_Input.class);
         startActivity(intent);
     }
 }

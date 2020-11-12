@@ -9,18 +9,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DiabeticMealTracker">
-<<<<<<< HEAD
-        <activity android:name=".Notifcation_setup_exercise"></activity>
+        <activity android:name=".Basic_Input"></activity>
+        <activity android:name=".Manual_Input" />
+        <activity android:name=".Barcode_Scan" />
+        <activity android:name=".Detailed_Input" />
+        <activity android:name=".Notifcation_setup_exercise" />
         <activity
             android:name=".Notifcation_Setup_Meal"
             android:label="@string/title_activity_notifcation__setup__meal"
             android:theme="@style/Theme.DiabeticMealTracker.NoActionBar" />
         <activity android:name=".Second_Notification_Page" />
-=======
-        <activity android:name=".TypeOfDance"></activity>
+        <activity android:name=".TypeOfDance" />
         <activity android:name=".ExerciseChoice" />
         <activity android:name=".ExerciseInput" />
->>>>>>> e66bd55a051a355babff0a0b7a667d064f23601a
         <activity android:name=".Data_Analysis_Page" />
         <activity android:name=".Notification_Page" />
         <activity android:name=".Exercise_Page" />

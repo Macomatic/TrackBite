@@ -4,11 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class FoodAnalysis_Page extends AppCompatActivity {
+public class Basic_Input extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_food_analysis_page);
+        setContentView(R.layout.activity_basic__input);
     }
 }
