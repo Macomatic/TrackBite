@@ -7,7 +7,7 @@
     tools:context=".Basic_Input">
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/basicInputDone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
@@ -59,7 +59,7 @@
             android:textSize="24sp" />
 
         <EditText
-            android:id="@+id/editTextTextPersonName"
+            android:id="@+id/basicInputName"
             android:layout_width="264dp"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -67,7 +67,7 @@
             android:inputType="textPersonName" />
 
         <EditText
-            android:id="@+id/editTextTextPersonName2"
+            android:id="@+id/basicInputServing"
             android:layout_width="264dp"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -75,7 +75,7 @@
             android:inputType="textPersonName" />
 
         <EditText
-            android:id="@+id/editTextTextPersonName3"
+            android:id="@+id/basicInputFat"
             android:layout_width="266dp"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -83,7 +83,7 @@
             android:inputType="textPersonName" />
 
         <EditText
-            android:id="@+id/editTextTextPersonName4"
+            android:id="@+id/basicInputCarbs"
             android:layout_width="266dp"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -91,7 +91,7 @@
             android:inputType="textPersonName" />
 
         <EditText
-            android:id="@+id/editTextTextPersonName5"
+            android:id="@+id/basicInputSugar"
             android:layout_width="266dp"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -99,7 +99,7 @@
             android:inputType="textPersonName" />
 
         <EditText
-            android:id="@+id/editTextTextPersonName6"
+            android:id="@+id/basicInputFibre"
             android:layout_width="267dp"
             android:layout_height="wrap_content"
             android:ems="10"
