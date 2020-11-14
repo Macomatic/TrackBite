@@ -4,11 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class FoodAnalysis_Page extends AppCompatActivity {
+public class Barcode_Scan extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_food_analysis_page);
+        setContentView(R.layout.activity_barcode__scan);
     }
 }
