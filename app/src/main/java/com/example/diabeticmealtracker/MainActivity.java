@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void notifcationButtonClick (View view){
-        Intent intent = new Intent (getApplicationContext(), Notification_Page.class);
+        Intent intent = new Intent (getApplicationContext(), Second_Notification_Page.class);
         startActivity(intent);
     }
 
