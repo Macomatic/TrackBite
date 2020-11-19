@@ -83,6 +83,7 @@
         android:layout_marginRight="308dp"
         android:layout_marginBottom="17dp"
         android:text="Back"
+        android:onClick="backTypeOfDance"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
