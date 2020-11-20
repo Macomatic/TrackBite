@@ -17,4 +17,8 @@ public class Notifcation_setup_exercise extends AppCompatActivity {
         Intent intent = new Intent (getApplicationContext(), Exercise_Page.class);
         startActivity(intent);
     }
+    public void doneExerciseNotificationSetup (View view){
+        Intent intent = new Intent (getApplicationContext(), Exercise_Page.class);
+        startActivity(intent);
+    }
 }
