@@ -17,4 +17,8 @@ public class FoodAnalysis_Page extends AppCompatActivity {
         Intent intent = new Intent (getApplicationContext(), Data_Analysis_Page.class);
         startActivity(intent);
     }
+    public void nextFoodDataAnalysis (View view){
+        Intent intent = new Intent (getApplicationContext(), FoodGraph_Page.class);
+        startActivity(intent);
+    }
 }

@@ -13,5 +13,12 @@ public class ExerciseAnalysis_Page extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exercise_analysis__page);
     }
-
+    public void backExerciseAnalysis (View view){
+        Intent intent = new Intent (getApplicationContext(), Data_Analysis_Page.class);
+        startActivity(intent);
+    }
+    public void nextExerciseAnalysis (View view){
+        Intent intent = new Intent (getApplicationContext(), ExerciseGraph_Page.class);
+        startActivity(intent);
+    }
 }
