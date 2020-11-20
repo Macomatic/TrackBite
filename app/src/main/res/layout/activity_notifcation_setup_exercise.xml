@@ -11,44 +11,47 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".Notifcation_Setup_Meal"
-        tools:layout_editor_absoluteX="46dp"
-        tools:layout_editor_absoluteY="66dp">
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="-163dp">
 
-        <TextView
-            android:id="@+id/textView30"
-            android:layout_width="49dp"
-            android:layout_height="63dp"
-            android:layout_marginStart="59dp"
-            android:layout_marginLeft="59dp"
-            android:layout_marginEnd="172dp"
-            android:layout_marginRight="172dp"
-            android:layout_marginBottom="344dp"
-            android:gravity="center"
-            android:text="Yoga Walk Zumba"
+        <Button
+            android:id="@+id/button25"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="backNotificationSetup"
+            android:text="Back"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/textView28"
-            app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName8"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintHorizontal_bias="0.049"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.957" />
+
+        <Button
+            android:id="@+id/button23"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:text="Done"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.95"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView28"
+            app:layout_constraintVertical_bias="0.962" />
 
         <TextView
             android:id="@+id/textView28"
-            android:layout_width="101dp"
-            android:layout_height="64dp"
-            android:layout_marginStart="30dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="27dp"
-            android:layout_marginEnd="280dp"
-            android:layout_marginRight="280dp"
-            android:layout_marginBottom="357dp"
+            android:layout_width="165dp"
+            android:layout_height="50dp"
             android:gravity="center"
             android:text="What would you like to be notified on?"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="0.089"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView26" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.393" />
 
         <include
             android:id="@+id/include"
@@ -70,115 +73,101 @@
 
         <TextView
             android:id="@+id/textView24"
-            android:layout_width="30dp"
-            android:layout_height="41dp"
+            android:layout_width="34dp"
+            android:layout_height="48dp"
             android:layout_marginTop="40dp"
             android:gravity="center"
             android:text="AM PM"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.724"
+            app:layout_constraintHorizontal_bias="0.763"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView23"
-            app:layout_constraintVertical_bias="0.001" />
-
-        <EditText
-            android:id="@+id/editTextTextPersonName8"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:layout_marginEnd="36dp"
-            android:layout_marginRight="36dp"
-            android:layout_marginBottom="540dp"
-            android:ems="10"
-            android:inputType="textPersonName"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/textView24"
-            app:layout_constraintHorizontal_bias="0.909"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView23" />
+            app:layout_constraintVertical_bias="0.014" />
 
         <TextView
             android:id="@+id/textView26"
-            android:layout_width="101dp"
-            android:layout_height="64dp"
-            android:layout_marginStart="30dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="28dp"
-            android:layout_marginEnd="280dp"
-            android:layout_marginRight="280dp"
-            android:layout_marginBottom="27dp"
+            android:layout_width="133dp"
+            android:layout_height="53dp"
+            android:layout_marginTop="17dp"
             android:gravity="center"
             android:text="Which day you would like to be notified on?"
-            app:layout_constraintBottom_toTopOf="@+id/textView28"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="0.079"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName8" />
-
-        <TextView
-            android:id="@+id/textView29"
-            android:layout_width="80dp"
-            android:layout_height="53dp"
-            android:layout_marginStart="59dp"
-            android:layout_marginLeft="59dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginEnd="141dp"
-            android:layout_marginRight="141dp"
-            android:layout_marginBottom="65dp"
-            android:gravity="center"
-            android:text="Monday Tuesday Wednesday"
-            app:layout_constraintBottom_toTopOf="@+id/textView30"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/textView26"
-            app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName8"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintTop_toBottomOf="@+id/timechoice"
+            app:layout_constraintVertical_bias="0.484" />
 
         <TextView
             android:id="@+id/textView31"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="21dp"
-            android:layout_marginEnd="44dp"
-            android:layout_marginRight="44dp"
-            android:layout_marginBottom="504dp"
+            android:layout_width="87dp"
+            android:layout_height="18dp"
+            android:layout_marginTop="348dp"
+            android:gravity="center_horizontal|center_vertical"
             android:text="Every week?"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/switch1"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/textView29"
-            app:layout_constraintTop_toBottomOf="@+id/textView24" />
+            app:layout_constraintHorizontal_bias="0.435"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Switch
             android:id="@+id/switch1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="21dp"
-            android:layout_marginLeft="21dp"
-            android:layout_marginTop="6dp"
-            android:layout_marginEnd="51dp"
-            android:layout_marginRight="51dp"
-            android:layout_marginBottom="470dp"
+            android:layout_width="87dp"
+            android:layout_height="30dp"
+            android:gravity="center_horizontal"
             android:text="Yes"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/textView29"
-            app:layout_constraintTop_toBottomOf="@+id/textView31" />
+            app:layout_constraintHorizontal_bias="0.435"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.522" />
 
-        <Button
-            android:id="@+id/button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Back"
-            android:onClick="backNotificationSetup"
+        <EditText
+            android:id="@+id/notifcation_exercise_choice"
+            android:layout_width="194dp"
+            android:layout_height="43dp"
+            android:ems="10"
+            android:gravity="center"
+            android:hint="Choice of Exercise"
+            android:inputType="textPersonName"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.086"
+            app:layout_constraintHorizontal_bias="0.852"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView28"
-            app:layout_constraintVertical_bias="0.908" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.655" />
+
+        <EditText
+            android:id="@+id/timechoice"
+            android:layout_width="215dp"
+            android:layout_height="47dp"
+            android:ems="10"
+            android:gravity="center"
+            android:hint="time"
+            android:inputType="time"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.372"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.225" />
+
+        <EditText
+            android:id="@+id/choiceofday"
+            android:layout_width="151dp"
+            android:layout_height="52dp"
+            android:ems="10"
+            android:hint="Monday,Tuesday..."
+            android:inputType="textPersonName"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.876"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.394" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

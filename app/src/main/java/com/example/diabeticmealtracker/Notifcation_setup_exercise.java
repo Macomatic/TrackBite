@@ -14,7 +14,7 @@ public class Notifcation_setup_exercise extends AppCompatActivity {
         setContentView(R.layout.activity_notifcation_setup_exercise);
     }
     public void backNotificationSetup (View view){
-        Intent intent = new Intent (getApplicationContext(), Exercise_Page.class);
+        Intent intent = new Intent (getApplicationContext(), Second_Notification_Page.class);
         startActivity(intent);
     }
 }

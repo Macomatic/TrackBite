@@ -1,5 +1,6 @@
 package com.example.diabeticmealtracker;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -16,6 +17,10 @@ public class Notifcation_Setup_Meal extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notifcation__setup__meal);
+    }
 
+    public void backNotificationSetup (View view){
+        Intent intent = new Intent (getApplicationContext(), Second_Notification_Page.class);
+        startActivity(intent);
     }
 }
