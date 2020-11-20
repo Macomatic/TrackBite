@@ -63,7 +63,7 @@
             android:layout_width="264dp"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="Name"
+            android:hint="Name of Food"
             android:inputType="textPersonName" />
 
         <EditText
@@ -105,6 +105,19 @@
             android:ems="10"
             android:hint="Total Fibre"
             android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/basicInputCalories"
+            android:layout_width="267dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Total Calories"
+            android:inputType="textPersonName" />
+
+        <Spinner
+            android:id="@+id/mealSpinner"
+            android:layout_width="267dp"
+            android:layout_height="wrap_content" />
     </LinearLayout>
 
 </RelativeLayout>
