@@ -34,9 +34,4 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent (getApplicationContext(), ProfilePage.class);
         startActivity(intent);
     }
-
-    public void databaseButtonClick (View view){
-        Intent intent = new Intent (getApplicationContext(), Database_Page.class);
-        startActivity(intent);
-    }
 }

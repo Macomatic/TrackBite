@@ -22,4 +22,8 @@ public class Input_Page extends AppCompatActivity {
         Intent intent = new Intent (Input_Page.this, Barcode_Scan.class);
         startActivity(intent);
     }
+    public void databaseButtonClick (View view){
+        Intent intent = new Intent (getApplicationContext(), Database_Page.class);
+        startActivity(intent);
+    }
 }
