@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -147,8 +148,15 @@ public class ExerciseInput extends AppCompatActivity {
 
     public void doneInput (View view){
         EditText durationInput = (EditText) findViewById(R.id.hoursInput);
-        this.duration = Float.parseFloat(durationInput.getText().toString().trim());
-        Toast.makeText(getApplicationContext(), "Successfully added exercise", Toast.LENGTH_SHORT).show();
-        finish();
+        if (TextUtils.isEmpty(durationInput.getText())) {
+            Toast.makeText(getApplicationContext(), "Please put an hour input", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            this.duration = Float.parseFloat(durationInput.getText().toString().trim());
+            Toast.makeText(getApplicationContext(), "Successfully added exercise", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(getApplicationContext(), SuccessExerciseInput_Page.class);
+            startActivity(intent);
+        }
+
     }
 }
