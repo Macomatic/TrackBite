@@ -109,6 +109,7 @@
         android:layout_marginRight="17dp"
         android:layout_marginBottom="19dp"
         android:text="Next"
+        android:onClick="backFoodDataAnalysis"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/button17"
