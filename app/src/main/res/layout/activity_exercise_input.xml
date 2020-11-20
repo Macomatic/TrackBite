@@ -29,28 +29,12 @@
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="19dp"
-        android:layout_marginBottom="20dp"
         android:fontFamily="sans-serif-condensed"
         android:gravity="center"
         android:text="Which cardio exercise are you doing today?"
         android:textSize="18dp"
-        app:layout_constraintBottom_toTopOf="@+id/walkingText"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
-
-    <TextView
-        android:id="@+id/walkingText"
-        android:layout_width="125dp"
-        android:layout_height="100dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="12dp"
-        android:fontFamily="sans-serif-condensed"
-        android:gravity="center"
-        android:text="How many steps/km's did you travel?"
-        android:textSize="18dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
     <TextView
         android:id="@+id/textView6"
@@ -91,18 +75,6 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
     <EditText
-        android:id="@+id/walkingDistText"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="80dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        app:layout_constraintStart_toEndOf="@+id/walkingText"
-        app:layout_constraintTop_toBottomOf="@+id/activitySpinner" />
-
-    <EditText
         android:id="@+id/editTextTextPersonName10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -125,38 +97,28 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
-    <Spinner
-        android:id="@+id/walkingDistUnitSpinner"
-        android:layout_width="130dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="240dp"
-        android:layout_marginEnd="6dp"
-        android:layout_marginRight="6dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <TextView
         android:id="@+id/bikingText"
         android:layout_width="125dp"
         android:layout_height="100dp"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="15dp"
         android:fontFamily="sans-serif-condensed"
         android:gravity="center"
         android:text="How fast are you going?"
         android:textSize="18dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/walkingText" />
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
     <Spinner
         android:id="@+id/bikingSpinner"
         android:layout_width="140dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="26dp"
-        android:layout_marginLeft="26dp"
-        android:layout_marginTop="76dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginLeft="28dp"
+        android:layout_marginTop="74dp"
         app:layout_constraintStart_toEndOf="@+id/bikingText"
-        app:layout_constraintTop_toBottomOf="@+id/walkingDistText" />
+        app:layout_constraintTop_toBottomOf="@+id/activitySpinner" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
