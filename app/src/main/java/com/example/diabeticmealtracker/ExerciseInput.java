@@ -59,24 +59,19 @@ public class ExerciseInput extends AppCompatActivity {
         // Gets all dynamic elements
         TextView numOfSteps = (TextView) findViewById(R.id.walkingText);
         TextView walkingDistText = (TextView) findViewById(R.id.walkingDistText);
-        TextView bikingText = (TextView) findViewById(R.id.bikingText);
 
         actSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long id) {
                 if (activityArray.get(pos).equals("Biking")) {
-                    numOfSteps.setVisibility(View.INVISIBLE);
-                    walkingDistText.setVisibility(View.INVISIBLE);
-                    unitSpinner.setVisibility(View.INVISIBLE);
-                    bikingText.setVisibility(View.VISIBLE);
-                    bikeSpinner.setVisibility(View.VISIBLE);
+                    numOfSteps.setVisibility(View.GONE);
+                    walkingDistText.setVisibility(View.GONE);
+                    unitSpinner.setVisibility(View.GONE);
                 }
                 else {
                     numOfSteps.setVisibility(View.VISIBLE);
                     walkingDistText.setVisibility(View.VISIBLE);
                     unitSpinner.setVisibility(View.VISIBLE);
-                    bikingText.setVisibility(View.INVISIBLE);
-                    bikeSpinner.setVisibility(View.INVISIBLE);
                 }
             }
 

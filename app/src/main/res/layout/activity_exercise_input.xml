@@ -42,9 +42,9 @@
         android:id="@+id/walkingText"
         android:layout_width="125dp"
         android:layout_height="100dp"
-        android:layout_marginStart="23dp"
-        android:layout_marginLeft="23dp"
-        android:layout_marginTop="13dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="12dp"
         android:fontFamily="sans-serif-condensed"
         android:gravity="center"
         android:text="How many steps/km's did you travel?"
@@ -56,15 +56,15 @@
         android:id="@+id/textView6"
         android:layout_width="125dp"
         android:layout_height="100dp"
-        android:layout_marginStart="23dp"
-        android:layout_marginLeft="23dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="14dp"
         android:fontFamily="sans-serif-condensed"
         android:gravity="center"
         android:text="How long did you exercise for?"
         android:textSize="18dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/walkingText" />
+        app:layout_constraintTop_toBottomOf="@+id/bikingText" />
 
     <Button
         android:id="@+id/button4"
@@ -106,14 +106,14 @@
         android:id="@+id/editTextTextPersonName10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="13dp"
-        android:layout_marginLeft="13dp"
-        android:layout_marginTop="84dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="91dp"
         android:ems="10"
         android:hint="Number of Hours"
         android:inputType="textPersonName"
         app:layout_constraintStart_toEndOf="@+id/textView6"
-        app:layout_constraintTop_toBottomOf="@+id/walkingDistText" />
+        app:layout_constraintTop_toBottomOf="@+id/bikingSpinner" />
 
     <Spinner
         android:id="@+id/activitySpinner"
@@ -139,24 +139,24 @@
         android:id="@+id/bikingText"
         android:layout_width="125dp"
         android:layout_height="100dp"
-        android:layout_marginStart="23dp"
-        android:layout_marginLeft="23dp"
-        android:layout_marginTop="14dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
         android:fontFamily="sans-serif-condensed"
         android:gravity="center"
         android:text="How fast are you going?"
         android:textSize="18dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        app:layout_constraintTop_toBottomOf="@+id/walkingText" />
 
     <Spinner
         android:id="@+id/bikingSpinner"
         android:layout_width="140dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginBottom="100dp"
-        app:layout_constraintBottom_toTopOf="@+id/editTextTextPersonName10"
-        app:layout_constraintStart_toEndOf="@+id/walkingText" />
+        android:layout_marginStart="26dp"
+        android:layout_marginLeft="26dp"
+        android:layout_marginTop="76dp"
+        app:layout_constraintStart_toEndOf="@+id/bikingText"
+        app:layout_constraintTop_toBottomOf="@+id/walkingDistText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
