@@ -30,8 +30,8 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void notifcationButtonClick (View view){
-        Intent intent = new Intent (getApplicationContext(), Second_Notification_Page.class);
+    public void profileButtonClick (View view){
+        Intent intent = new Intent (getApplicationContext(), ProfilePage.class);
         startActivity(intent);
     }
 

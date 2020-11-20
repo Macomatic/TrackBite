@@ -9,6 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DiabeticMealTracker">
+        <activity android:name=".UpdateProfilePage"></activity>
+        <activity android:name=".ProfilePage" />
         <activity android:name=".Basic_Input" />
         <activity android:name=".Manual_Input" />
         <activity android:name=".Barcode_Scan" />
@@ -23,10 +25,10 @@
         <activity android:name=".ExerciseChoice" />
         <activity android:name=".ExerciseInput" />
         <activity android:name=".Data_Analysis_Page" />
-        <activity android:name=".ExerciseAnalysis_Page"/>
-        <activity android:name=".ExerciseGraph_Page"/>
-        <activity android:name=".FoodAnalysis_Page"/>
-        <activity android:name=".FoodGraph_Page"/>
+        <activity android:name=".ExerciseAnalysis_Page" />
+        <activity android:name=".ExerciseGraph_Page" />
+        <activity android:name=".FoodAnalysis_Page" />
+        <activity android:name=".FoodGraph_Page" />
         <activity android:name=".Notification_Page" />
         <activity android:name=".Exercise_Page" />
         <activity android:name=".Database_Page" />
