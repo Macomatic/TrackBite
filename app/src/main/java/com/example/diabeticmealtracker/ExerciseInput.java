@@ -7,8 +7,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
@@ -134,12 +136,19 @@ public class ExerciseInput extends AppCompatActivity {
 
     }
 
+    private double calories(){
+        return BMR() * METS() / 24 * this.duration;
+    }
+
     public void backExerciseInput (View view){
         Intent intent = new Intent (getApplicationContext(), Exercise_Page.class);
         startActivity(intent);
     }
 
     public void doneInput (View view){
+        EditText durationInput = (EditText) findViewById(R.id.hoursInput);
+        this.duration = Float.parseFloat(durationInput.getText().toString().trim());
+        Toast.makeText(getApplicationContext(), "Successfully added exercise", Toast.LENGTH_SHORT).show();
         finish();
     }
 }
