@@ -14,9 +14,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.w3c.dom.Text;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Calendar;
+import java.util.Date;
+import java.text.DateFormat;
 
 public class ExerciseInput extends AppCompatActivity {
 
@@ -27,7 +32,8 @@ public class ExerciseInput extends AppCompatActivity {
     private double duration; // hrs
     private String currActivity;
     private String currSpeed;
-
+    Exercise exercise;
+    DatabaseReference databaseExercise;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +44,8 @@ public class ExerciseInput extends AppCompatActivity {
         this.duration = 3.0;
         this.currActivity = "";
         this.currSpeed = "";
+        exercise = new Exercise();
+        databaseExercise = FirebaseDatabase.getInstance().getReference();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exercise_input);
@@ -154,9 +162,57 @@ public class ExerciseInput extends AppCompatActivity {
         else {
             this.duration = Float.parseFloat(durationInput.getText().toString().trim());
             Toast.makeText(getApplicationContext(), "Successfully added exercise", Toast.LENGTH_SHORT).show();
+
+            // The current date when the button was pressed
+            Date currentTime = Calendar.getInstance().getTime();
+            String formattedDate = DateFormat.getDateInstance(DateFormat.LONG).format(currentTime);
+            formattedDate = formattedDate.replace(",", "");
+            String[] splitDate = formattedDate.split(" ");
+            String month = convertMonthNum(splitDate[0]);
+            String dateNum = splitDate[1];
+            String year = splitDate[2];
+            String date = month + dateNum + year;
+
+            //Pushing exercise info to database
+            exercise.setCaloriesBurned(calories());
+            exercise.setExerciseActivity(this.currActivity);
+            exercise.setExerciseDuration(this.duration);
+            databaseExercise.child(date).child("Exercise").child(exercise.getExerciseActivity()).setValue(exercise);
+
+            //Opening success page
             Intent intent = new Intent(getApplicationContext(), SuccessExerciseInput_Page.class);
             startActivity(intent);
         }
 
+    }
+
+    public String convertMonthNum(String month) {
+        if (month.equals("January")) {
+            return "01";
+        } else if (month.equals("February")) {
+            return "02";
+        } else if (month.equals("March")) {
+            return "03";
+        } else if (month.equals("April")) {
+            return "04";
+        } else if (month.equals("May")) {
+            return "05";
+        } else if (month.equals("June")) {
+            return "06";
+        } else if (month.equals("July")) {
+            return "07";
+        } else if (month.equals("August")) {
+            return "08";
+        } else if (month.equals("September")) {
+            return "09";
+        } else if (month.equals("October")) {
+            return "10";
+        } else if (month.equals("November")) {
+            return "11";
+        } else if (month.equals("December")) {
+            return "12";
+        } else {
+            return "MONTH ERROR";
+        }
     }
 }
