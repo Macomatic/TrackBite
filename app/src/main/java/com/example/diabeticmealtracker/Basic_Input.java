@@ -91,7 +91,7 @@ public class Basic_Input extends AppCompatActivity {
                 food.setSugar(sugar);
                 food.setFibre(fibre);
                 // push food object onto firebase based on the meal time selected
-                databaseFoods.child(date).child(meal).child(food.getName()).setValue(food);
+                databaseFoods.child(date).child("Food").child(meal).child(food.getName()).setValue(food);
                 // notification saying the input has been successfully added to firebase
                 Toast.makeText(Basic_Input.this, "Input Successful", Toast.LENGTH_LONG).show();
             }
