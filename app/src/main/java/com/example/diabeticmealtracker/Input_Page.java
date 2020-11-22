@@ -26,4 +26,12 @@ public class Input_Page extends AppCompatActivity {
         Intent intent = new Intent (getApplicationContext(), Database_Page.class);
         startActivity(intent);
     }
+    public void backInputPage (View view){
+        Intent intent = new Intent (getApplicationContext(), MainActivity.class);
+        startActivity(intent);
+    }
+    public void onScanNutritionalFacts (View view){
+        Intent intent = new Intent (getApplicationContext(), ScanNutritionalFacts.class);
+        startActivity(intent);
+    }
 }

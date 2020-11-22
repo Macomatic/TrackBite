@@ -4,17 +4,16 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.renderscript.ScriptGroup;
 import android.view.View;
 
-public class Database_Page extends AppCompatActivity {
+public class ScanNutritionalFacts extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_database__page);
+        setContentView(R.layout.activity_scan_nutritional_facts);
     }
-    public void backDatabasePage (View view){
+    public void backScanNutritionalFacts (View view){
         Intent intent = new Intent (getApplicationContext(), Input_Page.class);
         startActivity(intent);
     }

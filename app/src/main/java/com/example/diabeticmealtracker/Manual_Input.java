@@ -23,4 +23,8 @@ public class Manual_Input extends AppCompatActivity {
         Intent intent = new Intent (Manual_Input.this, Detailed_Input.class);
         startActivity(intent);
     }
+    public void backManualInputPage (View view){
+        Intent intent = new Intent (getApplicationContext(), Input_Page.class);
+        startActivity(intent);
+    }
 }

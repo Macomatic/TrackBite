@@ -2,6 +2,7 @@ package com.example.diabeticmealtracker;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.preference.EditTextPreference;
 import android.view.View;
@@ -128,6 +129,10 @@ public class Basic_Input extends AppCompatActivity {
         } else {
             return "MONTH ERROR";
         }
+    }
+    public void backBasicInputPage (View view){
+        Intent intent = new Intent (getApplicationContext(), Manual_Input.class);
+        startActivity(intent);
     }
 
 }
