@@ -10,8 +10,12 @@
         android:id="@+id/button30"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/my_button_design"
+        android:fontFamily="@font/titillium_web_semibold"
         android:text="back"
+        android:textSize="18dp"
         android:onClick="backBarcodeScan"
+        app:backgroundTint="@color/button_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.05"
@@ -21,6 +25,7 @@
 
     <TextView
         android:id="@+id/textView11"
+        android:fontFamily="@font/merriweather_bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Scan Barcode"
