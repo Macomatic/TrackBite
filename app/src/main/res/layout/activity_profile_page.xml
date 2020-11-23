@@ -10,8 +10,7 @@
         android:id="@+id/textView13"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="97dp"
-        android:layout_marginBottom="615dp"
+        android:fontFamily="@font/merriweather_bold"
         android:text="My Profile"
         android:textSize="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -19,7 +18,7 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.12" />
 
     <Button
         android:id="@+id/button24"
