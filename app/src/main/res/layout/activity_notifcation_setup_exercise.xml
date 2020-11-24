@@ -12,14 +12,17 @@
         android:layout_height="match_parent"
         tools:context=".Notifcation_Setup_Meal"
         tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="-163dp">
+        tools:layout_editor_absoluteY="0dp">
 
         <Button
             android:id="@+id/button25"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@drawable/my_button_design"
             android:onClick="backNotificationSetup"
             android:text="Back"
+            android:textSize="18dp"
+            app:backgroundTint="@color/button_background"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.049"
@@ -32,8 +35,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:text="Done"
+            android:background="@drawable/my_button_design"
             android:onClick="doneExerciseNotificationSetup"
+            android:text="Done"
+            android:textSize="18dp"
+            app:backgroundTint="@color/button_background"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.95"
@@ -45,6 +51,7 @@
             android:id="@+id/textView28"
             android:layout_width="165dp"
             android:layout_height="50dp"
+            android:fontFamily="@font/merriweather_bold"
             android:gravity="center"
             android:text="What would you like to be notified on?"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -62,21 +69,24 @@
 
         <TextView
             android:id="@+id/textView23"
-            android:layout_width="301dp"
-            android:layout_height="31dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/merriweather_bold"
             android:gravity="center"
-            android:text="What time would you like to be notified"
+            android:text="What time would you like to be notified?"
+            android:textSize="18dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.107" />
+            app:layout_constraintVertical_bias="0.161" />
 
         <TextView
             android:id="@+id/textView24"
             android:layout_width="34dp"
             android:layout_height="48dp"
             android:layout_marginTop="40dp"
+            android:fontFamily="@font/merriweather_bold"
             android:gravity="center"
             android:text="AM PM"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -91,27 +101,29 @@
             android:layout_width="133dp"
             android:layout_height="53dp"
             android:layout_marginTop="17dp"
+            android:fontFamily="@font/merriweather_bold"
             android:gravity="center"
             android:text="Which day you would like to be notified on?"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.079"
+            app:layout_constraintHorizontal_bias="0.104"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/timechoice"
-            app:layout_constraintVertical_bias="0.484" />
+            app:layout_constraintVertical_bias="0.483" />
 
         <TextView
             android:id="@+id/textView31"
-            android:layout_width="87dp"
+            android:layout_width="wrap_content"
             android:layout_height="18dp"
             android:layout_marginTop="348dp"
+            android:fontFamily="@font/merriweather_bold"
             android:gravity="center_horizontal|center_vertical"
             android:text="Every week?"
             app:layout_constraintBottom_toTopOf="@+id/switch1"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.435"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0" />
 
         <Switch
             android:id="@+id/switch1"
@@ -121,7 +133,6 @@
             android:text="Yes"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.435"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.522" />
@@ -139,7 +150,7 @@
             app:layout_constraintHorizontal_bias="0.852"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.655" />
+            app:layout_constraintVertical_bias="0.664" />
 
         <EditText
             android:id="@+id/timechoice"
@@ -154,7 +165,7 @@
             app:layout_constraintHorizontal_bias="0.372"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.225" />
+            app:layout_constraintVertical_bias="0.271" />
 
         <EditText
             android:id="@+id/choiceofday"
@@ -176,7 +187,8 @@
         android:id="@+id/notifcation_setup6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-condensed"
+        android:fontFamily="@font/merriweather_bold"
+        android:textSize="30dp"
         android:text="Notifcation Setup"
         app:layout_constraintBottom_toBottomOf="@+id/coordinatorLayout"
         app:layout_constraintEnd_toEndOf="parent"
