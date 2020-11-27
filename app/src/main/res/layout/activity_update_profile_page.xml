@@ -20,7 +20,7 @@
         app:layout_constraintVertical_bias="0.108" />
 
     <EditText
-        android:id="@+id/editTextNumberSigned"
+        android:id="@+id/updateAge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -35,7 +35,7 @@
         app:layout_constraintVertical_bias="0.253" />
 
     <EditText
-        android:id="@+id/editTextNumberSigned4"
+        android:id="@+id/updateWeight"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -50,7 +50,7 @@
         app:layout_constraintVertical_bias="0.657" />
 
     <EditText
-        android:id="@+id/editTextNumberSigned2"
+        android:id="@+id/updateHeight"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -120,13 +120,14 @@
         app:layout_constraintVertical_bias="0.65" />
 
     <Button
-        android:id="@+id/button27"
+        android:id="@+id/updateChanges"
         android:layout_width="250dp"
         android:layout_height="50dp"
         android:background="@drawable/my_button_design"
         android:fontFamily="@font/titillium_web_semibold"
         android:text="Update Changes"
         android:textSize="18dp"
+        android:onClick="updateChangesMyProfile"
         app:backgroundTint="@color/button_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -151,32 +152,32 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.917" />
 
-    <RadioButton
-        android:id="@+id/radioButtonMale"
-        android:layout_width="198dp"
-        android:layout_height="48dp"
+    <CheckBox
+        android:id="@+id/checkMale"
+        android:layout_width="210dp"
+        android:layout_height="50dp"
         android:text="Male"
         android:textSize="18dp"
-        android:fontFamily="@font/titillium_web_semibold"
+        android:fontFamily="@font/merriweather_bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.708"
+        app:layout_constraintHorizontal_bias="0.716"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.468" />
+        app:layout_constraintVertical_bias="0.466" />
 
-    <RadioButton
-        android:id="@+id/radioButtonFemale"
-        android:layout_width="200dp"
-        android:layout_height="48dp"
+    <CheckBox
+        android:id="@+id/checkFemale"
+        android:layout_width="210dp"
+        android:layout_height="50dp"
         android:text="Female"
         android:textSize="18dp"
-        android:fontFamily="@font/titillium_web_semibold"
+        android:fontFamily="@font/merriweather_bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.715"
+        app:layout_constraintHorizontal_bias="0.716"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.549" />
+        app:layout_constraintVertical_bias="0.54" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
