@@ -1,10 +1,15 @@
 package com.example.diabeticmealtracker;
 
 import androidx.annotation.NonNull;
+<<<<<<< HEAD
+=======
+import androidx.annotation.Nullable;
+>>>>>>> 9331affd327ff74cb2398e6a45e59f3cb8617977
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.renderscript.Sampler;
 import android.view.View;
 import android.widget.TextView;
 
@@ -16,12 +21,29 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.database.DataSnapshot;
+
 public class ProfilePage extends AppCompatActivity {
+
+    private double weight; // kg
+    private double height; // cm
+    private int age; // yrs
+    private String sex; // male or female
+
+    Profile profile;
+    DatabaseReference databaseProfile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_page);
+<<<<<<< HEAD
 
         FirebaseAuth mAuth = FirebaseAuth.getInstance(); //Grabs current instance of database
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -71,6 +93,10 @@ public class ProfilePage extends AppCompatActivity {
                 }
             }
         });
+=======
+        profile = new Profile();
+        databaseProfile = FirebaseDatabase.getInstance().getReference("Profile");
+>>>>>>> 9331affd327ff74cb2398e6a45e59f3cb8617977
     }
 
     public void backMyProfileClick (View view){

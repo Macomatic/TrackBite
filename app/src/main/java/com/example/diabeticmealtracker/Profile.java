@@ -33,12 +33,17 @@ public class Profile {
     public float getHeight() {
       return _height;
     }
+<<<<<<< HEAD
     public void setHeight(float height) {
       _height = height;
     }
     public float getWeight() {
       return _weight;
     }
+=======
+    public void setHeight(float height) { _height = height; }
+    public float getWeight() { return _weight; }
+>>>>>>> 9331affd327ff74cb2398e6a45e59f3cb8617977
     public void setWeight(float weight) {
       _weight = weight;
     }
