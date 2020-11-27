@@ -1,5 +1,6 @@
 package com.example.diabeticmealtracker;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -14,14 +15,25 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.w3c.dom.Text;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Calendar;
 import java.util.Date;
 import java.text.DateFormat;
+import java.util.Map;
 
 public class ExerciseInput extends AppCompatActivity {
 
@@ -32,19 +44,30 @@ public class ExerciseInput extends AppCompatActivity {
     private double duration; // hrs
     private String currActivity;
     private String currSpeed;
-    Exercise exercise;
-    DatabaseReference databaseExercise;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        this.weight = 60.0;
-        this.height = 170.0;
-        this.age = 50;
-        this.sex = "Female";
-        this.duration = 3.0;
-        this.currActivity = "";
-        this.currSpeed = "";
-        exercise = new Exercise();
+
+        FirebaseAuth mAuth = FirebaseAuth.getInstance(); //Grabs current instance of database
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        FirebaseUser user = mAuth.getCurrentUser(); //Grabs current user
+        DocumentReference docRef = db.collection("users").document(user.getUid().toString()).collection("userData").document("profile");
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() { //Does the .get() command with a custom onComplete
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult(); //Grab snapshot of requirements
+
+                    age = Integer.parseInt(document.getString("Age"));
+                    height = Double.parseDouble(document.getString("Height"));
+                    sex = document.getString("Sex");
+                    weight = Double.parseDouble(document.getString("Weight"));
+                }
+            }
+        });
+
+        currActivity = "";
+        currSpeed = "";
 
         Date currentTime = Calendar.getInstance().getTime();
         String formattedDate = DateFormat.getDateInstance(DateFormat.LONG).format(currentTime);
@@ -55,7 +78,6 @@ public class ExerciseInput extends AppCompatActivity {
         String year = splitDate[2];
         String date = month + dateNum + year;
 
-        databaseExercise = FirebaseDatabase.getInstance().getReference("");
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exercise_input);
@@ -104,6 +126,8 @@ public class ExerciseInput extends AppCompatActivity {
     }
 
     private double BMR(){
+
+
         //https://www.omnicalculator.com/health/bmr#:~:text=This%20BMR%20formula%20is%20as,males%20and%20%2D161%20for%20females.
         double value = 0;
         value = 10 * this.weight + 6.25 * this.height - 5 * this.age;
@@ -181,18 +205,24 @@ public class ExerciseInput extends AppCompatActivity {
             String month = convertMonthNum(splitDate[0]);
             String dateNum = splitDate[1];
             String year = splitDate[2];
-            String date = month + dateNum + year;
+            String date = year + month + dateNum;
 
-            //Pushing exercise info to database
-            exercise.setCaloriesBurned(calories());
-            exercise.setExerciseActivity(this.currActivity);
-            exercise.setExerciseDuration(this.duration);
-            Exercise test = new Exercise(this.currActivity,calories(),this.duration);
-            databaseExercise.child("Exercise").child(exercise.getExerciseActivity()).setValue(test);
+            FirebaseAuth mAuth = FirebaseAuth.getInstance(); //Grabs current instance of database
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+            FirebaseUser user = mAuth.getCurrentUser(); //Grabs current user
 
+            Map<String, Object> userInfo = new HashMap<>();
+
+            userInfo.put("CaloriesBurned", String.valueOf(calories()));
+            //userInfo.put("Activity", this.currActivity);
+            userInfo.put("Duration", String.valueOf(this.duration));
+
+            db.collection("users").document(user.getUid().toString()).collection("userData").document(date).collection("Exercise").document(this.currActivity).set(userInfo, SetOptions.merge());
+
+            finish();
             //Opening success page
             Intent intent = new Intent(getApplicationContext(), SuccessExerciseInput_Page.class);
-            startActivity(intent);
+            startActivity(intent.putExtra("activity", this.currActivity));
         }
 
     }

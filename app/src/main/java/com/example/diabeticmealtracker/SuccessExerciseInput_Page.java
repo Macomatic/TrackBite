@@ -12,13 +12,19 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.DateFormat;
 import java.util.Calendar;
@@ -33,6 +39,11 @@ public class SuccessExerciseInput_Page extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_success_exercise_input__page);
 
+
+    }
+    protected void onStart() {
+        super.onStart();
+
         Date currentTime = Calendar.getInstance().getTime();
         String formattedDate = DateFormat.getDateInstance(DateFormat.LONG).format(currentTime);
         formattedDate = formattedDate.replace(",", "");
@@ -40,79 +51,33 @@ public class SuccessExerciseInput_Page extends AppCompatActivity {
         String month = convertMonthNum(splitDate[0]);
         String dateNum = splitDate[1];
         String year = splitDate[2];
-        String date = month + dateNum + year;
+        String date = year + month + dateNum;
+        Bundle extra = getIntent().getExtras();
+        String activity = extra.getString("activity");
 
-        databaseProducts = FirebaseDatabase.getInstance().getReference("11262020");
-
-    }
-    protected void onStart() {
-        super.onStart();
-
-        databaseProducts.addValueEventListener(new ValueEventListener() {
+        FirebaseAuth mAuth = FirebaseAuth.getInstance(); //Grabs current instance of database
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        FirebaseUser user = mAuth.getCurrentUser(); //Grabs current user
+        DocumentReference docRef = db.collection("users").document(user.getUid().toString()).collection("userData").document(date).collection("Exercise").document(activity);
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() { //Does the .get() command with a custom onComplete
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for(DataSnapshot postSnapshot : dataSnapshot.getChildren()){
-                    Exercise newActivity = dataSnapshot.getValue(Exercise.class);
-                    Toast.makeText(getApplicationContext(), newActivity._exerciseActivity, Toast.LENGTH_SHORT).show();
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult(); //Grab snapshot of requirements
+
+                    //String activity = Integer.parseInt(document.getString("Age"));
+                    TextView activityView = (TextView) findViewById(R.id.activityValue);
+                    TextView caloriesBurned = (TextView) findViewById(R.id.caloriesValue);
+                    String calories = document.getString("CaloriesBurned").substring(0,document.getString("CaloriesBurned").indexOf("."));
+                    //Toast.makeText(getApplicationContext(), calories, Toast.LENGTH_SHORT).show();
+                    caloriesBurned.setText(calories);
+                    activityView.setText(activity);
                 }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.e(null,String.valueOf(databaseError.getCode()));
-                //Toast.makeText(getApplicationContext(), "The read failed: " + databaseError.getCode(), Toast.LENGTH_SHORT).show();
             }
         });
 
-//        databaseProducts.addValueEventListener(new ValueEventListener() {
-//        //FirebaseDatabase db = FirebaseDatabase.getInstance(); //Grabs current instance of database
-//        //DatabaseReference ref = db.getReference();
-//        //ref.addValueEventListener(new ValueEventListener(){
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot){
-//                // The current date when the button was pressed
-//                Date currentTime = Calendar.getInstance().getTime();
-//                String formattedDate = DateFormat.getDateInstance(DateFormat.LONG).format(currentTime);
-//                formattedDate = formattedDate.replace(",", "");
-//                String[] splitDate = formattedDate.split(" ");
-//                String month = convertMonthNum(splitDate[0]);
-//                String dateNum = splitDate[1];
-//                String year = splitDate[2];
-//                String date = month + dateNum + year;
-//
-//                TextView activity = (TextView) findViewById(R.id.activityValue);
-//                TextView calories = (TextView) findViewById(R.id.caloriesValue);
-//
-//                try{
-//                    //for(DataSnapshot ds : dataSnapshot.getChildren()){
-//                        //Exercise newActivity = new Exercise();
-//
-//                        //Toast.makeText(getApplicationContext(), String.valueOf(ds.child(date).hasChildren("Exercise")), Toast.LENGTH_SHORT).show();
-//
-//                    //newActivity.setExerciseActivity(ds.child(date).child("Exercise").child("Walking").getValue(Exercise.class).getExerciseActivity());
-//                        //newActivity.setCaloriesBurned(ds.child(date).child("Exercise").child("Walking").getValue(Exercise.class).getCaloriesBurned());
-//
-//
-//                        //calories.setText(String.valueOf(exercise.getCaloriesBurned()));
-//                    for(DataSnapshot postSnapshot : dataSnapshot.getChildren()){
-//                        //Exercise newActivity = new Exercise();
-//                        Exercise newActivity = postSnapshot.getValue(Exercise.class);
-//                        //newActivity.setExerciseActivity(postSnapshot.child(date).child("Exercise").child("Walking").getValue(Exercise.class).getExerciseActivity());
-//                        Toast.makeText(getApplicationContext(), newActivity.getExerciseActivity(), Toast.LENGTH_SHORT).show();
-//                        activity.setText(newActivity.getExerciseActivity());
-//                        calories.setText(String.valueOf(newActivity.getCaloriesBurned()));
-//                    }
-//                }
-//                catch (Exception e){
-//                    Toast.makeText(getApplicationContext(), String.valueOf(e), Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//            @Override
-//            public void onCancelled(DatabaseError databaseError){
-//
-//            }
-//
-//        });
+
+
     }
 
 
