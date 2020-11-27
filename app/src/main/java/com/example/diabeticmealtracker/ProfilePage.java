@@ -1,46 +1,87 @@
 package com.example.diabeticmealtracker;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.renderscript.Sampler;
 import android.view.View;
+import android.widget.TextView;
 
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.database.DataSnapshot;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class ProfilePage extends AppCompatActivity {
-
-    private double weight; // kg
-    private double height; // cm
-    private int age; // yrs
-    private String sex; // male or female
-
-    Profile profile;
-    DatabaseReference databaseProfile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_page);
-        profile = new Profile();
-        databaseProfile = FirebaseDatabase.getInstance().getReference("Profile");
+
+        FirebaseAuth mAuth = FirebaseAuth.getInstance(); //Grabs current instance of database
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        FirebaseUser user = mAuth.getCurrentUser(); //Grabs current user
+
+        DocumentReference docRef = db.collection("users").document(user.getUid().toString()).collection("userData").document("profile");
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() { //Does the .get() command with a custom onComplete
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult(); //Grab snapshot of requirements
+
+                    TextView age = (TextView) findViewById(R.id.ageTextView);
+                    TextView height = (TextView) findViewById(R.id.heightTextView);
+                    TextView sex = (TextView) findViewById(R.id.sexTextView);
+                    TextView weight = (TextView) findViewById(R.id.weightTextView);
+                    age.setText(document.getString("Age"));
+                    height.setText(document.getString("Height"));
+                    sex.setText(document.getString("Sex"));
+                    weight.setText(document.getString("Weight"));
+                }
+            }
+        });
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        FirebaseAuth mAuth = FirebaseAuth.getInstance(); //Grabs current instance of database
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        FirebaseUser user = mAuth.getCurrentUser(); //Grabs current user
+        DocumentReference docRef = db.collection("users").document(user.getUid().toString()).collection("userData").document("profile");
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() { //Does the .get() command with a custom onComplete
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult(); //Grab snapshot of requirements
+
+                    TextView age = (TextView) findViewById(R.id.ageTextView);
+                    TextView height = (TextView) findViewById(R.id.heightTextView);
+                    TextView sex = (TextView) findViewById(R.id.sexTextView);
+                    TextView weight = (TextView) findViewById(R.id.weightTextView);
+                    age.setText(document.getString("Age"));
+                    height.setText(document.getString("Height"));
+                    sex.setText(document.getString("Sex"));
+                    weight.setText(document.getString("Weight"));
+                }
+            }
+        });
     }
 
     public void backMyProfileClick (View view){
-        Intent intent = new Intent (getApplicationContext(), MainActivity.class);
+        Intent intent = new Intent (getApplicationContext(), MainScreenPage.class);
         startActivity(intent);
     }
     public void changeMyProfile (View view){
         Intent intent = new Intent (getApplicationContext(), UpdateProfilePage.class);
         startActivity(intent);
     }
+
+
+
 }

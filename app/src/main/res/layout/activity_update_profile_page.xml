@@ -20,7 +20,7 @@
         app:layout_constraintVertical_bias="0.108" />
 
     <EditText
-        android:id="@+id/updateAge"
+        android:id="@+id/editTextNumberSigned"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -35,7 +35,7 @@
         app:layout_constraintVertical_bias="0.253" />
 
     <EditText
-        android:id="@+id/updateWeight"
+        android:id="@+id/editTextNumberSigned4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -50,7 +50,7 @@
         app:layout_constraintVertical_bias="0.657" />
 
     <EditText
-        android:id="@+id/updateHeight"
+        android:id="@+id/editTextNumberSigned2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -120,14 +120,14 @@
         app:layout_constraintVertical_bias="0.65" />
 
     <Button
-        android:id="@+id/updateChanges"
+        android:id="@+id/button27"
         android:layout_width="250dp"
         android:layout_height="50dp"
         android:background="@drawable/my_button_design"
         android:fontFamily="@font/titillium_web_semibold"
+        android:onClick="onUpdate"
         android:text="Update Changes"
         android:textSize="18dp"
-        android:onClick="updateChangesMyProfile"
         app:backgroundTint="@color/button_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -152,32 +152,15 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.917" />
 
-    <CheckBox
-        android:id="@+id/checkMale"
-        android:layout_width="210dp"
-        android:layout_height="50dp"
-        android:text="Male"
-        android:textSize="18dp"
-        android:fontFamily="@font/merriweather_bold"
+    <Spinner
+        android:id="@+id/sex"
+        android:layout_width="216dp"
+        android:layout_height="56dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.716"
+        app:layout_constraintHorizontal_bias="0.738"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.466" />
-
-    <CheckBox
-        android:id="@+id/checkFemale"
-        android:layout_width="210dp"
-        android:layout_height="50dp"
-        android:text="Female"
-        android:textSize="18dp"
-        android:fontFamily="@font/merriweather_bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.716"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.54" />
+        app:layout_constraintVertical_bias="0.499" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
