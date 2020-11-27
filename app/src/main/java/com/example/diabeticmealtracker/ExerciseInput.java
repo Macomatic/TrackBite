@@ -45,7 +45,17 @@ public class ExerciseInput extends AppCompatActivity {
         this.currActivity = "";
         this.currSpeed = "";
         exercise = new Exercise();
-        databaseExercise = FirebaseDatabase.getInstance().getReference();
+
+        Date currentTime = Calendar.getInstance().getTime();
+        String formattedDate = DateFormat.getDateInstance(DateFormat.LONG).format(currentTime);
+        formattedDate = formattedDate.replace(",", "");
+        String[] splitDate = formattedDate.split(" ");
+        String month = convertMonthNum(splitDate[0]);
+        String dateNum = splitDate[1];
+        String year = splitDate[2];
+        String date = month + dateNum + year;
+
+        databaseExercise = FirebaseDatabase.getInstance().getReference("");
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exercise_input);
@@ -161,7 +171,7 @@ public class ExerciseInput extends AppCompatActivity {
         }
         else {
             this.duration = Float.parseFloat(durationInput.getText().toString().trim());
-            Toast.makeText(getApplicationContext(), "Successfully added exercise", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getApplicationContext(), "Successfully added exercise", Toast.LENGTH_SHORT).show();
 
             // The current date when the button was pressed
             Date currentTime = Calendar.getInstance().getTime();
@@ -177,7 +187,8 @@ public class ExerciseInput extends AppCompatActivity {
             exercise.setCaloriesBurned(calories());
             exercise.setExerciseActivity(this.currActivity);
             exercise.setExerciseDuration(this.duration);
-            databaseExercise.child(date).child("Exercise").child(exercise.getExerciseActivity()).setValue(exercise);
+            Exercise test = new Exercise(this.currActivity,calories(),this.duration);
+            databaseExercise.child("Exercise").child(exercise.getExerciseActivity()).setValue(test);
 
             //Opening success page
             Intent intent = new Intent(getApplicationContext(), SuccessExerciseInput_Page.class);

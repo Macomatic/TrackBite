@@ -4,7 +4,7 @@ public class Profile {
     private String _name;
     private int _age;
     private String _sex;
-    private float _height, _weight, 
+    private float _height, _weight;
 
     // constructor
     public Profile(){
@@ -34,7 +34,7 @@ public class Profile {
       return _height;
     }
     public void setHeight(float height) {
-      _height = height
+      _height = height;
     }
     public float getWeight() {
       return _weight;

@@ -18,7 +18,7 @@ public class Exercise_Page extends AppCompatActivity {
         startActivity(intent);
     }
     public void backExercisePage (View view){
-        Intent intent = new Intent (getApplicationContext(), MainActivity.class);
+        Intent intent = new Intent (getApplicationContext(), MainScreenPage.class);
         startActivity(intent);
     }
     public void exerciseNotificationsClick (View view){

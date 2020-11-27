@@ -15,7 +15,7 @@ public class Second_Notification_Page extends AppCompatActivity {
     }
 
     public void backButtonClick (View view){
-        Intent intent = new Intent (getApplicationContext(), MainActivity.class);
+        Intent intent = new Intent (getApplicationContext(), MainScreenPage.class);
         startActivity(intent);
     }
 

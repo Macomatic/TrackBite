@@ -1,21 +1,28 @@
 package com.example.diabeticmealtracker;
 
 public class Exercise {
-    private String _name, _exerciseActivity;
-    private double _caloriesBurned, _duration;
+    public String _exerciseActivity;
+    public double _caloriesBurned, _exerciseDuration;
 
     public Exercise() {
     }
 
-    public String getName() {
-        return _name;
+    public Exercise(String exerciseActivity, double caloriesBurned, double exerciseDuration){
+        _exerciseActivity = exerciseActivity;
+        _caloriesBurned = caloriesBurned;
+        _exerciseDuration = exerciseDuration;
     }
 
-    public void setName(String name) {
-        _name = name;
-    }
+    //public String getName() {
+      //  return _name;
+   // }
+
+    //public void setName(String name) {
+      //  _name = name;
+    //}
 
     public double getCaloriesBurned() {
+
         return _caloriesBurned;
     }
 
@@ -24,6 +31,7 @@ public class Exercise {
     }
 
     public String getExerciseActivity() {
+
         return _exerciseActivity;
     }
 
@@ -32,11 +40,13 @@ public class Exercise {
     }
 
     public double getExerciseDuration() {
-        return _duration;
+
+        return _exerciseDuration;
+
     }
 
     public void setExerciseDuration(double duration) {
-        _duration = duration;
+        _exerciseDuration = duration;
     }
 
 }
