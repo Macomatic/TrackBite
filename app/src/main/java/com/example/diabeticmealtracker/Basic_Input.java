@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.preference.EditTextPreference;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -12,23 +11,24 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Basic_Input extends AppCompatActivity {
 
     // element variables
-    EditText txtName, txtServingSize, txtFats, txtCarbohydrates, txtSugar, txtFibre;
-    Button done;
-    // Firebase
-    DatabaseReference databaseFoods;
-    Food food;
+    EditText txtName, txtServingSize, txtFats, txtCarbohydrates, txtSugar, txtFibre, txtCalories;
+    Button done, clear;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,11 +42,16 @@ public class Basic_Input extends AppCompatActivity {
         txtCarbohydrates = (EditText) findViewById(R.id.basicInputCarbs);
         txtSugar = (EditText) findViewById(R.id.basicInputSugar);
         txtFibre = (EditText) findViewById(R.id.basicInputFibre);
+        txtCalories = (EditText) findViewById(R.id.basicInputCalories);
         // submit button
-        done = (Button) findViewById(R.id.basicInputDone);
-        // database reference
-        food = new Food();
-        databaseFoods = FirebaseDatabase.getInstance().getReference();
+        done = (Button) findViewById(R.id.basicInputAdd);
+        // clear button
+        clear = (Button) findViewById(R.id.basicInputClear);
+        // Firestore
+        FirebaseAuth mAuth = FirebaseAuth.getInstance(); //Grabs current instance of database
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        FirebaseUser user = mAuth.getCurrentUser(); //Grabs current user
+
 
         // Spinner for the meal times (breakfast, lunch, dinner)
         Spinner spnMeal = (Spinner) findViewById(R.id.mealSpinner);
@@ -74,7 +79,7 @@ public class Basic_Input extends AppCompatActivity {
                 String month = convertMonthNum(splitDate[0]);
                 String dateNum = splitDate[1];
                 String year = splitDate[2];
-                String date = month + dateNum + year;
+                String date = year + month + dateNum;
 
                 // parsing the input from the input fields
                 String name = (String) txtName.getText().toString().trim();
@@ -83,21 +88,38 @@ public class Basic_Input extends AppCompatActivity {
                 float carbohydrates = Float.parseFloat(txtCarbohydrates.getText().toString().trim());
                 float sugar = Float.parseFloat(txtSugar.getText().toString().trim());
                 float fibre = Float.parseFloat(txtFibre.getText().toString().trim());
+                float calories = Float.parseFloat(txtCalories.getText().toString().trim());
                 String meal = spnMeal.getSelectedItem().toString();
                 // setting the field inputs into the food object
-                food.setName(name);
-                food.setServingSize(servingSize);
-                food.setFat(fats);
-                food.setCarbohydrates(carbohydrates);
-                food.setSugar(sugar);
-                food.setFibre(fibre);
+                Map<String, Object> userInfo = new HashMap<>();
+                userInfo.put("Name", name);
+                userInfo.put("ServingSize", servingSize);
+                userInfo.put("Fats", fats);
+                userInfo.put("Carbohydrates", carbohydrates);
+                userInfo.put("Sugar", sugar);
+                userInfo.put("Fibre", fibre);
+                userInfo.put("Calories", calories);
+                userInfo.put("Meal", meal);
+
                 // push food object onto firebase based on the meal time selected
-                databaseFoods.child(date).child("Food").child(meal).child(food.getName()).setValue(food);
+                db.collection("users").document(user.getUid().toString()).collection("userData").document(date).collection("Food").document(name).set(userInfo, SetOptions.merge());
                 // notification saying the input has been successfully added to firebase
                 Toast.makeText(Basic_Input.this, "Input Successful", Toast.LENGTH_LONG).show();
             }
         });
-
+        // clear button
+        clear.setOnClickListener(new View.OnClickListener() {
+            // clears all the input fields when the button is pressed
+            public void onClick(View view) {
+                txtName.setText("");
+                txtServingSize.setText("");
+                txtFats.setText("");
+                txtCarbohydrates.setText("");
+                txtSugar.setText("");
+                txtFibre.setText("");
+                txtCalories.setText("");
+            }
+        });
     }
 
     // converts the month into its numeric form
@@ -130,8 +152,9 @@ public class Basic_Input extends AppCompatActivity {
             return "MONTH ERROR";
         }
     }
-    public void backBasicInputPage (View view){
-        Intent intent = new Intent (getApplicationContext(), Manual_Input.class);
+
+    public void backBasicInputPage(View view) {
+        Intent intent = new Intent(getApplicationContext(), Manual_Input.class);
         startActivity(intent);
     }
 
