@@ -98,10 +98,36 @@ public class ExerciseAnalysis_Page extends AppCompatActivity {
     public void nextExerciseAnalysis (View view){
         EditText firstRange = (EditText) findViewById(R.id.firstCustomRange);
         EditText lastRange = (EditText) findViewById(R.id.lastCustomRange);
+
         String firstRangeText = firstRange.getText().toString();
         String lastRangeText = lastRange.getText().toString();
+
+        int firstDate = Integer.parseInt(firstRangeText.substring(4)+firstRangeText.substring(2,4)+firstRangeText.substring(0,2));
+        int lastDate = Integer.parseInt(lastRangeText.substring(4)+lastRangeText.substring(2,4)+lastRangeText.substring(0,2));
+        int firstDay = Integer.parseInt(firstRangeText.substring(0,2));
+        int firstMonth = Integer.parseInt(firstRangeText.substring(2,4));
+        int firstYear = Integer.parseInt(firstRangeText.substring(4));
+        int lastDay = Integer.parseInt(lastRangeText.substring(0,2));
+        int lastMonth = Integer.parseInt(lastRangeText.substring(2,4));
+        int lastYear = Integer.parseInt(lastRangeText.substring(4));
+
+        boolean isDaysProperlyFormatted = (firstDay >= 1 && firstDay <= 31 && lastDay >= 1 && lastDay <= 31);
+        boolean isMonthsProperlyFormatted = (firstMonth >= 1 && firstMonth <= 12 && lastMonth >= 1 && lastMonth <= 12);
+        boolean isYearsProperlyFormatted = (firstYear >= 2020 && lastYear >= 2020);
+        boolean isLastDateTheSameAsFirstDate = (lastDate == firstDate);
+        boolean isLastDateGreaterThanFirstDate = (lastDate > firstDate);
+
         if (this.currActivityAnalyse == null || (this.currTimeRange.equals("None") && (firstRangeText.length() != 8 || lastRangeText.length() != 8))) {
             Toast.makeText(getApplicationContext(), "Please fill in all fields", Toast.LENGTH_SHORT).show();
+        }
+        else if ((this.currTimeRange.equals("None") && isDaysProperlyFormatted && isMonthsProperlyFormatted && isYearsProperlyFormatted) == false){
+            Toast.makeText(getApplicationContext(), "Date is incorrectly formatted", Toast.LENGTH_SHORT).show();
+        }
+        else if (isLastDateTheSameAsFirstDate == true) {
+            Toast.makeText(getApplicationContext(), "Both dates are the exact same", Toast.LENGTH_SHORT).show();
+        }
+        else if (isLastDateGreaterThanFirstDate == false) {
+            Toast.makeText(getApplicationContext(), "The last date comes before the first date", Toast.LENGTH_SHORT).show();
         }
         else {
             String[] graphValues = new String[2];
