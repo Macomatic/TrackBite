@@ -150,9 +150,11 @@
         android:layout_marginLeft="74dp"
         android:layout_marginEnd="73dp"
         android:layout_marginRight="73dp"
+        android:layout_marginBottom="33dp"
         android:gravity="center"
         android:text="(Only editable when a time frame is not selected)"
         android:textSize="12dp"
+        app:layout_constraintBottom_toTopOf="@+id/lastCustomRange"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView18" />
@@ -164,6 +166,11 @@
         android:layout_marginStart="44dp"
         android:layout_marginLeft="44dp"
         android:layout_marginTop="68dp"
+        android:layout_marginEnd="79dp"
+        android:layout_marginRight="79dp"
+        android:layout_marginBottom="80dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView18"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView17"
         app:layout_constraintTop_toBottomOf="@+id/textView14" />
 
@@ -176,6 +183,8 @@
         android:layout_marginTop="36dp"
         android:layout_marginEnd="106dp"
         android:layout_marginRight="106dp"
+        android:layout_marginBottom="193dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView19" />
