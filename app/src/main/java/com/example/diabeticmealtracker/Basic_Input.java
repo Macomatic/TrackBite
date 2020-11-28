@@ -92,14 +92,14 @@ public class Basic_Input extends AppCompatActivity {
                 String meal = spnMeal.getSelectedItem().toString();
                 // setting the field inputs into the food object
                 Map<String, Object> userInfo = new HashMap<>();
-                userInfo.put("Name", name);
-                userInfo.put("ServingSize", servingSize);
-                userInfo.put("Fats", fats);
-                userInfo.put("Carbohydrates", carbohydrates);
-                userInfo.put("Sugar", sugar);
-                userInfo.put("Fibre", fibre);
-                userInfo.put("Calories", calories);
-                userInfo.put("Meal", meal);
+                userInfo.put("name", name);
+                userInfo.put("servingSize", servingSize);
+                userInfo.put("fats", fats);
+                userInfo.put("carbohydrates", carbohydrates);
+                userInfo.put("sugar", sugar);
+                userInfo.put("fibre", fibre);
+                userInfo.put("calories", calories);
+                userInfo.put("meal", meal);
 
                 // push food object onto firebase based on the meal time selected
                 db.collection("users").document(user.getUid().toString()).collection("userData").document(date).collection("Food").document(name).set(userInfo, SetOptions.merge());
