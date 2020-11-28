@@ -95,8 +95,7 @@ public class YogaInput extends AppCompatActivity {
     public void doneInput (View view){}
 
     public void backExerciseInput (View view){
-        Intent intent = new Intent (getApplicationContext(), Exercise_Page.class);
-        startActivity(intent);
+        finish();
 
     }
 
