@@ -132,7 +132,6 @@ public class ExerciseAnalysis_Page extends AppCompatActivity {
             } else if (isLastDateGreaterThanFirstDate == false) {
                 Toast.makeText(getApplicationContext(), "The last date comes before the first date", Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(getApplicationContext(), "2", Toast.LENGTH_SHORT).show();
                 String[] graphValues = new String[2];
                 if (this.currTimeRange.equals("None") == false) {
                     graphValues[0] = this.currTimeRange;
