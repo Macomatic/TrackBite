@@ -7,58 +7,6 @@
     tools:context=".ProfilePage">
 
     <TextView
-        android:id="@+id/weightTextView"
-        android:layout_width="147dp"
-        android:layout_height="26dp"
-        android:fontFamily="@font/merriweather_bold"
-        android:textSize="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.893"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.594" />
-
-    <TextView
-        android:id="@+id/sexTextView"
-        android:layout_width="104dp"
-        android:layout_height="28dp"
-        android:fontFamily="@font/merriweather_bold"
-        android:textSize="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.651"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.479" />
-
-    <TextView
-        android:id="@+id/heightTextView"
-        android:layout_width="94dp"
-        android:layout_height="30dp"
-        android:fontFamily="@font/merriweather_bold"
-        android:textSize="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.734"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.366" />
-
-    <TextView
-        android:id="@+id/ageTextView"
-        android:layout_width="114dp"
-        android:layout_height="27dp"
-        android:fontFamily="@font/merriweather_bold"
-        android:textSize="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.7"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.261" />
-
-    <TextView
         android:id="@+id/textView13"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -105,20 +53,6 @@
         app:layout_constraintVertical_bias="0.765" />
 
     <TextView
-        android:id="@+id/textView30"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/merriweather_bold"
-        android:text="Height"
-        android:textSize="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.475"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.367" />
-
-    <TextView
         android:id="@+id/textView29"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -127,21 +61,74 @@
         android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.445"
+        app:layout_constraintHorizontal_bias="0.398"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.261" />
 
     <TextView
-        android:id="@+id/textView33"
+        android:id="@+id/textView30"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/merriweather_bold"
-        android:text="Sex"
+        android:text="Height"
         android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.438"
+        app:layout_constraintHorizontal_bias="0.419"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.367" />
+
+    <TextView
+        android:id="@+id/ageTextView"
+        android:layout_width="75dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/merriweather_bold"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.729"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.261" />
+
+    <TextView
+        android:id="@+id/weightTextView"
+        android:layout_width="75dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/merriweather_bold"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.729"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.592" />
+
+    <TextView
+        android:id="@+id/textView45"
+        android:layout_width="85dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/merriweather_bold"
+        android:text="Kg"
+        android:textSize="18dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.981"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.591" />
+
+    <TextView
+        android:id="@+id/sexTextView"
+        android:layout_width="75dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/merriweather_bold"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.729"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.48" />
@@ -155,10 +142,65 @@
         android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.48"
+        app:layout_constraintHorizontal_bias="0.424"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.593" />
+
+    <TextView
+        android:id="@+id/textView42"
+        android:layout_width="85dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/merriweather_bold"
+        android:text="Y"
+        android:textSize="18dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.981"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.264" />
+
+    <TextView
+        android:id="@+id/heightTextView"
+        android:layout_width="75dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/merriweather_bold"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.729"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.367" />
+
+    <TextView
+        android:id="@+id/textView43"
+        android:layout_width="75dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/merriweather_bold"
+        android:text="CM"
+        android:textSize="18dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.952"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.37" />
+
+    <TextView
+        android:id="@+id/textView33"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/merriweather_bold"
+        android:text="Sex"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.388"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.48" />
 
     <TextView
         android:id="@+id/textView39"

@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DiabeticMealTracker">
-        <activity android:name=".MainScreenPage"></activity>
+        <activity android:name=".YogaInput" />
+        <activity android:name=".MainScreenPage" />
         <activity android:name=".RegisterPage" />
         <activity android:name=".ScanNutritionalFacts" />
         <activity android:name=".SuccessExerciseInput_Page" />
@@ -25,7 +26,7 @@
             android:label="@string/title_activity_notifcation__setup__meal"
             android:theme="@style/Theme.DiabeticMealTracker.NoActionBar" />
         <activity android:name=".Second_Notification_Page" />
-        <activity android:name=".TypeOfDance" />
+        <activity android:name=".DanceInput" />
         <activity android:name=".ExerciseChoice" />
         <activity android:name=".ExerciseInput" />
         <activity android:name=".Data_Analysis_Page" />

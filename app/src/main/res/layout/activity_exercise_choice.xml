@@ -47,6 +47,7 @@
         android:fontFamily="@font/titillium_web_semibold"
         android:text="Yoga"
         android:textSize="18dp"
+        android:onClick="yogaClick"
         app:backgroundTint="@color/button_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -27,7 +27,9 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class UpdateProfilePage extends AppCompatActivity {
@@ -36,7 +38,7 @@ public class UpdateProfilePage extends AppCompatActivity {
     Spinner spinner;
     ArrayAdapter<CharSequence> adapter;
     Map<String, Object> userInfo = new HashMap<>(); //Creates a new map, contains data that will be placed in the user's extraData file
-
+    String currSex;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,14 +52,52 @@ public class UpdateProfilePage extends AppCompatActivity {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Object sexSubmit = parent.getItemAtPosition(position);
-                userInfo.put("Sex",String.valueOf(sexSubmit));
+                userInfo.put("Sex", currSex);
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
             }
+        });
+        FirebaseAuth mAuth = FirebaseAuth.getInstance(); //Grabs current instance of database
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        FirebaseUser user = mAuth.getCurrentUser(); //Grabs current user
+        DocumentReference docRef = db.collection("users").document(user.getUid().toString()).collection("userData").document("profile");
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() { //Does the .get() command with a custom onComplete
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult(); //Grab snapshot of requirements
+                    EditText age = (EditText) findViewById(R.id.editTextNumberSigned);
+                    EditText height = (EditText) findViewById(R.id.editTextNumberSigned2);
+                    EditText weight = (EditText) findViewById(R.id.editTextNumberSigned4);
+                    Spinner sexSpinner = (Spinner) findViewById(R.id.sex);
+
+                    age.setText(document.getString("Age"));
+                    height.setText(document.getString("Height"));
+                    weight.setText(document.getString("Weight"));
+                    currSex = document.getString("Sex");
+
+                    sexSpinner.setSelection(adapter.getPosition(currSex));
+
+                }
+            }
+        });
+        List<String> sexArray = new ArrayList<String>();
+        sexArray.add("Male");
+        sexArray.add("Female");
+        Spinner sexSpinner = (Spinner) findViewById(R.id.sex);
+        sexSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long id) {
+                currSex = sexArray.get(pos);
+            }
+
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                // your code here
+            }
+
         });
     }
 
@@ -73,13 +113,27 @@ public class UpdateProfilePage extends AppCompatActivity {
         EditText age = (EditText) findViewById(R.id.editTextNumberSigned);
         EditText height = (EditText) findViewById(R.id.editTextNumberSigned2);
         EditText weight = (EditText) findViewById(R.id.editTextNumberSigned4);
-        //RadioButton male = (RadioButton) findViewById(R.id.radioButtonMale);
-        //RadioButton female = (RadioButton) findViewById(R.id.radioButtonFemale);
-
+        Spinner sexSpinner = (Spinner) findViewById(R.id.sex);
 
         userInfo.put("Age", age.getText().toString());
         userInfo.put("Height", height.getText().toString());
         userInfo.put("Weight", weight.getText().toString());
+        userInfo.put("Sex", currSex);
+
+        sexSpinner.setSelection(adapter.getPosition(currSex));
+
+
+        List<String> sexArray = new ArrayList<String>();
+        sexArray.add("Male");
+        sexArray.add("Female");
+        sexSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long id) {
+                currSex = sexArray.get(pos);
+            }
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                // your code here
+            }
+        });
         //userInfo.put((String) sexSubmit )
 
 //        DocumentReference docRef = db.collection("users").document(user.getUid().toString()).collection("userData").document("profile");

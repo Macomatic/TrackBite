@@ -1,0 +1,212 @@
+package com.example.diabeticmealtracker;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
+
+import java.text.DateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public class DanceInput extends AppCompatActivity {
+    private double weight; // kg
+    private double duration; // hrs
+    private String currActivity;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_dance_input);
+
+        FirebaseAuth mAuth = FirebaseAuth.getInstance(); //Grabs current instance of database
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        FirebaseUser user = mAuth.getCurrentUser(); //Grabs current user
+        DocumentReference docRef = db.collection("users").document(user.getUid().toString()).collection("userData").document("profile");
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() { //Does the .get() command with a custom onComplete
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult(); //Grab snapshot of requirements
+                    weight = Double.parseDouble(document.getString("Weight"));
+                }
+            }
+        });
+
+        currActivity = "";
+
+        Date currentTime = Calendar.getInstance().getTime();
+        String formattedDate = DateFormat.getDateInstance(DateFormat.LONG).format(currentTime);
+        formattedDate = formattedDate.replace(",", "");
+        String[] splitDate = formattedDate.split(" ");
+        String month = convertMonthNum(splitDate[0]);
+        String dateNum = splitDate[1];
+        String year = splitDate[2];
+        String date = year + month + dateNum;
+
+        Spinner danceSpinner = (Spinner) findViewById(R.id.danceSpinner);
+
+        // List of Activities
+        List<String> danceArray = new ArrayList<String>();
+        danceArray.add("Ballroom, slow");
+        danceArray.add("Ballroom, fast");
+        danceArray.add("Caribbean");
+        danceArray.add("Tap");
+        danceArray.add("Modern/Ballet/Jazz");
+        danceArray.add("Aerobic 4-inch step");
+        danceArray.add("Aerobic, general");
+        danceArray.add("Aerobic, low impact");
+        danceArray.add("Aerobic, high impact");
+
+
+        // Array adapter (context, layout of spinner, and array values in the spinner)
+        ArrayAdapter<String> danceAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, danceArray);
+
+        // set drop down menu
+        danceAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        danceSpinner.setAdapter(danceAdapter);
+
+        danceSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long id) {
+                currActivity = danceArray.get(pos);
+            }
+
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                // your code here
+            }
+
+        });
+    }
+
+    public String convertMonthNum(String month) {
+        if (month.equals("January")) {
+            return "01";
+        } else if (month.equals("February")) {
+            return "02";
+        } else if (month.equals("March")) {
+            return "03";
+        } else if (month.equals("April")) {
+            return "04";
+        } else if (month.equals("May")) {
+            return "05";
+        } else if (month.equals("June")) {
+            return "06";
+        } else if (month.equals("July")) {
+            return "07";
+        } else if (month.equals("August")) {
+            return "08";
+        } else if (month.equals("September")) {
+            return "09";
+        } else if (month.equals("October")) {
+            return "10";
+        } else if (month.equals("November")) {
+            return "11";
+        } else if (month.equals("December")) {
+            return "12";
+        } else {
+            return "MONTH ERROR";
+        }
+    }
+
+    public void doneInput (View view){
+
+        EditText durationInput = (EditText) findViewById(R.id.yogahoursInput);
+        if (TextUtils.isEmpty(durationInput.getText())) {
+            Toast.makeText(getApplicationContext(), "Please put an hour input", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            float duration = Float.parseFloat(durationInput.getText().toString().trim());
+
+            // The current date when the button was pressed
+            Date currentTime = Calendar.getInstance().getTime();
+            String formattedDate = DateFormat.getDateInstance(DateFormat.LONG).format(currentTime);
+            formattedDate = formattedDate.replace(",", "");
+            String[] splitDate = formattedDate.split(" ");
+            String month = convertMonthNum(splitDate[0]);
+            String dateNum = splitDate[1];
+            String year = splitDate[2];
+            String date = year + month + dateNum;
+
+
+            FirebaseAuth mAuth = FirebaseAuth.getInstance(); //Grabs current instance of database
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+            FirebaseUser user = mAuth.getCurrentUser(); //Grabs current user
+
+            Map<String, Object> userInfo = new HashMap<>();
+
+            userInfo.put("Activity", this.currActivity);
+            userInfo.put("Duration", String.valueOf(duration));
+            userInfo.put("CaloriesBurned", String.valueOf(caloriesBurned(METS(this.currActivity),duration)));
+
+            db.collection("users").document(user.getUid().toString()).collection("userData").document(date).collection("Exercise").document(this.currActivity).set(userInfo, SetOptions.merge());
+
+            finish();
+            //Opening success page
+            Intent intent = new Intent(getApplicationContext(), SuccessExerciseInput_Page.class);
+            startActivity(intent.putExtra("activity", this.currActivity));
+
+        }
+    }
+
+    public double METS(String activity){
+        if(activity.equals("Ballroom, slow")){
+            return 3;
+        }
+        else if(activity.equals("Ballroom, fast")){
+            return 5.5;
+        }
+        else if(activity.equals("Caribbean")){
+            return 3.5;
+        }
+        else if(activity.equals("Tap")){
+            return 4.8;
+        }
+        else if(activity.equals("Modern/Ballet/Jazz")){
+            return 5;
+        }
+        else if(activity.equals("Aerobic 4-inch step")){
+            return 5.5;
+        }
+        else if(activity.equals("Aerobic, general")){
+            return 7.3;
+        }
+        else if(activity.equals("Aerobic, low impact")){
+            return 5;
+        }
+        else{
+            return 7.3;
+        }
+    }
+
+    public double caloriesBurned(double Mets, double duration){
+
+        return (this.weight * Mets * 3.5) * duration * 60 / 200;
+    }
+
+    public void backExerciseInput (View view){
+        finish();
+    }
+}
