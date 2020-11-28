@@ -8,52 +8,56 @@
 
     <TextView
         android:id="@+id/weightTextView"
-        android:layout_width="147dp"
-        android:layout_height="26dp"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
         android:fontFamily="@font/merriweather_bold"
+        android:gravity="center"
         android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.893"
+        app:layout_constraintHorizontal_bias="0.938"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.594" />
+        app:layout_constraintVertical_bias="0.593" />
 
     <TextView
         android:id="@+id/sexTextView"
-        android:layout_width="104dp"
-        android:layout_height="28dp"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
         android:fontFamily="@font/merriweather_bold"
+        android:gravity="center"
         android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.651"
+        app:layout_constraintHorizontal_bias="0.938"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.479" />
+        app:layout_constraintVertical_bias="0.48" />
 
     <TextView
         android:id="@+id/heightTextView"
-        android:layout_width="94dp"
-        android:layout_height="30dp"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
         android:fontFamily="@font/merriweather_bold"
+        android:gravity="center"
         android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.734"
+        app:layout_constraintHorizontal_bias="0.938"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.366" />
+        app:layout_constraintVertical_bias="0.367" />
 
     <TextView
         android:id="@+id/ageTextView"
-        android:layout_width="114dp"
-        android:layout_height="27dp"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
         android:fontFamily="@font/merriweather_bold"
+        android:gravity="center"
         android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.7"
+        app:layout_constraintHorizontal_bias="0.938"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.261" />
@@ -127,7 +131,7 @@
         android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.445"
+        app:layout_constraintHorizontal_bias="0.45"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.261" />
