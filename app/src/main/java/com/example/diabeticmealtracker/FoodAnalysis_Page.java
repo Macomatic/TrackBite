@@ -130,7 +130,7 @@ public class FoodAnalysis_Page extends AppCompatActivity {
             boolean isYearsProperlyFormatted = (firstYear >= 2020 && lastYear >= 2020);
             boolean isLastDateTheSameAsFirstDate = (lastDate == firstDate);
             boolean isLastDateGreaterThanFirstDate = (lastDate > firstDate);
-            
+
             if ((this.currRange.equals("None") && isDaysProperlyFormatted && isMonthsProperlyFormatted && isYearsProperlyFormatted) == false) {
                 Toast.makeText(getApplicationContext(), "Date is incorrectly formatted", Toast.LENGTH_SHORT).show();
             } else if (isLastDateTheSameAsFirstDate == true) {
