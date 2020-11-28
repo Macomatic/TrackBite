@@ -11,17 +11,12 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
-
-import org.w3c.dom.Text;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -76,13 +71,13 @@ public class ExerciseInput extends AppCompatActivity {
         String month = convertMonthNum(splitDate[0]);
         String dateNum = splitDate[1];
         String year = splitDate[2];
-        String date = month + dateNum + year;
+        String date = year + month + dateNum;
 
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exercise_input);
 
-        Spinner actSpinner = (Spinner) findViewById(R.id.activitySpinner);
+        Spinner actSpinner = (Spinner) findViewById(R.id.yogaSpinner);
         Spinner bikeSpinner = (Spinner) findViewById(R.id.bikingSpinner);
 
         // List of Activities

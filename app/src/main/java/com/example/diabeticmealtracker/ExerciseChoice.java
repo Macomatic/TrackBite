@@ -18,7 +18,12 @@ public class ExerciseChoice extends AppCompatActivity {
         startActivity(intent);
     }
     public void dancingClick (View view){
-        Intent intent = new Intent (getApplicationContext(), TypeOfDance.class);
+        Intent intent = new Intent (getApplicationContext(), DanceInput.class);
+        startActivity(intent);
+    }
+
+    public void yogaClick (View view) {
+        Intent intent  = new Intent (getApplicationContext(), YogaInput.class);
         startActivity(intent);
     }
 }
