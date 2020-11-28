@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -95,51 +96,53 @@ public class ExerciseAnalysis_Page extends AppCompatActivity {
         Intent intent = new Intent (getApplicationContext(), Data_Analysis_Page.class);
         startActivity(intent);
     }
-    public void nextExerciseAnalysis (View view){
+    public void nextExerciseAnalysis (View view) {
         EditText firstRange = (EditText) findViewById(R.id.firstCustomRange);
         EditText lastRange = (EditText) findViewById(R.id.lastCustomRange);
 
         String firstRangeText = firstRange.getText().toString();
         String lastRangeText = lastRange.getText().toString();
 
-        int firstDate = Integer.parseInt(firstRangeText.substring(4)+firstRangeText.substring(2,4)+firstRangeText.substring(0,2));
-        int lastDate = Integer.parseInt(lastRangeText.substring(4)+lastRangeText.substring(2,4)+lastRangeText.substring(0,2));
-        int firstDay = Integer.parseInt(firstRangeText.substring(0,2));
-        int firstMonth = Integer.parseInt(firstRangeText.substring(2,4));
-        int firstYear = Integer.parseInt(firstRangeText.substring(4));
-        int lastDay = Integer.parseInt(lastRangeText.substring(0,2));
-        int lastMonth = Integer.parseInt(lastRangeText.substring(2,4));
-        int lastYear = Integer.parseInt(lastRangeText.substring(4));
-
-        boolean isDaysProperlyFormatted = (firstDay >= 1 && firstDay <= 31 && lastDay >= 1 && lastDay <= 31);
-        boolean isMonthsProperlyFormatted = (firstMonth >= 1 && firstMonth <= 12 && lastMonth >= 1 && lastMonth <= 12);
-        boolean isYearsProperlyFormatted = (firstYear >= 2020 && lastYear >= 2020);
-        boolean isLastDateTheSameAsFirstDate = (lastDate == firstDate);
-        boolean isLastDateGreaterThanFirstDate = (lastDate > firstDate);
-
-        if (this.currActivityAnalyse == null || (this.currTimeRange.equals("None") && (firstRangeText.length() != 8 || lastRangeText.length() != 8))) {
+        if (this.currActivityAnalyse == null || (this.currTimeRange.equals("None") && (TextUtils.isEmpty(firstRangeText) || TextUtils.isEmpty(lastRangeText)))) {
             Toast.makeText(getApplicationContext(), "Please fill in all fields", Toast.LENGTH_SHORT).show();
-        }
-        else if ((this.currTimeRange.equals("None") && isDaysProperlyFormatted && isMonthsProperlyFormatted && isYearsProperlyFormatted) == false){
-            Toast.makeText(getApplicationContext(), "Date is incorrectly formatted", Toast.LENGTH_SHORT).show();
-        }
-        else if (isLastDateTheSameAsFirstDate == true) {
-            Toast.makeText(getApplicationContext(), "Both dates are the exact same", Toast.LENGTH_SHORT).show();
-        }
-        else if (isLastDateGreaterThanFirstDate == false) {
-            Toast.makeText(getApplicationContext(), "The last date comes before the first date", Toast.LENGTH_SHORT).show();
-        }
-        else {
-            String[] graphValues = new String[2];
-            if (this.currTimeRange.equals("None") == false) {
-                graphValues[0] = this.currTimeRange;
+        } else if (firstRangeText.length() > 8 || lastRangeText.length() > 8) {
+            Toast.makeText(getApplicationContext(), "Too many numbers inputted for date", Toast.LENGTH_SHORT).show();
+        } else if (firstRangeText.length() < 8 || lastRangeText.length() < 8) {
+            Toast.makeText(getApplicationContext(), "Too few numbers inputted for date", Toast.LENGTH_SHORT).show();
+        } else {
+            int firstDate = Integer.parseInt(firstRangeText.substring(4)+firstRangeText.substring(2,4)+firstRangeText.substring(0,2));
+            int lastDate = Integer.parseInt(lastRangeText.substring(4)+lastRangeText.substring(2,4)+lastRangeText.substring(0,2));
+            int firstDay = Integer.parseInt(firstRangeText.substring(0,2));
+            int firstMonth = Integer.parseInt(firstRangeText.substring(2,4));
+            int firstYear = Integer.parseInt(firstRangeText.substring(4));
+            int lastDay = Integer.parseInt(lastRangeText.substring(0,2));
+            int lastMonth = Integer.parseInt(lastRangeText.substring(2,4));
+            int lastYear = Integer.parseInt(lastRangeText.substring(4));
+
+            boolean isDaysProperlyFormatted = (firstDay >= 1 && firstDay <= 31 && lastDay >= 1 && lastDay <= 31);
+            boolean isMonthsProperlyFormatted = (firstMonth >= 1 && firstMonth <= 12 && lastMonth >= 1 && lastMonth <= 12);
+            boolean isYearsProperlyFormatted = (firstYear >= 2020 && lastYear >= 2020);
+            boolean isLastDateTheSameAsFirstDate = (lastDate == firstDate);
+            boolean isLastDateGreaterThanFirstDate = (lastDate > firstDate);
+
+            if ((this.currTimeRange.equals("None") && isDaysProperlyFormatted && isMonthsProperlyFormatted && isYearsProperlyFormatted) == false) {
+                Toast.makeText(getApplicationContext(), "Date is incorrectly formatted", Toast.LENGTH_SHORT).show();
+            } else if (isLastDateTheSameAsFirstDate == true) {
+                Toast.makeText(getApplicationContext(), "Both dates are the exact same", Toast.LENGTH_SHORT).show();
+            } else if (isLastDateGreaterThanFirstDate == false) {
+                Toast.makeText(getApplicationContext(), "The last date comes before the first date", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(getApplicationContext(), "2", Toast.LENGTH_SHORT).show();
+                String[] graphValues = new String[2];
+                if (this.currTimeRange.equals("None") == false) {
+                    graphValues[0] = this.currTimeRange;
+                } else {
+                    graphValues[0] = firstRangeText + "-" + lastRangeText;
+                }
+                graphValues[1] = this.currActivityAnalyse;
+                Intent intent = new Intent(getApplicationContext(), ExerciseGraph_Page.class);
+                startActivity(intent.putExtra("values", graphValues));
             }
-            else {
-                graphValues[0] = firstRangeText + "-" + lastRangeText;
-            }
-            graphValues[1] = this.currActivityAnalyse;
-            Intent intent = new Intent (getApplicationContext(), ExerciseGraph_Page.class);
-            startActivity(intent.putExtra("values", graphValues));
         }
     }
 }
