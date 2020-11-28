@@ -77,7 +77,7 @@ public class ExerciseInput extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exercise_input);
 
-        Spinner actSpinner = (Spinner) findViewById(R.id.yogaSpinner);
+        Spinner actSpinner = (Spinner) findViewById(R.id.danceSpinner);
         Spinner bikeSpinner = (Spinner) findViewById(R.id.bikingSpinner);
 
         // List of Activities

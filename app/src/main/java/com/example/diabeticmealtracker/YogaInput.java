@@ -3,7 +3,6 @@ package com.example.diabeticmealtracker;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -60,7 +59,7 @@ public class YogaInput extends AppCompatActivity {
         String year = splitDate[2];
         String date = year + month + dateNum;
 
-        Spinner yogaSpinner = (Spinner) findViewById(R.id.yogaSpinner);
+        Spinner yogaSpinner = (Spinner) findViewById(R.id.danceSpinner);
 
         // List of Activities
         List<String> yogaArray = new ArrayList<String>();

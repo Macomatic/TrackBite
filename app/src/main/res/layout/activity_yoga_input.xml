@@ -49,7 +49,7 @@
         app:layout_constraintVertical_bias="0.626" />
 
     <Spinner
-        android:id="@+id/yogaSpinner"
+        android:id="@+id/danceSpinner"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:textSize="18dp"
