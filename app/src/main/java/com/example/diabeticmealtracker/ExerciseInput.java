@@ -110,13 +110,24 @@ public class ExerciseInput extends AppCompatActivity {
 
             public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long id) {
                 currActivity = activityArray.get(pos);
-                currSpeed = bikingArray.get(pos);
             }
 
             public void onNothingSelected(AdapterView<?> adapterView) {
                 // your code here
             }
 
+        });
+
+        bikeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long id) {
+                currSpeed = bikingArray.get(pos);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
         });
     }
 

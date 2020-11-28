@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Spinner;
 
 import java.util.ArrayList;
@@ -22,6 +23,9 @@ public class FoodAnalysis_Page extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food_analysis_page);
+
+        EditText firstRange = (EditText) findViewById(R.id.customRange1);
+        EditText lastRange = (EditText) findViewById(R.id.customRange2);
 
         Spinner rangeSpinner = (Spinner) findViewById(R.id.rangeSpinner);
         Spinner foodSpinner = (Spinner) findViewById(R.id.foodSpinner);

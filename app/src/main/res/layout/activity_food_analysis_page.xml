@@ -21,7 +21,7 @@
         app:layout_constraintVertical_bias="0.086" />
 
     <EditText
-        android:id="@+id/editTextDate6"
+        android:id="@+id/customRange2"
         android:layout_width="153dp"
         android:layout_height="47dp"
         android:layout_marginTop="49dp"
@@ -34,7 +34,7 @@
         android:inputType="date"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/editTextDate4"
+        app:layout_constraintStart_toEndOf="@+id/customRange1"
         app:layout_constraintTop_toBottomOf="@+id/textView18"
         app:layout_constraintVertical_bias="1.0" />
 
@@ -72,7 +72,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView14" />
 
     <EditText
-        android:id="@+id/editTextDate4"
+        android:id="@+id/customRange1"
         android:layout_width="153dp"
         android:layout_height="47dp"
         android:layout_marginStart="16dp"
@@ -86,7 +86,7 @@
         android:hint="dd/mm/yyyy"
         android:inputType="date"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/editTextDate6"
+        app:layout_constraintEnd_toStartOf="@+id/customRange2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView18" />
 
