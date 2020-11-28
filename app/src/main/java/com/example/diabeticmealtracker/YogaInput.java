@@ -3,11 +3,15 @@ package com.example.diabeticmealtracker;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -16,12 +20,15 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class YogaInput extends AppCompatActivity {
 
@@ -91,7 +98,68 @@ public class YogaInput extends AppCompatActivity {
         });
     }
 
-    public void doneInput (View view){}
+    public void doneInput (View view){
+        EditText durationInput = (EditText) findViewById(R.id.yogahoursInput);
+        if (TextUtils.isEmpty(durationInput.getText())) {
+            Toast.makeText(getApplicationContext(), "Please put an hour input", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            float duration = Float.parseFloat(durationInput.getText().toString().trim());
+
+            // The current date when the button was pressed
+            Date currentTime = Calendar.getInstance().getTime();
+            String formattedDate = DateFormat.getDateInstance(DateFormat.LONG).format(currentTime);
+            formattedDate = formattedDate.replace(",", "");
+            String[] splitDate = formattedDate.split(" ");
+            String month = convertMonthNum(splitDate[0]);
+            String dateNum = splitDate[1];
+            String year = splitDate[2];
+            String date = year + month + dateNum;
+
+
+            FirebaseAuth mAuth = FirebaseAuth.getInstance(); //Grabs current instance of database
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+            FirebaseUser user = mAuth.getCurrentUser(); //Grabs current user
+
+            Map<String, Object> userInfo = new HashMap<>();
+
+            userInfo.put("Activity", this.currActivity);
+            userInfo.put("Duration", String.valueOf(duration));
+            userInfo.put("CaloriesBurned", String.valueOf(caloriesBurned(METS(this.currActivity),duration)));
+
+            db.collection("users").document(user.getUid().toString()).collection("userData").document(date).collection("Exercise").document(this.currActivity).set(userInfo, SetOptions.merge());
+
+            finish();
+            //Opening success page
+            Intent intent = new Intent(getApplicationContext(), SuccessExerciseInput_Page.class);
+            startActivity(intent.putExtra("activity", this.currActivity));
+
+        }
+
+    }
+
+    public double METS(String activity){
+        if(activity.equals("Nadisodhana")){
+            return 2;
+        }
+        else if(activity.equals("Hatha")){
+            return 2.5;
+        }
+        else if(activity.equals("Sitting/Stretching")){
+            return 2.8;
+        }
+        else if(activity.equals("Surya Namaskar")){
+            return 3.3;
+        }
+        else{
+            return 4;
+        }
+    }
+
+    public double caloriesBurned(double Mets, double duration){
+
+        return (this.weight * Mets * 3.5) * duration * 60 / 200;
+    }
 
     public void backExerciseInput (View view){
         finish();

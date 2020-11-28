@@ -184,7 +184,7 @@ public class ExerciseInput extends AppCompatActivity {
     }
 
     public void doneInput (View view){
-        EditText durationInput = (EditText) findViewById(R.id.hoursInput);
+        EditText durationInput = (EditText) findViewById(R.id.yogahoursInput);
         if (TextUtils.isEmpty(durationInput.getText())) {
             Toast.makeText(getApplicationContext(), "Please put an hour input", Toast.LENGTH_SHORT).show();
         }
@@ -209,7 +209,7 @@ public class ExerciseInput extends AppCompatActivity {
             Map<String, Object> userInfo = new HashMap<>();
 
             userInfo.put("CaloriesBurned", String.valueOf(calories()));
-            //userInfo.put("Activity", this.currActivity);
+            userInfo.put("Activity", this.currActivity);
             userInfo.put("Duration", String.valueOf(this.duration));
 
             db.collection("users").document(user.getUid().toString()).collection("userData").document(date).collection("Exercise").document(this.currActivity).set(userInfo, SetOptions.merge());

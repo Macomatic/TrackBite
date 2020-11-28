@@ -57,7 +57,6 @@ public class MainActivity extends AppCompatActivity {
                                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                                         if (task.isSuccessful()) {
                                             DocumentSnapshot document = task.getResult(); //Grab snapshot of extraData
-                                            Toast.makeText(getApplicationContext(), "Please enter all valid fields", Toast.LENGTH_SHORT).show();
 
                                             Intent intent = new Intent(getApplicationContext(), MainScreenPage.class);
                                             startActivity(intent);

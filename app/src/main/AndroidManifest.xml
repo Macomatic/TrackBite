@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DiabeticMealTracker">
-        <activity android:name=".YogaInput"></activity>
+        <activity android:name=".YogaInput" />
         <activity android:name=".MainScreenPage" />
         <activity android:name=".RegisterPage" />
         <activity android:name=".ScanNutritionalFacts" />
