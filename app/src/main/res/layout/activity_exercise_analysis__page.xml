@@ -42,19 +42,19 @@
         app:layout_constraintVertical_bias="0.101" />
 
     <EditText
-        android:id="@+id/editTextDate5"
+        android:id="@+id/lastCustomRange"
         android:layout_width="153dp"
         android:layout_height="47dp"
         android:layout_marginTop="49dp"
         android:layout_marginBottom="379dp"
         android:ems="10"
-        android:gravity="center"
-        android:hint="dd/mm/yyyy"
-        android:inputType="date"
         android:fontFamily="@font/merriweather_bold"
+        android:gravity="center"
+        android:hint="ddmmyyyy"
+        android:inputType="date"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/editTextDate3"
+        app:layout_constraintStart_toEndOf="@+id/firstCustomRange"
         app:layout_constraintTop_toBottomOf="@+id/textView18"
         app:layout_constraintVertical_bias="0.0" />
 
@@ -78,7 +78,7 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <EditText
-        android:id="@+id/editTextDate3"
+        android:id="@+id/firstCustomRange"
         android:layout_width="153dp"
         android:layout_height="47dp"
         android:layout_marginTop="49dp"
@@ -86,12 +86,12 @@
         android:layout_marginRight="20dp"
         android:layout_marginBottom="379dp"
         android:ems="10"
-        android:gravity="center"
-        android:hint="dd/mm/yyyy"
-        android:inputType="date"
         android:fontFamily="@font/merriweather_bold"
+        android:gravity="center"
+        android:hint="ddmmyyyy"
+        android:inputType="date"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/editTextDate5"
+        app:layout_constraintEnd_toStartOf="@+id/lastCustomRange"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView18"
         app:layout_constraintVertical_bias="0.0" />
@@ -141,4 +141,42 @@
         app:layout_constraintStart_toEndOf="@+id/button14"
         app:layout_constraintTop_toBottomOf="@+id/textView19"
         app:layout_constraintVertical_bias="0.8" />
+
+    <TextView
+        android:id="@+id/timeFrameInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="74dp"
+        android:layout_marginLeft="74dp"
+        android:layout_marginEnd="73dp"
+        android:layout_marginRight="73dp"
+        android:gravity="center"
+        android:text="(Only editable when a time frame is not selected)"
+        android:textSize="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView18" />
+
+    <Spinner
+        android:id="@+id/timeFrameSpinner"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="44dp"
+        android:layout_marginLeft="44dp"
+        android:layout_marginTop="68dp"
+        app:layout_constraintStart_toEndOf="@+id/textView17"
+        app:layout_constraintTop_toBottomOf="@+id/textView14" />
+
+    <Spinner
+        android:id="@+id/exerciseAnalyseSpinner"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="105dp"
+        android:layout_marginLeft="105dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="106dp"
+        android:layout_marginRight="106dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView19" />
 </androidx.constraintlayout.widget.ConstraintLayout>
