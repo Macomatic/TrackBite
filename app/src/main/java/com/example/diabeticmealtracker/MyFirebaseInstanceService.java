@@ -21,7 +21,7 @@ import java.util.Map;
 import java.util.Random;
 
 public class MyFirebaseInstanceService extends FirebaseMessagingService {
-    
+
     public void onMessageRecieved(@NonNull RemoteMessage remoteMessage){
         super.onMessageReceived(remoteMessage);
 
