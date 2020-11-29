@@ -1,5 +1,6 @@
 package com.example.diabeticmealtracker;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -11,8 +12,12 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
 
@@ -153,6 +158,51 @@ public class Detailed_Input extends AppCompatActivity {
                 db.collection("users").document(user.getUid().toString()).set(Date);
                 // notification saying the input has been successfully added to firebase
                 Toast.makeText(Detailed_Input.this, "Input Successful", Toast.LENGTH_LONG).show();
+
+                // Total
+                DocumentReference docRef = db.collection("users").document(user.getUid().toString()).collection("userData").document(date).collection("Total").document("Total");
+                docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() { //Does the .get() command with a custom onComplete
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot document = task.getResult(); //Grab snapshot of requirements
+                            Map<String,Object> totals = new HashMap<>();
+                            //String calories = document.getString("CaloriesBurned").substring(0,document.getString("CaloriesBurned").indexOf("."));
+                            if (!document.exists()) {
+                                totals.put("Total Burned Calories","0");
+                                totals.put("Total Active Hours", "0");
+                                totals.put("Total carbs","0");
+                                totals.put("Total fats", "0");
+                                totals.put("Total proteins","0");
+                                totals.put("Total calories","0");
+                                totals.put("Fiber","0");
+                                totals.put("Sugar","0");
+                                db.collection("users").document(user.getUid()).collection("userData").document(date).collection("Total").document("Total").set(totals);
+                            }
+                            else {
+                                float totalFats = Float.parseFloat(document.getString("Total fats"));
+                                float totalCarbs = Float.parseFloat(document.getString("Total carbs"));
+                                float totalSugar = Float.parseFloat(document.getString("Sugar"));
+                                float totalFibre = Float.parseFloat(document.getString("Fiber"));
+                                float totalCalories = Float.parseFloat(document.getString("Total calories"));
+                                float totalProteins = Float.parseFloat(document.getString("Total proteins"));
+                                totalFats += fats;
+                                totalCarbs += carbohydrates;
+                                totalSugar += sugar;
+                                totalFibre += fibre;
+                                totalCalories += calories;
+                                totalProteins += Float.parseFloat(protein);
+                                totals.put("Total carbs",String.valueOf(totalCarbs));
+                                totals.put("Total fats", String.valueOf(totalFats));
+                                totals.put("Sugar", String.valueOf(totalSugar));
+                                totals.put("Total calories", String.valueOf(totalCalories));
+                                totals.put("Fiber", String.valueOf(totalFibre));
+                                totals.put("Total proteins", String.valueOf(totalProteins));
+                                db.collection("users").document(user.getUid().toString()).collection("userData").document(date).collection("Total").document("Total").set(totals, SetOptions.merge());
+                            }
+                        }
+                    }
+                });
             }
         });
 
