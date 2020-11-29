@@ -93,8 +93,7 @@ public class ExerciseAnalysis_Page extends AppCompatActivity {
         });
     }
     public void backExerciseAnalysis (View view){
-        Intent intent = new Intent (getApplicationContext(), Data_Analysis_Page.class);
-        startActivity(intent);
+        finish();
     }
     public void nextExerciseAnalysis (View view) {
         EditText firstRange = (EditText) findViewById(R.id.firstCustomRange);

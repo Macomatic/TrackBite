@@ -98,8 +98,7 @@ public class FoodAnalysis_Page extends AppCompatActivity {
         });
     }
     public void backFoodDataAnalysis (View view){
-        Intent intent = new Intent (getApplicationContext(), Data_Analysis_Page.class);
-        startActivity(intent);
+        finish();
     }
     public void nextFoodDataAnalysis (View view) {
         EditText firstRange = (EditText) findViewById(R.id.customRange1);

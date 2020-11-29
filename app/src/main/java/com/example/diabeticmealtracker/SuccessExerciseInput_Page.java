@@ -53,12 +53,12 @@ public class SuccessExerciseInput_Page extends AppCompatActivity {
         String year = splitDate[2];
         String date = year + month + dateNum;
         Bundle extra = getIntent().getExtras();
-        String activity = extra.getString("activity");
+        String[] activity = extra.getStringArray("activity");
 
         FirebaseAuth mAuth = FirebaseAuth.getInstance(); //Grabs current instance of database
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         FirebaseUser user = mAuth.getCurrentUser(); //Grabs current user
-        DocumentReference docRef = db.collection("users").document(user.getUid().toString()).collection("userData").document(date).collection("Exercise").document(activity);
+        DocumentReference docRef = db.collection("users").document(user.getUid().toString()).collection("userData").document(date).collection("Exercise").document(activity[0]);
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() { //Does the .get() command with a custom onComplete
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -68,10 +68,10 @@ public class SuccessExerciseInput_Page extends AppCompatActivity {
                     //String activity = Integer.parseInt(document.getString("Age"));
                     TextView activityView = (TextView) findViewById(R.id.activityValue);
                     TextView caloriesBurned = (TextView) findViewById(R.id.caloriesValue);
-                    String calories = document.getString("CaloriesBurned").substring(0,document.getString("CaloriesBurned").indexOf("."));
+                    String calories = activity[1].substring(0,activity[1].indexOf("."));
                     //Toast.makeText(getApplicationContext(), calories, Toast.LENGTH_SHORT).show();
                     caloriesBurned.setText(calories);
-                    activityView.setText(activity);
+                    activityView.setText(activity[0]);
                 }
             }
         });

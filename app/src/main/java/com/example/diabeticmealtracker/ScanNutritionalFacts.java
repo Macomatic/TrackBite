@@ -14,7 +14,6 @@ public class ScanNutritionalFacts extends AppCompatActivity {
         setContentView(R.layout.activity_scan_nutritional_facts);
     }
     public void backScanNutritionalFacts (View view){
-        Intent intent = new Intent (getApplicationContext(), Input_Page.class);
-        startActivity(intent);
+        finish();
     }
 }

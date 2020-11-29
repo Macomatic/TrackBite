@@ -218,13 +218,35 @@ public class ExerciseInput extends AppCompatActivity {
             FirebaseFirestore db = FirebaseFirestore.getInstance();
             FirebaseUser user = mAuth.getCurrentUser(); //Grabs current user
 
-            Map<String, Object> userInfo = new HashMap<>();
+            DocumentReference oldRef = db.collection("users").document(user.getUid().toString()).collection("userData").document(date).collection("Exercise").document(this.currActivity);
+            oldRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() { //Does the .get() command with a custom onComplete
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult(); //Grab snapshot of requirements
+                        Map<String,Object> exerciseData = new HashMap<>();
+                        //String calories = document.getString("CaloriesBurned").substring(0,document.getString("CaloriesBurned").indexOf("."));
+                        if (!document.exists()) {
+                            //Toast.makeText(getApplicationContext(), "pass", Toast.LENGTH_SHORT).show(); // Email is incorrectly formatted
+                            exerciseData.put("Activity", currActivity);
+                            exerciseData.put("CaloriesBurned", String.valueOf(calories()));
+                            exerciseData.put("Duration", String.valueOf(duration));
+                            db.collection("users").document(user.getUid()).collection("userData").document(date).collection("Exercise").document(currActivity).set(exerciseData);
+                        }
+                        else {
+                            double calories = Double.parseDouble(document.getString("CaloriesBurned"));
+                            double activeHours = Double.parseDouble(document.getString("Duration"));
+                            calories+=calories();
+                            activeHours+=duration;
+                            exerciseData.put("CaloriesBurned",String.valueOf(calories));
+                            exerciseData.put("Duration", String.valueOf(activeHours));
+                            db.collection("users").document(user.getUid().toString()).collection("userData").document(date).collection("Exercise").document(currActivity).set(exerciseData, SetOptions.merge());
 
-            userInfo.put("CaloriesBurned", String.valueOf(calories()));
-            userInfo.put("Activity", this.currActivity);
-            userInfo.put("Duration", String.valueOf(this.duration));
+                        }
+                    }
+                }
+            });
 
-            db.collection("users").document(user.getUid().toString()).collection("userData").document(date).collection("Exercise").document(this.currActivity).set(userInfo, SetOptions.merge());
 
             DocumentReference docRef = db.collection("users").document(user.getUid().toString()).collection("userData").document(date).collection("Total").document("Total");
             docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() { //Does the .get() command with a custom onComplete
@@ -267,7 +289,8 @@ public class ExerciseInput extends AppCompatActivity {
             //finish();
             //Opening success page
             Intent intent = new Intent(getApplicationContext(), SuccessExerciseInput_Page.class);
-            startActivity(intent.putExtra("activity", this.currActivity));
+            String[] array = {this.currActivity,String.valueOf(calories())};
+            startActivity(intent.putExtra("activity", array));
         }
 
     }

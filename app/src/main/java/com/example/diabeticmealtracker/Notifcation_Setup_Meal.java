@@ -21,8 +21,7 @@ public class Notifcation_Setup_Meal extends AppCompatActivity {
     }
 
     public void backNotificationSetup (View view){
-        Intent intent = new Intent (getApplicationContext(), Input_Page.class);
-        startActivity(intent);
+        finish();
     }
     public void doneNotificationSetup (View view){
         finish();

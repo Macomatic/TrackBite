@@ -155,7 +155,6 @@ public class Detailed_Input extends AppCompatActivity {
                 db.collection("users").document(user.getUid().toString()).collection("userData").document(date).collection("Food").document(name).set(userInfo, SetOptions.merge());
                 Map<String, Object> Date = new HashMap<>();
                 Date.put("Date", date);
-                db.collection("users").document(user.getUid().toString()).set(Date);
                 // notification saying the input has been successfully added to firebase
                 Toast.makeText(Detailed_Input.this, "Input Successful", Toast.LENGTH_LONG).show();
 
@@ -171,12 +170,13 @@ public class Detailed_Input extends AppCompatActivity {
                             if (!document.exists()) {
                                 totals.put("Total Burned Calories","0");
                                 totals.put("Total Active Hours", "0");
-                                totals.put("Total carbs","0");
-                                totals.put("Total fats", "0");
+                                totals.put("Total carbs",carbohydrates);
+                                totals.put("Total fats", fats);
                                 totals.put("Total proteins","0");
-                                totals.put("Total calories","0");
-                                totals.put("Fiber","0");
-                                totals.put("Sugar","0");
+                                totals.put("Total calories",calories);
+                                totals.put("Fiber",fibre);
+                                totals.put("Sugar",sugar);
+                                //Add the other vitamins,etc
                                 db.collection("users").document(user.getUid()).collection("userData").document(date).collection("Total").document("Total").set(totals);
                             }
                             else {
@@ -232,6 +232,21 @@ public class Detailed_Input extends AppCompatActivity {
                 txtVitC.setText("");
             }
         });
+
+        Date currentTime = Calendar.getInstance().getTime();
+        String formattedDate = DateFormat.getDateInstance(DateFormat.LONG).format(currentTime);
+        formattedDate = formattedDate.replace(",", "");
+        String[] splitDate = formattedDate.split(" ");
+        String month = convertMonthNum(splitDate[0]);
+        String dateNum = splitDate[1];
+        String year = splitDate[2];
+        String date = year + month + dateNum;
+
+        Map<String,Object> Date = new HashMap<>();
+        Date.put("Date",date);
+//            db.collection("users").document(user.getUid().toString()).set(date);
+        db.collection("users").document(user.getUid().toString()).collection("userData").document(date).set(Date);
+
     }
 
     // converts the month into its numeric form
@@ -272,7 +287,6 @@ public class Detailed_Input extends AppCompatActivity {
     }
 
     public void backDetailedInputPage(View view) {
-        Intent intent = new Intent(getApplicationContext(), Manual_Input.class);
-        startActivity(intent);
+        finish();
     }
 }

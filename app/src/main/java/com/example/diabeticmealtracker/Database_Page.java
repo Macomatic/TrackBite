@@ -111,8 +111,7 @@ public class Database_Page extends AppCompatActivity {
 
     // back button
     public void backDatabasePage(View view) {
-        Intent intent = new Intent(getApplicationContext(), Input_Page.class);
-        startActivity(intent);
+        finish();
     }
 
     // converts the month into its numeric form

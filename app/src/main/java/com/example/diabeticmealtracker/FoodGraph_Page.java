@@ -28,7 +28,6 @@ public class FoodGraph_Page extends AppCompatActivity {
         foodAnalysed.setText(values[1]);
     }
     public void backFoodGraphPage (View view){
-        Intent intent = new Intent (getApplicationContext(), FoodAnalysis_Page.class);
-        startActivity(intent);
+        finish();
     }
 }

@@ -74,8 +74,7 @@ public class ProfilePage extends AppCompatActivity {
     }
 
     public void backMyProfileClick (View view){
-        Intent intent = new Intent (getApplicationContext(), MainScreenPage.class);
-        startActivity(intent);
+        finish();
     }
     public void changeMyProfile (View view){
         Intent intent = new Intent (getApplicationContext(), UpdateProfilePage.class);

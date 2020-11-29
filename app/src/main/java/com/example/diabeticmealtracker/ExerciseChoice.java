@@ -14,8 +14,7 @@ public class ExerciseChoice extends AppCompatActivity {
         setContentView(R.layout.activity_exercise_choice);
     }
     public void backExerciseChoice (View view){
-        Intent intent = new Intent (getApplicationContext(), Exercise_Page.class);
-        startActivity(intent);
+        finish();
     }
     public void dancingClick (View view){
         Intent intent = new Intent (getApplicationContext(), DanceInput.class);

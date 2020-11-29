@@ -121,18 +121,41 @@ public class YogaInput extends AppCompatActivity {
             FirebaseFirestore db = FirebaseFirestore.getInstance();
             FirebaseUser user = mAuth.getCurrentUser(); //Grabs current user
 
-            Map<String, Object> userInfo = new HashMap<>();
+            DocumentReference oldRef = db.collection("users").document(user.getUid().toString()).collection("userData").document(date).collection("Exercise").document(this.currActivity);
+            oldRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() { //Does the .get() command with a custom onComplete
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult(); //Grab snapshot of requirements
+                        Map<String,Object> exerciseData = new HashMap<>();
+                        //String calories = document.getString("CaloriesBurned").substring(0,document.getString("CaloriesBurned").indexOf("."));
+                        if (!document.exists()) {
+                            //Toast.makeText(getApplicationContext(), "pass", Toast.LENGTH_SHORT).show(); // Email is incorrectly formatted
+                            exerciseData.put("Activity", currActivity);
+                            exerciseData.put("CaloriesBurned", String.valueOf(caloriesBurned(METS(currActivity),duration)));
+                            exerciseData.put("Duration", String.valueOf(duration));
+                            db.collection("users").document(user.getUid()).collection("userData").document(date).collection("Exercise").document(currActivity).set(exerciseData);
+                        }
+                        else {
+                            double calories = Double.parseDouble(document.getString("CaloriesBurned"));
+                            double activeHours = Double.parseDouble(document.getString("Duration"));
+                            calories+=caloriesBurned(METS(currActivity),duration);
+                            activeHours+=duration;
+                            exerciseData.put("CaloriesBurned",String.valueOf(calories));
+                            exerciseData.put("Duration", String.valueOf(activeHours));
+                            db.collection("users").document(user.getUid().toString()).collection("userData").document(date).collection("Exercise").document(currActivity).set(exerciseData, SetOptions.merge());
 
-            userInfo.put("Activity", this.currActivity);
-            userInfo.put("Duration", String.valueOf(duration));
-            userInfo.put("CaloriesBurned", String.valueOf(caloriesBurned(METS(this.currActivity),duration)));
-
-            db.collection("users").document(user.getUid().toString()).collection("userData").document(date).collection("Exercise").document(this.currActivity).set(userInfo, SetOptions.merge());
+                        }
+                    }
+                }
+            });
 
             finish();
             //Opening success page
             Intent intent = new Intent(getApplicationContext(), SuccessExerciseInput_Page.class);
-            startActivity(intent.putExtra("activity", this.currActivity));
+            double calories = caloriesBurned(METS(this.currActivity),duration);
+            String[] array = {this.currActivity,String.valueOf(calories)};
+            startActivity(intent.putExtra("activity", array));
 
         }
 

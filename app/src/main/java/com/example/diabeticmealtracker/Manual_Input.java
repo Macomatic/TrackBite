@@ -24,7 +24,6 @@ public class Manual_Input extends AppCompatActivity {
         startActivity(intent);
     }
     public void backManualInputPage (View view){
-        Intent intent = new Intent (getApplicationContext(), Input_Page.class);
-        startActivity(intent);
+        finish();
     }
 }

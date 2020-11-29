@@ -20,8 +20,7 @@ public class Data_Analysis_Page extends AppCompatActivity {
         setContentView(R.layout.activity_data__analysis__page);
     }
     public void backDataAnalysis (View view){
-        Intent intent = new Intent (getApplicationContext(), MainScreenPage.class);
-        startActivity(intent);
+        finish();
     }
     public void foodAnalysisClick (View view){
         Intent intent = new Intent (getApplicationContext(), FoodAnalysis_Page.class);

@@ -14,8 +14,7 @@ public class Barcode_Scan extends AppCompatActivity {
         setContentView(R.layout.activity_barcode__scan);
     }
     public void backBarcodeScan (View view){
-        Intent intent = new Intent (getApplicationContext(), Input_Page.class);
-        startActivity(intent);
+        finish();
     }
 
 }

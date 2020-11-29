@@ -72,7 +72,8 @@ public class ExerciseGraph_Page extends AppCompatActivity {
                 });
     }
 
-    protected void onStart() {
+    @Override
+    public void onStart(){
         super.onStart();
         Bundle extra = getIntent().getExtras();
         String[] values = extra.getStringArray("values");
@@ -133,8 +134,73 @@ public class ExerciseGraph_Page extends AppCompatActivity {
                 });
 
         // END OF TEMP CODE
-
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        //super.onStart();
+        Bundle extra = getIntent().getExtras();
+        String[] values = extra.getStringArray("values");
+
+        FirebaseAuth mAuth = FirebaseAuth.getInstance(); //Grabs current instance of database
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        FirebaseUser user = mAuth.getCurrentUser(); //Grabs current user
+
+        TextView timeRange = (TextView) findViewById(R.id.activityTimeRange);
+        TextView exerciseAnalysis = (TextView) findViewById(R.id.exerciseAnalysis);
+        TextView testDBReading = (TextView) findViewById(R.id.testDBReading);
+
+        if (values[0].equals("Week") || values[0].equals("Month") || values[0].equals("Year")) {
+            timeRange.setText("Data for the last "+values[0]);
+            String currDate = dateRetriever();
+            this.dateRange = dateDecrementer(currDate, values[0]) + "-"+currDate;
+        }
+        else {
+            String firstDate = convertStringToDate(values[0].substring(0,8));
+            String secondDate = convertStringToDate(values[0].substring(9));
+            timeRange.setText("From "+firstDate+" to "+secondDate);
+            this.dateRange = dateReorganizer(values[0].substring(0,8)) + "-" + dateReorganizer(values[0].substring(9));
+        }
+        if (values[1].equals("All")) {
+            exerciseAnalysis.setText("Analyzing all possible values");
+            this.displayCaloriesBurned = true;
+            this.displayActiveHours = true;
+        }
+        else {
+            exerciseAnalysis.setText("Analyzing " + values[1]);
+            if (values[1].equals("Calories Burned")) {
+                this.displayCaloriesBurned = true;
+                this.displayActiveHours = false;
+            }
+            else {
+                this.displayCaloriesBurned = false;
+                this.displayActiveHours = true;
+            }
+        }
+        // TEMP CODE
+        db.collection("users").document(user.getUid()).collection("userData").document("Analysis")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        String dbContents = "";
+                        DocumentSnapshot document = task.getResult();
+                        List<String> dates = (List<String>) document.get("validDates");
+//                        if (displayActiveHours) {
+//                            for (String docID : docRef.get("validDates"))
+//                        }
+                        for (int i = 0; i < dates.size(); i++) {
+                            dbContents+=dates.get(i)+" ";
+                        }
+                        testDBReading.setText(dbContents);
+                    }
+
+                });
+
+        // END OF TEMP CODE
+    }
+
 
     public String convertMonthNum(String month) {
         if (month.equals("January")) {
@@ -227,7 +293,6 @@ public class ExerciseGraph_Page extends AppCompatActivity {
     }
 
     public void backExerciseGraphPage (View view){
-        Intent intent = new Intent (getApplicationContext(), ExerciseAnalysis_Page.class);
-        startActivity(intent);
+        finish();
     }
 }
