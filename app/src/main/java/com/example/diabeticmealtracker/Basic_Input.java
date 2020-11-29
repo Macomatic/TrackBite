@@ -136,16 +136,22 @@ public class Basic_Input extends AppCompatActivity {
                                 db.collection("users").document(user.getUid()).collection("userData").document(date).collection("Total").document("Total").set(totals);
                             }
                             else {
-                                float carbs = Float.parseFloat(document.getString("carbohydrates"));
-                                float carbs = Float.parseFloat(document.getString("carbohydrates"));
-                                float carbs = Float.parseFloat(document.getString("carbohydrates"));
-                                float carbs = Float.parseFloat(document.getString("carbohydrates"));
-                                calories+=calories();
-                                activeHours+=duration;
-                                totals.put("Total Burned Calories",String.valueOf(calories));
-                                totals.put("Total Active Hours", String.valueOf(activeHours));
+                                float totalFats = Float.parseFloat(document.getString("Total fats"));
+                                float totalCarbs = Float.parseFloat(document.getString("Total carbs"));
+                                float totalSugar = Float.parseFloat(document.getString("Sugar"));
+                                float totalFibre = Float.parseFloat(document.getString("Fiber"));
+                                float totalCalories = Float.parseFloat(document.getString("Total calories"));
+                                totalFats += fats;
+                                totalCarbs += carbohydrates;
+                                totalSugar += sugar;
+                                totalFibre += fibre;
+                                totalCalories += calories;
+                                totals.put("Total carbs",String.valueOf(totalCarbs));
+                                totals.put("Total fats", String.valueOf(totalFats));
+                                totals.put("Sugar", String.valueOf(totalSugar));
+                                totals.put("Total calories", String.valueOf(totalCalories));
+                                totals.put("Fiber", String.valueOf(totalFibre));
                                 db.collection("users").document(user.getUid().toString()).collection("userData").document(date).collection("Total").document("Total").set(totals, SetOptions.merge());
-
                             }
                         }
                     }
