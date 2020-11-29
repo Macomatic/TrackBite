@@ -22,13 +22,13 @@
 
     <Button
         android:id="@+id/button4"
-        android:layout_width="250dp"
+        android:layout_width="285dp"
         android:layout_height="50dp"
         android:background="@drawable/my_button_design"
         android:backgroundTint="@color/button_background"
         android:fontFamily="@font/titillium_web_semibold"
         android:onClick="cardioClick"
-        android:text="Cardio"
+        android:text="Enter Cardio Exercise"
         android:textSize="18dp"
         app:backgroundTint="@color/button_background"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -40,13 +40,13 @@
 
     <Button
         android:id="@+id/doneInput"
-        android:layout_width="250dp"
+        android:layout_width="285dp"
         android:layout_height="50dp"
         android:background="@drawable/my_button_design"
         android:backgroundTint="@color/button_background"
         android:fontFamily="@font/titillium_web_semibold"
         android:onClick="wellBeingChoiceClick"
-        android:text="Well-Being"
+        android:text="Well-Being Exercise"
         android:textSize="18dp"
         app:backgroundTint="@color/button_background"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -57,7 +57,7 @@
 
     <Button
         android:id="@+id/button6"
-        android:layout_width="250dp"
+        android:layout_width="285dp"
         android:layout_height="50dp"
         android:background="@drawable/my_button_design"
         android:backgroundTint="@color/button_background"
