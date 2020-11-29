@@ -51,20 +51,25 @@ public class MainActivity extends AppCompatActivity {
                                 // Sign in success, update UI with the signed-in user's information
                                 FirebaseUser currentUser = mAuth.getCurrentUser();
                                 FirebaseFirestore db = FirebaseFirestore.getInstance();
-                                DocumentReference docRef = db.collection("users").document(currentUser.getUid().toString()).collection("userData").document("profile"); //Grabs extraData doc for current user
-                                docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() { //Does the .get() command with a custom onComplete
+                                db.collection("users").document(currentUser.getUid().toString()).collection("userData").document("profile")//Grabs extraData doc for current user
+                                .get()
+                                        .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() { //Does the .get() command with a custom onComplete
                                     @Override
                                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                                         if (task.isSuccessful()) {
                                             DocumentSnapshot document = task.getResult(); //Grab snapshot of extraData
-                                            String flag = document.getString("setup");
-                                            Intent intent;
-                                            if(flag.equals("false")){
-                                                intent = new Intent(getApplicationContext(), MainScreenPage.class);
+                                            if(document.getString("setup").equals("false")){
+                                                //Toast.makeText(getApplicationContext(), "false", Toast.LENGTH_SHORT).show();
+                                                Intent intent2 = new Intent(getApplicationContext(), MainScreenPage.class);
+                                                startActivity(intent2);
+                                                Intent intent = new Intent(getApplicationContext(), UpdateProfilePage.class);
                                                 startActivity(intent);
                                             }
-                                            intent = new Intent(getApplicationContext(), UpdateProfilePage.class);
-                                            startActivity(intent);
+                                            else if(document.getString("setup").equals("true")){
+                                                //Toast.makeText(getApplicationContext(), "true", Toast.LENGTH_SHORT).show();
+                                                Intent intent3 = new Intent(getApplicationContext(), MainScreenPage.class);
+                                                startActivity(intent3);
+                                            }
                                         }
                                     }
                                 });
