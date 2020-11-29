@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -14,6 +15,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -23,6 +25,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ExerciseGraph_Page extends AppCompatActivity {
@@ -52,7 +55,7 @@ public class ExerciseGraph_Page extends AppCompatActivity {
                             Map<String,Object> validDates = new HashMap<>();
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 String docId = document.getId();
-                                if (!docId.equals("profile")) {
+                                if (!docId.equals("profile") && !docId.equals("Analysis")) {
                                     int documentDate = Integer.parseInt(docId);
                                     if (documentDate >= Integer.parseInt(dateRange.substring(0, 8)) && documentDate <= Integer.parseInt(dateRange.substring(9))) {
                                         validDatesArray.add(docId);
@@ -74,8 +77,13 @@ public class ExerciseGraph_Page extends AppCompatActivity {
         Bundle extra = getIntent().getExtras();
         String[] values = extra.getStringArray("values");
 
+        FirebaseAuth mAuth = FirebaseAuth.getInstance(); //Grabs current instance of database
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        FirebaseUser user = mAuth.getCurrentUser(); //Grabs current user
+
         TextView timeRange = (TextView) findViewById(R.id.activityTimeRange);
         TextView exerciseAnalysis = (TextView) findViewById(R.id.exerciseAnalysis);
+        TextView testDBReading = (TextView) findViewById(R.id.testDBReading);
 
         if (values[0].equals("Week") || values[0].equals("Month") || values[0].equals("Year")) {
             timeRange.setText("Data for the last "+values[0]);
@@ -104,6 +112,27 @@ public class ExerciseGraph_Page extends AppCompatActivity {
                 this.displayActiveHours = true;
             }
         }
+        // TEMP CODE
+        db.collection("users").document(user.getUid()).collection("userData").document("Analysis")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        String dbContents = "";
+                        DocumentSnapshot document = task.getResult();
+                        List<String> dates = (List<String>) document.get("validDates");
+//                        if (displayActiveHours) {
+//                            for (String docID : docRef.get("validDates"))
+//                        }
+                        for (int i = 0; i < dates.size(); i++) {
+                            dbContents+=dates.get(i)+" ";
+                        }
+                        testDBReading.setText(dbContents);
+                    }
+
+                });
+
+        // END OF TEMP CODE
 
     }
 
