@@ -63,6 +63,7 @@ public class RegisterPage extends AppCompatActivity {
 
                                         userInfo.put("email", email.getText().toString());
                                         userInfo.put("name", username.getText().toString());
+                                        userInfo.put("setup", "false");
 
 
                                     db.collection("users").document(user.getUid().toString()).collection("userData").document("profile").set(userInfo); //Fills document with data in map

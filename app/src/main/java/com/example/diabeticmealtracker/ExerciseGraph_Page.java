@@ -63,6 +63,7 @@ public class ExerciseGraph_Page extends AppCompatActivity {
                                     int documentDate = Integer.parseInt(docId);
                                     if (documentDate >= Integer.parseInt(dateRange.substring(0, 8)) && documentDate <= Integer.parseInt(dateRange.substring(9))) {
                                         validDatesArray.add(docId);
+                                        //Toast.makeText(getApplicationContext(), docId, Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             }
@@ -162,6 +163,11 @@ public class ExerciseGraph_Page extends AppCompatActivity {
         } else {
             return "MONTH ERROR";
         }
+    }
+
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
     }
 
     public String dateRetriever() {

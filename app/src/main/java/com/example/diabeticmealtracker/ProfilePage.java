@@ -48,8 +48,8 @@ public class ProfilePage extends AppCompatActivity {
     }
 
     @Override
-    public void onResume(){
-        super.onResume();
+    public void onRestart(){
+        super.onRestart();
         FirebaseAuth mAuth = FirebaseAuth.getInstance(); //Grabs current instance of database
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         FirebaseUser user = mAuth.getCurrentUser(); //Grabs current user
@@ -71,6 +71,7 @@ public class ProfilePage extends AppCompatActivity {
                 }
             }
         });
+        onStart();
     }
 
     public void backMyProfileClick (View view){
