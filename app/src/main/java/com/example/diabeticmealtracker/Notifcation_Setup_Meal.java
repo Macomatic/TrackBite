@@ -9,6 +9,7 @@ import com.google.android.material.snackbar.Snackbar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.renderscript.ScriptGroup;
 import android.view.View;
 
 public class Notifcation_Setup_Meal extends AppCompatActivity {
@@ -20,7 +21,10 @@ public class Notifcation_Setup_Meal extends AppCompatActivity {
     }
 
     public void backNotificationSetup (View view){
-        Intent intent = new Intent (getApplicationContext(), Second_Notification_Page.class);
+        Intent intent = new Intent (getApplicationContext(), Input_Page.class);
         startActivity(intent);
+    }
+    public void doneNotificationSetup (View view){
+        finish();
     }
 }

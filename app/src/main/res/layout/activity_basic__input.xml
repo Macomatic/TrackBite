@@ -26,7 +26,7 @@
 
     <Button
         android:id="@+id/basicInputAdd"
-        android:layout_width="180dp"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:background="@drawable/my_button_design"
         android:text="Add Food"
@@ -74,6 +74,7 @@
         android:id="@+id/mealSpinner"
         android:layout_width="260dp"
         android:layout_height="48dp"
+        android:theme="@style/SpinnerTheme"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"

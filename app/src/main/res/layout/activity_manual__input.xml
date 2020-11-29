@@ -30,15 +30,15 @@
         android:background="@drawable/my_button_design"
         android:fontFamily="@font/titillium_web_semibold"
         android:onClick="onBasicInput"
-        android:text="Basic Input"
+        android:text="Simple Meal Entry"
         android:textSize="18dp"
         app:backgroundTint="@color/button_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.307" />
+        app:layout_constraintVertical_bias="0.306" />
 
     <Button
         android:id="@+id/detailedinput"
@@ -47,7 +47,7 @@
         android:background="@drawable/my_button_design"
         android:fontFamily="@font/titillium_web_semibold"
         android:onClick="onDetailedInput"
-        android:text="Detailed Input"
+        android:text="Complex Meal Entry"
         android:textSize="18dp"
         app:backgroundTint="@color/button_background"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -21,42 +21,43 @@
 
     <EditText
         android:id="@+id/editTextNumberSigned4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="193dp"
+        android:layout_height="52dp"
         android:ems="10"
+        android:fontFamily="@font/merriweather_bold"
         android:gravity="center"
         android:inputType="numberSigned"
         android:maxLength="3"
-        android:fontFamily="@font/merriweather_bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.601"
+        app:layout_constraintHorizontal_bias="0.605"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.655" />
 
     <Spinner
         android:id="@+id/sex"
-        android:layout_width="216dp"
-        android:layout_height="56dp"
-        android:theme="@style/SpinnerTheme"
+        android:layout_width="166dp"
+        android:layout_height="62dp"
         android:gravity="center"
+        android:theme="@style/SpinnerTheme"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.62"
+        app:layout_constraintHorizontal_bias="0.579"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.497" />
+        app:layout_constraintVertical_bias="0.499" />
 
     <EditText
         android:id="@+id/editTextNumberSigned"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="192dp"
+        android:layout_height="40dp"
         android:ems="10"
+        android:fontFamily="@font/merriweather_bold"
         android:gravity="center"
         android:inputType="numberSigned"
         android:maxLength="3"
-        android:fontFamily="@font/merriweather_bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.601"
@@ -66,19 +67,19 @@
 
     <EditText
         android:id="@+id/editTextNumberSigned2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="190dp"
+        android:layout_height="43dp"
         android:ems="10"
+        android:fontFamily="@font/merriweather_bold"
         android:gravity="center"
         android:inputType="numberSigned"
         android:maxLength="3"
-        android:fontFamily="@font/merriweather_bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.601"
+        app:layout_constraintHorizontal_bias="0.597"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.364" />
+        app:layout_constraintVertical_bias="0.366" />
 
     <TextView
         android:id="@+id/textView36"
@@ -130,7 +131,7 @@
         android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.114"
+        app:layout_constraintHorizontal_bias="0.1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.65" />
@@ -211,7 +212,7 @@
         android:layout_width="50dp"
         android:layout_height="wrap_content"
         android:fontFamily="@font/merriweather_bold"
-        android:text="KG"
+        android:text="Kg"
         android:textSize="18dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

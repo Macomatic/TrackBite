@@ -12,15 +12,14 @@
     <string name="title_activity_home_page">HomePage</string>
 
     <string-array name="sex">
-
         <item>"Male"</item>
-
         <item>"Female"</item>
     </string-array>
 
     <style name="SpinnerTheme">
         <item name="android:fontFamily">@font/merriweather_bold</item>
         <item name="android:gravity">center</item>
+        <item name="android:textColor">#404040</item>
     </style>
 
 </resources>

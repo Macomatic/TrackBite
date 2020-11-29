@@ -29,7 +29,7 @@
         android:background="@drawable/my_button_design"
         android:fontFamily="@font/titillium_web_semibold"
         android:onClick="inputButtonClick"
-        android:text="Input"
+        android:text="Enter A Meal"
         android:textSize="18dp"
         app:backgroundTint="@color/button_background"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -37,7 +37,8 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.28" />
+        app:layout_constraintVertical_bias="0.28"
+        tools:ignore="OnClick" />
 
     <Button
         android:id="@+id/notifcation"
@@ -55,7 +56,8 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/data_analysis"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.0"
+        tools:ignore="OnClick" />
 
     <Button
         android:id="@+id/data_analysis"
@@ -65,7 +67,7 @@
         android:background="@drawable/my_button_design"
         android:fontFamily="@font/titillium_web_semibold"
         android:onClick="data_analysisButtonClick"
-        android:text="Data Analysis"
+        android:text="Analysis and Graphs"
         android:textSize="18dp"
         app:backgroundTint="@color/button_background"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -73,7 +75,8 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/exercise"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.0"
+        tools:ignore="OnClick" />
 
     <Button
         android:id="@+id/exercise"
@@ -83,7 +86,7 @@
         android:background="@drawable/my_button_design"
         android:fontFamily="@font/titillium_web_semibold"
         android:onClick="exerciseButtonClick"
-        android:text="Exercise"
+        android:text="Enter Exercise"
         android:textSize="18dp"
         app:backgroundTint="@color/button_background"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -91,7 +94,8 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/input"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.0"
+        tools:ignore="OnClick" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

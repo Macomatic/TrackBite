@@ -51,15 +51,16 @@
 
     <Spinner
         android:id="@+id/danceSpinner"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
+        android:layout_width="230dp"
+        android:layout_height="46dp"
         android:textSize="18dp"
+        android:theme="@style/SpinnerTheme"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.9"
+        app:layout_constraintHorizontal_bias="0.911"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.37" />
+        app:layout_constraintVertical_bias="0.345" />
 
     <TextView
         android:id="@+id/textView4"
