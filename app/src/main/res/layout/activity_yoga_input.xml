@@ -36,17 +36,18 @@
 
     <EditText
         android:id="@+id/yogahoursInput"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
+        android:layout_width="185dp"
+        android:layout_height="41dp"
         android:ems="10"
+        android:fontFamily="@font/merriweather_bold"
         android:hint="Number of Hours"
         android:inputType="numberDecimal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.785"
+        app:layout_constraintHorizontal_bias="0.84"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.626" />
+        app:layout_constraintVertical_bias="0.642" />
 
     <Spinner
         android:id="@+id/danceSpinner"

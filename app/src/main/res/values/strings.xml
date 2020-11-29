@@ -18,5 +18,9 @@
         <item>"Female"</item>
     </string-array>
 
+    <style name="SpinnerTheme">
+        <item name="android:fontFamily">@font/merriweather_bold</item>
+        <item name="android:gravity">center</item>
+    </style>
 
 </resources>

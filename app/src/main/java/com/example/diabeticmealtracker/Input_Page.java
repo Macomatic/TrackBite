@@ -34,4 +34,8 @@ public class Input_Page extends AppCompatActivity {
         Intent intent = new Intent (getApplicationContext(), ScanNutritionalFacts.class);
         startActivity(intent);
     }
+    public void notificationsClick (View view){
+        Intent intent = new Intent (getApplicationContext(), Notifcation_Setup_Meal.class);
+        startActivity(intent);
+    }
 }

@@ -117,5 +117,21 @@
         tools:layout_conversion_absoluteHeight="48dp"
         tools:layout_conversion_absoluteWidth="200dp" />
 
+    <Button
+        android:id="@+id/button5"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:background="@drawable/my_button_design"
+        android:fontFamily="@font/titillium_web_semibold"
+        android:onClick="notificationsClick"
+        android:text="Notifications"
+        android:textSize="18dp"
+        app:backgroundTint="@color/button_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.775" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

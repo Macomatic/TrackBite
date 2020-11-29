@@ -48,19 +48,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.976" />
 
-    <CheckBox
-        android:id="@+id/checkBox3"
-        android:layout_width="151dp"
-        android:layout_height="44dp"
-        android:layout_marginBottom="216dp"
-        android:text="At the end of day"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.838"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkBox"
-        app:layout_constraintVertical_bias="0.0" />
-
     <EditText
         android:id="@+id/editTextDate2"
         android:layout_width="150dp"
@@ -69,36 +56,65 @@
         android:layout_marginEnd="36dp"
         android:layout_marginRight="36dp"
         android:ems="10"
+        android:fontFamily="@font/merriweather_bold"
         android:gravity="center"
         android:hint="dd/mm/yyyy"
         android:inputType="date"
         app:layout_constraintBottom_toTopOf="@+id/checkBox"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/textView7"
-        app:layout_constraintVertical_bias="0.611" />
+        app:layout_constraintVertical_bias="0.261" />
 
     <CheckBox
         android:id="@+id/checkBox"
         android:layout_width="154dp"
         android:layout_height="61dp"
-        android:layout_marginBottom="220dp"
+        android:layout_marginBottom="192dp"
+        android:fontFamily="@font/merriweather_bold"
         android:text="Right after daily limit is reached"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.844"
+        app:layout_constraintHorizontal_bias="0.859"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="149dp"
+        android:layout_height="59dp"
+        android:fontFamily="@font/merriweather_bold"
+        android:gravity="center"
+        android:text="If daily at what time would you like to be notified?"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.167"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.738" />
+
+    <CheckBox
+        android:id="@+id/checkBox3"
+        android:layout_width="154dp"
+        android:layout_height="44dp"
+        android:fontFamily="@font/merriweather_bold"
+        android:text="At the end of day"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.859"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/checkBox"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/meal_nutrient_selection"
         android:layout_width="111dp"
         android:layout_height="72dp"
         android:layout_marginTop="100dp"
+        android:fontFamily="@font/merriweather_bold"
         android:gravity="center"
         android:text="What would you to be notified about?"
-        android:fontFamily="@font/merriweather_bold"
         app:layout_constraintBottom_toTopOf="@+id/meal_time_selection"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.153"
+        app:layout_constraintHorizontal_bias="0.106"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.753" />
@@ -107,15 +123,15 @@
         android:id="@+id/meal_time_selection"
         android:layout_width="111dp"
         android:layout_height="72dp"
-        android:layout_marginEnd="252dp"
-        android:layout_marginRight="252dp"
+        android:layout_marginEnd="268dp"
+        android:layout_marginRight="268dp"
+        android:fontFamily="@font/merriweather_bold"
         android:gravity="center"
         android:text="Notify based on what time frame?"
-        android:fontFamily="@font/merriweather_bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.383" />
+        app:layout_constraintVertical_bias="0.377" />
 
     <TextView
         android:id="@+id/textView7"
@@ -136,6 +152,7 @@
         android:gravity="center_horizontal"
         android:hint="everything, sugar, fats .. "
         android:inputType="textPersonName"
+        android:fontFamily="@font/merriweather_bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.855"
@@ -153,6 +170,7 @@
         android:ems="10"
         android:gravity="center"
         android:hint="dd/mm/yyyy"
+        android:fontFamily="@font/merriweather_bold"
         android:inputType="date"
         app:layout_constraintBottom_toTopOf="@+id/textView8"
         app:layout_constraintEnd_toStartOf="@+id/editTextDate2"
@@ -168,6 +186,7 @@
         android:ems="10"
         android:gravity="center_horizontal"
         android:hint="daily, weekly, monthly"
+        android:fontFamily="@font/merriweather_bold"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -175,20 +194,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.38" />
-
-    <TextView
-        android:id="@+id/textView8"
-        android:layout_width="149dp"
-        android:layout_height="59dp"
-        android:gravity="center"
-        android:fontFamily="@font/merriweather_bold"
-        android:text="If daily at what time would you like to be notified"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.167"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.703" />
 
     <TextView
         android:id="@+id/notifcation_setup"

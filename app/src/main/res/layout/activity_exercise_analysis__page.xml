@@ -151,13 +151,16 @@
         android:layout_marginEnd="73dp"
         android:layout_marginRight="73dp"
         android:layout_marginBottom="33dp"
+        android:fontFamily="@font/merriweather_bold"
         android:gravity="center"
         android:text="(Only editable when a time frame is not selected)"
         android:textSize="12dp"
         app:layout_constraintBottom_toTopOf="@+id/lastCustomRange"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.512"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView18" />
+        app:layout_constraintTop_toBottomOf="@+id/textView18"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Spinner
         android:id="@+id/timeFrameSpinner"
