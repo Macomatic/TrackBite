@@ -22,11 +22,11 @@ import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Map;
 
 public class ExerciseGraph_Page extends AppCompatActivity {
 
     public boolean displayCaloriesBurned, displayActiveHours;
-    public ArrayList<String> validDates;
     public String dateRange;
     public String[] months = new String[]{"January", "February", "March", "April","May","June","July","August","September","October","November","December"};
 
@@ -37,8 +37,6 @@ public class ExerciseGraph_Page extends AppCompatActivity {
 
         this.displayActiveHours = false;
         this.displayCaloriesBurned = false;
-        this.validDates = new ArrayList<String>();
-
 
         FirebaseAuth mAuth = FirebaseAuth.getInstance(); //Grabs current instance of database
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -56,7 +54,6 @@ public class ExerciseGraph_Page extends AppCompatActivity {
                                     Toast.makeText(getApplicationContext(), "We in", Toast.LENGTH_SHORT).show();
                                     int documentDate = Integer.parseInt(docId);
                                     if (documentDate >= Integer.parseInt(dateRange.substring(0, 8)) && documentDate <= Integer.parseInt(dateRange.substring(9))) {
-                                        validDates.add(docId);
                                     }
                                 }
                             }
@@ -66,12 +63,6 @@ public class ExerciseGraph_Page extends AppCompatActivity {
                         }
                     }
                 });
-                if (this.validDates.isEmpty()) {
-                    Toast.makeText(getApplicationContext(), "No valid dates", Toast.LENGTH_SHORT).show();
-                }
-                else {
-                    Toast.makeText(getApplicationContext(), validDates.get(validDates.size()-1), Toast.LENGTH_SHORT).show();
-                }
     }
 
     protected void onStart() {

@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -225,9 +226,43 @@ public class ExerciseInput extends AppCompatActivity {
 
             db.collection("users").document(user.getUid().toString()).collection("userData").document(date).collection("Exercise").document(this.currActivity).set(userInfo, SetOptions.merge());
 
-            Map<String,Object> Date = new HashMap<>();
-            Date.put("Date",date);
-            db.collection("users").document(user.getUid().toString()).set(date);
+            DocumentReference docRef = db.collection("users").document(user.getUid().toString()).collection("userData").document(date).collection("Total").document("Total");
+            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() { //Does the .get() command with a custom onComplete
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult(); //Grab snapshot of requirements
+                        Map<String,Object> totals = new HashMap<>();
+                        //String calories = document.getString("CaloriesBurned").substring(0,document.getString("CaloriesBurned").indexOf("."));
+                        if (!document.exists()) {
+                            totals.put("Total Burned Calories",calories());
+                            totals.put("Total Active Hours", duration);
+                            totals.put("Total carbs",0);
+                            totals.put("Total fats", 0);
+                            totals.put("Total proteins",0);
+                            totals.put("Total calories",0);
+                            totals.put("Fiber",0);
+                            totals.put("Sugar",0);
+                            db.collection("users").document(user.getUid()).collection("userData").document(date).collection("Total").document("Total").set(totals);
+                        }
+                        else {
+                            double calories = document.getDouble("Total Burned Calories");
+                            int activeHours = Integer.parseInt(document.getString("Total Active Hours"));
+                            calories+=calories();
+                            activeHours+=duration;
+                            totals.put("Total Burned Calories",calories);
+                            totals.put("Total Active Hours", activeHours);
+                            db.collection("users").document(user.getUid().toString()).collection("userData").document(date).collection("Total").document("Total").set(totals, SetOptions.merge());
+
+                        }
+                    }
+                }
+            });
+
+//            Map<String,Object> Date = new HashMap<>();
+//            Date.put("Date",date);
+//            db.collection("users").document(user.getUid().toString()).set(date);
+
             finish();
             //Opening success page
             Intent intent = new Intent(getApplicationContext(), SuccessExerciseInput_Page.class);
