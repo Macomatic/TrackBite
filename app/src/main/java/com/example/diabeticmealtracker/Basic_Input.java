@@ -90,6 +90,7 @@ public class Basic_Input extends AppCompatActivity {
                 float fibre = Float.parseFloat(txtFibre.getText().toString().trim());
                 float calories = Float.parseFloat(txtCalories.getText().toString().trim());
                 String meal = spnMeal.getSelectedItem().toString();
+
                 // setting the field inputs into the food object
                 Map<String, Object> userInfo = new HashMap<>();
                 userInfo.put("name", name);
@@ -102,10 +103,10 @@ public class Basic_Input extends AppCompatActivity {
                 userInfo.put("meal", meal);
 
                 // push food object onto firebase based on the meal time selected
-                db.collection("users").document(user.getUid().toString()).collection("userData").document(date).collection("Food").document(name).set(userInfo, SetOptions.merge());
                 Map<String,Object> Date = new HashMap<>();
                 Date.put("Date",date);
                 db.collection("users").document(user.getUid().toString()).set(date);
+                db.collection("users").document(user.getUid().toString()).collection("userData").document(date).collection("Food").document(name).set(userInfo, SetOptions.merge());
                 // notification saying the input has been successfully added to firebase
                 Toast.makeText(Basic_Input.this, "Input Successful", Toast.LENGTH_LONG).show();
             }

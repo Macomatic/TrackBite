@@ -3,6 +3,7 @@ package com.example.diabeticmealtracker;
 public class Food {
     private String _name, _meal;
     private float _servingSize, _fat, _carbohydrates, _sugar, _fibre, _calories;
+    private AdditionalInput[] _additionalInput;
 
     // constructor
     public Food() {
@@ -79,5 +80,47 @@ public class Food {
 
     public void setCalories(float calories) {
         _calories = calories;
+    }
+
+    // addition input
+
+    public AdditionalInput[] getAdditionalInput() {
+        return _additionalInput;
+    }
+
+    public void setAdditionInput(AdditionalInput add, int i) {
+        _additionalInput[i] = add;
+    }
+
+    // Additional Input Class
+    private class AdditionalInput {
+        private String addName;
+        private float addValue;
+
+        // constructor
+        public AdditionalInput(String name, float value) {
+            addName = name;
+            addValue = value;
+        }
+
+
+        // Addition Info Name
+        public String getAddName() {
+            return addName;
+        }
+
+        public void setAddName(String name) {
+            addName = name;
+        }
+
+        // Addition Info Value
+        public float getAddValue() {
+            return addValue;
+        }
+
+        public void setAddValue(float value) {
+            addValue = value;
+        }
+
     }
 }
