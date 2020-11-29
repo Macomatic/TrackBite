@@ -235,23 +235,23 @@ public class ExerciseInput extends AppCompatActivity {
                         Map<String,Object> totals = new HashMap<>();
                         //String calories = document.getString("CaloriesBurned").substring(0,document.getString("CaloriesBurned").indexOf("."));
                         if (!document.exists()) {
-                            totals.put("Total Burned Calories",calories());
-                            totals.put("Total Active Hours", duration);
-                            totals.put("Total carbs",0);
-                            totals.put("Total fats", 0);
-                            totals.put("Total proteins",0);
-                            totals.put("Total calories",0);
-                            totals.put("Fiber",0);
-                            totals.put("Sugar",0);
+                            totals.put("Total Burned Calories", String.valueOf(calories()));
+                            totals.put("Total Active Hours", String.valueOf(duration));
+                            totals.put("Total carbs","0");
+                            totals.put("Total fats", "0");
+                            totals.put("Total proteins","0");
+                            totals.put("Total calories","0");
+                            totals.put("Fiber","0");
+                            totals.put("Sugar","0");
                             db.collection("users").document(user.getUid()).collection("userData").document(date).collection("Total").document("Total").set(totals);
                         }
                         else {
-                            double calories = document.getDouble("Total Burned Calories");
-                            int activeHours = Integer.parseInt(document.getString("Total Active Hours"));
+                            float calories = Float.parseFloat(document.getString("Total Burned Calories"));
+                            double activeHours = Double.parseDouble(document.getString("Total Active Hours"));
                             calories+=calories();
                             activeHours+=duration;
-                            totals.put("Total Burned Calories",calories);
-                            totals.put("Total Active Hours", activeHours);
+                            totals.put("Total Burned Calories",String.valueOf(calories));
+                            totals.put("Total Active Hours", String.valueOf(activeHours));
                             db.collection("users").document(user.getUid().toString()).collection("userData").document(date).collection("Total").document("Total").set(totals, SetOptions.merge());
 
                         }
@@ -259,11 +259,12 @@ public class ExerciseInput extends AppCompatActivity {
                 }
             });
 
-//            Map<String,Object> Date = new HashMap<>();
-//            Date.put("Date",date);
+            Map<String,Object> Date = new HashMap<>();
+            Date.put("Date",date);
 //            db.collection("users").document(user.getUid().toString()).set(date);
+            db.collection("users").document(user.getUid().toString()).collection("userData").document(date).set(Date);
 
-            finish();
+            //finish();
             //Opening success page
             Intent intent = new Intent(getApplicationContext(), SuccessExerciseInput_Page.class);
             startActivity(intent.putExtra("activity", this.currActivity));
