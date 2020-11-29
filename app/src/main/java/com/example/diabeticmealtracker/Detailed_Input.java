@@ -111,18 +111,18 @@ public class Detailed_Input extends AppCompatActivity {
                 float calories = Float.parseFloat(txtCalories.getText().toString().trim());
                 String meal = spnMeal.getSelectedItem().toString();
                 // parsing detailed input
-                String sFat = (String) txtName.getText().toString().trim();
-                String tFat = (String) txtName.getText().toString().trim();
-                String cholesterol = (String) txtName.getText().toString().trim();
-                String sodium = (String) txtName.getText().toString().trim();
-                String protein = (String) txtName.getText().toString().trim();
-                String calcium = (String) txtName.getText().toString().trim();
-                String potassium = (String) txtName.getText().toString().trim();
-                String iron = (String) txtName.getText().toString().trim();
-                String zinc = (String) txtName.getText().toString().trim();
-                String vitaminA = (String) txtName.getText().toString().trim();
-                String vitaminB = (String) txtName.getText().toString().trim();
-                String vitaminC = (String) txtName.getText().toString().trim();
+                String sFat = (String) txtSFat.getText().toString().trim();
+                String tFat = (String) txtTFat.getText().toString().trim();
+                String cholesterol = (String) txtCholesterol.getText().toString().trim();
+                String sodium = (String) txtSodium.getText().toString().trim();
+                String protein = (String) txtProtein.getText().toString().trim();
+                String calcium = (String) txtCalcium.getText().toString().trim();
+                String potassium = (String) txtPotassium.getText().toString().trim();
+                String iron = (String) txtIron.getText().toString().trim();
+                String zinc = (String) txtZinc.getText().toString().trim();
+                String vitaminA = (String) txtVitA.getText().toString().trim();
+                String vitaminB = (String) txtVitB.getText().toString().trim();
+                String vitaminC = (String) txtVitC.getText().toString().trim();
                 // setting the field inputs into the food object
                 userInfo.put("name", name);
                 userInfo.put("servingSize", servingSize);
@@ -133,24 +133,24 @@ public class Detailed_Input extends AppCompatActivity {
                 userInfo.put("calories", calories);
                 userInfo.put("meal", meal);
                 // setting additional input
-                pushNonNullData("saturatedFat",sFat);
-                pushNonNullData("transFat",tFat);
-                pushNonNullData ("cholesterol",cholesterol);
-                pushNonNullData ("sodium",sodium);
-                pushNonNullData("protein",protein);
-                pushNonNullData ("calcium",calcium);
-                pushNonNullData ("potassium",potassium);
-                pushNonNullData ("iron",iron);
-                pushNonNullData ("zinc",zinc);
-                pushNonNullData ("vitaminA",vitaminA);
-                pushNonNullData ("vitaminB",vitaminB);
-                pushNonNullData ("vitaminC",vitaminC);
+                pushNonNullData("saturatedFat", sFat);
+                pushNonNullData("transFat", tFat);
+                pushNonNullData("cholesterol", cholesterol);
+                pushNonNullData("sodium", sodium);
+                pushNonNullData("protein", protein);
+                pushNonNullData("calcium", calcium);
+                pushNonNullData("potassium", potassium);
+                pushNonNullData("iron", iron);
+                pushNonNullData("zinc", zinc);
+                pushNonNullData("vitaminA", vitaminA);
+                pushNonNullData("vitaminB", vitaminB);
+                pushNonNullData("vitaminC", vitaminC);
 
                 // push food object onto firebase based on the meal time selected
-                Map<String,Object> Date = new HashMap<>();
-                Date.put("Date",date);
-                db.collection("users").document(user.getUid().toString()).set(date);
                 db.collection("users").document(user.getUid().toString()).collection("userData").document(date).collection("Food").document(name).set(userInfo, SetOptions.merge());
+                Map<String, Object> Date = new HashMap<>();
+                Date.put("Date", date);
+                db.collection("users").document(user.getUid().toString()).set(Date);
                 // notification saying the input has been successfully added to firebase
                 Toast.makeText(Detailed_Input.this, "Input Successful", Toast.LENGTH_LONG).show();
             }
@@ -215,9 +215,9 @@ public class Detailed_Input extends AppCompatActivity {
         }
     }
 
-    public void pushNonNullData (String name, String x) {
-        if (x != null){
-            userInfo.put(name, x);
+    public void pushNonNullData(String name, String x) {
+        if (!x.equals("")) {
+            userInfo.put(name, Float.parseFloat(x));
         }
     }
 

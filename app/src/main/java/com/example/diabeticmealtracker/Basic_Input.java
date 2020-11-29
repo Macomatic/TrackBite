@@ -1,5 +1,6 @@
 package com.example.diabeticmealtracker;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -11,8 +12,12 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
 
@@ -103,12 +108,48 @@ public class Basic_Input extends AppCompatActivity {
                 userInfo.put("meal", meal);
 
                 // push food object onto firebase based on the meal time selected
+                db.collection("users").document(user.getUid().toString()).collection("userData").document(date).collection("Food").document(name).set(userInfo, SetOptions.merge());
                 Map<String,Object> Date = new HashMap<>();
                 Date.put("Date",date);
-                db.collection("users").document(user.getUid().toString()).set(date);
-                db.collection("users").document(user.getUid().toString()).collection("userData").document(date).collection("Food").document(name).set(userInfo, SetOptions.merge());
+                db.collection("users").document(user.getUid().toString()).set(Date);
                 // notification saying the input has been successfully added to firebase
                 Toast.makeText(Basic_Input.this, "Input Successful", Toast.LENGTH_LONG).show();
+
+                // Total
+                DocumentReference docRef = db.collection("users").document(user.getUid().toString()).collection("userData").document(date).collection("Total").document("Total");
+                docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() { //Does the .get() command with a custom onComplete
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot document = task.getResult(); //Grab snapshot of requirements
+                            Map<String,Object> totals = new HashMap<>();
+                            //String calories = document.getString("CaloriesBurned").substring(0,document.getString("CaloriesBurned").indexOf("."));
+                            if (!document.exists()) {
+                                totals.put("Total Burned Calories","0");
+                                totals.put("Total Active Hours", "0");
+                                totals.put("Total carbs","0");
+                                totals.put("Total fats", "0");
+                                totals.put("Total proteins","0");
+                                totals.put("Total calories","0");
+                                totals.put("Fiber","0");
+                                totals.put("Sugar","0");
+                                db.collection("users").document(user.getUid()).collection("userData").document(date).collection("Total").document("Total").set(totals);
+                            }
+                            else {
+                                float carbs = Float.parseFloat(document.getString("carbohydrates"));
+                                float carbs = Float.parseFloat(document.getString("carbohydrates"));
+                                float carbs = Float.parseFloat(document.getString("carbohydrates"));
+                                float carbs = Float.parseFloat(document.getString("carbohydrates"));
+                                calories+=calories();
+                                activeHours+=duration;
+                                totals.put("Total Burned Calories",String.valueOf(calories));
+                                totals.put("Total Active Hours", String.valueOf(activeHours));
+                                db.collection("users").document(user.getUid().toString()).collection("userData").document(date).collection("Total").document("Total").set(totals, SetOptions.merge());
+
+                            }
+                        }
+                    }
+                });
             }
         });
         // clear button
