@@ -61,7 +61,7 @@ public class RegisterPage extends AppCompatActivity {
 
                                     Map<String, Object> userInfo = new HashMap<>(); //Creates a new map, contains data that will be placed in the user's extraData file
 
-                                        userInfo.put("set", email.getText().toString());
+                                        userInfo.put("email", email.getText().toString());
                                         userInfo.put("name", username.getText().toString());
                                         userInfo.put("setup", "false");
 
