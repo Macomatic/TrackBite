@@ -115,11 +115,6 @@ public class UpdateProfilePage extends AppCompatActivity {
         EditText weight = (EditText) findViewById(R.id.editTextNumberSigned4);
         Spinner sexSpinner = (Spinner) findViewById(R.id.sex);
 
-        userInfo.put("Age", age.getText().toString());
-        userInfo.put("Height", height.getText().toString());
-        userInfo.put("Weight", weight.getText().toString());
-        userInfo.put("Sex", currSex);
-
         sexSpinner.setSelection(adapter.getPosition(currSex));
 
 
@@ -150,6 +145,13 @@ public class UpdateProfilePage extends AppCompatActivity {
 //                }
 //            }
 //        });
+        if (currSex == null) {
+            currSex = "Male";
+        }
+        userInfo.put("Age", age.getText().toString());
+        userInfo.put("Height", height.getText().toString());
+        userInfo.put("Weight", weight.getText().toString());
+        userInfo.put("Sex", currSex);
         db.collection("users").document(user.getUid().toString()).collection("userData").document("profile").set(userInfo,SetOptions.merge());
         finish();
     }
