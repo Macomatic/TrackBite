@@ -27,6 +27,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.SetOptions;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
@@ -48,7 +49,7 @@ public class ExerciseGraph_Page extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exercise_graph__page);
 
-        this.displayActiveHours = false;
+        this.displayActiveHours = true;
         this.displayCaloriesBurned = false;
 
         FirebaseAuth mAuth = FirebaseAuth.getInstance(); //Grabs current instance of database
@@ -62,18 +63,67 @@ public class ExerciseGraph_Page extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             ArrayList<String> validDatesArray = new ArrayList<>();
                             Map<String,Object> validDates = new HashMap<>();
+                            Map<String,Object> validActivities = new HashMap<>();
+                            Map<String,Double> validProperty = new HashMap<>();
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 String docId = document.getId();
                                 if (!docId.equals("profile") && !docId.equals("Analysis")) {
                                     int documentDate = Integer.parseInt(docId);
                                     if (documentDate >= Integer.parseInt(dateRange.substring(0, 8)) && documentDate <= Integer.parseInt(dateRange.substring(9))) {
                                         validDatesArray.add(docId);
-                                        //Toast.makeText(getApplicationContext(), docId, Toast.LENGTH_SHORT).show();
+                                        db.collection("users").document(user.getUid()).collection("userData").document(docId).collection("Exercise")
+                                                .get()
+                                                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                        if (task.isSuccessful()) {
+                                                            ArrayList<String> activities = new ArrayList<String>();
+                                                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                                                String exerciseId = document.getId();
+                                                                if (!activities.contains(exerciseId)) {
+                                                                    Toast.makeText(getApplicationContext(), exerciseId, Toast.LENGTH_SHORT).show();
+                                                                    activities.add(exerciseId);
+                                                                    db.collection("users").document(user.getUid()).collection("userData").document(docId).collection("Exercise").document(exerciseId)
+                                                                            .get()
+                                                                            .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                                                                @Override
+                                                                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                                                                    if (task.isSuccessful()) {
+                                                                                        DocumentSnapshot document = task.getResult();
+                                                                                        if (displayActiveHours) {
+                                                                                            if (!validProperty.containsKey(exerciseId)) {
+                                                                                                validProperty.put(exerciseId,Double.parseDouble(document.getString("Duration")));
+                                                                                            }
+                                                                                            else {
+                                                                                                validProperty.put(exerciseId,validProperty.get(exerciseId)+Double.parseDouble(document.getString("Duration")));
+                                                                                            }
+                                                                                        }
+                                                                                        else {
+                                                                                            if (!validProperty.containsKey(exerciseId)) {
+                                                                                                validProperty.put(exerciseId,Double.parseDouble(document.getString("CaloriesBurned")));
+                                                                                            }
+                                                                                            else {
+                                                                                                validProperty.put(exerciseId,validProperty.get(exerciseId)+Double.parseDouble(document.getString("CaloriesBurned")));
+                                                                                            }
+                                                                                        }
+                                                                                        db.collection("users").document(user.getUid()).collection("userData").document("Analysis").set(validProperty, SetOptions.merge());
+                                                                                    }
+
+                                                                                }
+                                                                            });
+                                                                }
+                                                            }
+                                                            //db.collection("users").document(user.getUid()).collection("userData").document("Analysis").set(validProperty, SetOptions.merge());
+                                                            validActivities.put("activities",activities);
+                                                            db.collection("users").document(user.getUid()).collection("userData").document("Analysis").set(validActivities, SetOptions.merge());
+                                                        }
+                                                    }
+                                                });
                                     }
                                 }
                             }
                             validDates.put("validDates",validDatesArray);
-                            db.collection("users").document(user.getUid()).collection("userData").document("Analysis").set(validDates);
+                            db.collection("users").document(user.getUid()).collection("userData").document("Analysis").set(validDates, SetOptions.merge());
                         }
                         else {
                             Toast.makeText(getApplicationContext(), "Error in retrieving documents from database", Toast.LENGTH_SHORT).show();
@@ -133,10 +183,29 @@ public class ExerciseGraph_Page extends AppCompatActivity {
                             dbText = Arrays.toString(dates);
                             testDB.setText(dbText);
 
-                            String[] act = {"Walk", "Run", "Bike"};
-                            double[] values = {2000,5000,3000};
-                            AnyChartView anyChartView = findViewById(R.id.caloriesPieChart);
-                            setupPieChart(act,values,anyChartView);
+//                            for (int i = 0; i < dates.length; i++) {
+//                                db.collection("users").document(user.getUid()).collection("userData").document(dates[i].toString()).collection("Exercise")
+//                                        .get()
+//                                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//                                            @Override
+//                                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                                                if (task.isSuccessful()) {
+//                                                    List<String> list = new ArrayList<>();
+//                                                    for (QueryDocumentSnapshot document : task.getResult()) {
+//                                                        String docId = document.getId();
+//                                                        if (!list.contains(docId)) {
+//                                                            list.add(document.getId());
+//                                                        }
+//                                                    }
+//                                                    String[] act = {"Walk", "Run", "Bike"};
+//                                                    double[] values = {2000,5000,3000,1000,500};
+//                                                    AnyChartView anyChartView = findViewById(R.id.caloriesPieChart);
+//                                                    setupPieChart(list,values,anyChartView);
+//                                                }
+//                                            }
+//                                        });
+//                            }
+
                         }
                         else {
                             Toast.makeText(getApplicationContext(), "Null data", Toast.LENGTH_SHORT).show();
@@ -145,11 +214,11 @@ public class ExerciseGraph_Page extends AppCompatActivity {
                 });
     }
 
-    public void setupPieChart(String[] types, double[] values, AnyChartView anyChartView){
+    public void setupPieChart(List<String> types, double[] values, AnyChartView anyChartView){
         Pie pie = AnyChart.pie();
         List<DataEntry> dataEntries = new ArrayList<>();
-        for (int i = 0; i < types.length; i++) {
-            dataEntries.add(new ValueDataEntry(types[i],values[i]));
+        for (int i = 0; i < values.length; i++) {
+            dataEntries.add(new ValueDataEntry(types.get(i),values[i]));
         }
         pie.data(dataEntries);
         anyChartView.setChart(pie);
