@@ -103,6 +103,9 @@ public class Basic_Input extends AppCompatActivity {
 
                 // push food object onto firebase based on the meal time selected
                 db.collection("users").document(user.getUid().toString()).collection("userData").document(date).collection("Food").document(name).set(userInfo, SetOptions.merge());
+                Map<String,Object> Date = new HashMap<>();
+                Date.put("Date",date);
+                db.collection("users").document(user.getUid().toString()).set(date);
                 // notification saying the input has been successfully added to firebase
                 Toast.makeText(Basic_Input.this, "Input Successful", Toast.LENGTH_LONG).show();
             }

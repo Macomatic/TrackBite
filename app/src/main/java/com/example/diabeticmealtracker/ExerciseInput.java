@@ -225,6 +225,9 @@ public class ExerciseInput extends AppCompatActivity {
 
             db.collection("users").document(user.getUid().toString()).collection("userData").document(date).collection("Exercise").document(this.currActivity).set(userInfo, SetOptions.merge());
 
+            Map<String,Object> Date = new HashMap<>();
+            Date.put("Date",date);
+            db.collection("users").document(user.getUid().toString()).set(date);
             finish();
             //Opening success page
             Intent intent = new Intent(getApplicationContext(), SuccessExerciseInput_Page.class);
