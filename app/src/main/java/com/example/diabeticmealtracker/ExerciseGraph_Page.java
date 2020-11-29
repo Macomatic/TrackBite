@@ -11,6 +11,11 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.anychart.AnyChart;
+import com.anychart.AnyChartView;
+import com.anychart.chart.common.dataentry.DataEntry;
+import com.anychart.chart.common.dataentry.ValueDataEntry;
+import com.anychart.charts.Pie;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -127,12 +132,27 @@ public class ExerciseGraph_Page extends AppCompatActivity {
                             Object[] dates = value.getData().entrySet().toArray();
                             dbText = Arrays.toString(dates);
                             testDB.setText(dbText);
+
+                            String[] act = {"Walk", "Run", "Bike"};
+                            double[] values = {2000,5000,3000};
+                            AnyChartView anyChartView = findViewById(R.id.caloriesPieChart);
+                            setupPieChart(act,values,anyChartView);
                         }
                         else {
                             Toast.makeText(getApplicationContext(), "Null data", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
+    }
+
+    public void setupPieChart(String[] types, double[] values, AnyChartView anyChartView){
+        Pie pie = AnyChart.pie();
+        List<DataEntry> dataEntries = new ArrayList<>();
+        for (int i = 0; i < types.length; i++) {
+            dataEntries.add(new ValueDataEntry(types[i],values[i]));
+        }
+        pie.data(dataEntries);
+        anyChartView.setChart(pie);
     }
 
     public String convertMonthNum(String month) {
