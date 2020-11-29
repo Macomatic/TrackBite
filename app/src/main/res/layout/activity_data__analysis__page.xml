@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/merriweather_bold"
-        android:text="Create an Analysis"
+        android:text="Analyze Your Data"
         android:textSize="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -22,7 +22,7 @@
 
     <Button
         android:id="@+id/button"
-        android:layout_width="250dp"
+        android:layout_width="285dp"
         android:layout_height="50dp"
         android:background="@drawable/my_button_design"
         android:fontFamily="@font/titillium_web_semibold"
@@ -38,7 +38,7 @@
 
     <Button
         android:id="@+id/button13"
-        android:layout_width="250dp"
+        android:layout_width="285dp"
         android:layout_height="50dp"
         android:background="@drawable/my_button_design"
         android:fontFamily="@font/titillium_web_semibold"

@@ -13,7 +13,7 @@
         android:layout_marginTop="48dp"
         android:fontFamily="@font/merriweather_bold"
         android:gravity="center"
-        android:text="Dance Input"
+        android:text="Enter a Dance Workout"
         android:textSize="30dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
@@ -41,28 +41,28 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:fontFamily="@font/merriweather_bold"
+        android:gravity="center"
         android:hint="Number of Hours"
         android:inputType="numberDecimal"
-        android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.785"
+        app:layout_constraintHorizontal_bias="0.767"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.626" />
 
     <Spinner
         android:id="@+id/danceSpinner"
-        android:layout_width="234dp"
-        android:layout_height="55dp"
+        android:layout_width="200dp"
+        android:layout_height="54dp"
         android:textSize="18dp"
         android:theme="@style/SpinnerTheme"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.909"
+        app:layout_constraintHorizontal_bias="0.767"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.326" />
+        app:layout_constraintVertical_bias="0.329" />
 
     <TextView
         android:id="@+id/textView4"
@@ -70,7 +70,7 @@
         android:layout_height="100dp"
         android:fontFamily="@font/merriweather_bold"
         android:gravity="center"
-        android:text="Which cardio exercise are you doing today?"
+        android:text="Choose a Type of Dance"
         android:textSize="18dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

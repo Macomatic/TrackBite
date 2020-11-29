@@ -13,7 +13,7 @@
         android:layout_marginTop="48dp"
         android:fontFamily="@font/merriweather_bold"
         android:gravity="center"
-        android:text="Yoga Input"
+        android:text="Enter a Yoga Workout"
         android:textSize="30dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
@@ -24,15 +24,16 @@
         android:id="@+id/textView6"
         android:layout_width="125dp"
         android:layout_height="100dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginLeft="12dp"
-        android:layout_marginTop="108dp"
         android:fontFamily="@font/merriweather_bold"
         android:gravity="center"
-        android:text="How long did you exercise for?"
+        android:text="Duration of Exercise"
         android:textSize="18dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.087"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.551" />
 
     <EditText
         android:id="@+id/yogahoursInput"
@@ -42,39 +43,41 @@
         android:fontFamily="@font/merriweather_bold"
         android:hint="Number of Hours"
         android:inputType="numberDecimal"
+        android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.84"
+        app:layout_constraintHorizontal_bias="0.818"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.642" />
-
-    <Spinner
-        android:id="@+id/danceSpinner"
-        android:layout_width="230dp"
-        android:layout_height="46dp"
-        android:textSize="18dp"
-        android:theme="@style/SpinnerTheme"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.911"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.345" />
+        app:layout_constraintVertical_bias="0.54" />
 
     <TextView
         android:id="@+id/textView4"
         android:layout_width="125dp"
         android:layout_height="100dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginLeft="12dp"
-        android:layout_marginTop="122dp"
         android:fontFamily="@font/merriweather_bold"
         android:gravity="center"
-        android:text="Which cardio exercise are you doing today?"
+        android:text="Choose a Yoga Exercise"
         android:textSize="18dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.087"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.266" />
+
+    <Spinner
+        android:id="@+id/danceSpinner"
+        android:layout_width="202dp"
+        android:layout_height="50dp"
+        android:textSize="18dp"
+        android:theme="@style/SpinnerTheme"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.885"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.271" />
 
     <Button
         android:id="@+id/button4"

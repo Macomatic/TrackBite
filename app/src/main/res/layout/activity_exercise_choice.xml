@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/merriweather_bold"
         android:gravity="center"
-        android:text="Which Exercise Would You Like To Do Today?"
+        android:text="Choose a Well-Being Exercise"
         android:textSize="30dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
