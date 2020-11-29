@@ -49,7 +49,7 @@ public class ExerciseGraph_Page extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exercise_graph__page);
 
-        this.displayActiveHours = true;
+        this.displayActiveHours = false;
         this.displayCaloriesBurned = false;
 
         FirebaseAuth mAuth = FirebaseAuth.getInstance(); //Grabs current instance of database
@@ -65,6 +65,7 @@ public class ExerciseGraph_Page extends AppCompatActivity {
                             Map<String,Object> validDates = new HashMap<>();
                             Map<String,Object> validActivities = new HashMap<>();
                             Map<String,Double> validProperty = new HashMap<>();
+                            ArrayList<String> activities = new ArrayList<String>();
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 String docId = document.getId();
                                 if (!docId.equals("profile") && !docId.equals("Analysis")) {
@@ -77,12 +78,12 @@ public class ExerciseGraph_Page extends AppCompatActivity {
                                                     @Override
                                                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                                         if (task.isSuccessful()) {
-                                                            ArrayList<String> activities = new ArrayList<String>();
                                                             for (QueryDocumentSnapshot document : task.getResult()) {
                                                                 String exerciseId = document.getId();
                                                                 if (!activities.contains(exerciseId)) {
                                                                     Toast.makeText(getApplicationContext(), exerciseId, Toast.LENGTH_SHORT).show();
                                                                     activities.add(exerciseId);
+                                                                }
                                                                     db.collection("users").document(user.getUid()).collection("userData").document(docId).collection("Exercise").document(exerciseId)
                                                                             .get()
                                                                             .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -90,20 +91,18 @@ public class ExerciseGraph_Page extends AppCompatActivity {
                                                                                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                                                                                     if (task.isSuccessful()) {
                                                                                         DocumentSnapshot document = task.getResult();
-                                                                                        if (displayActiveHours) {
+                                                                                        if (displayActiveHours == true) {
                                                                                             if (!validProperty.containsKey(exerciseId)) {
-                                                                                                validProperty.put(exerciseId,Double.parseDouble(document.getString("Duration")));
-                                                                                            }
-                                                                                            else {
-                                                                                                validProperty.put(exerciseId,validProperty.get(exerciseId)+Double.parseDouble(document.getString("Duration")));
+                                                                                                validProperty.put(exerciseId, Double.parseDouble(document.getString("Duration")));
+                                                                                            } else {
+                                                                                                validProperty.put(exerciseId, validProperty.get(exerciseId) + Double.parseDouble(document.getString("Duration")));
                                                                                             }
                                                                                         }
-                                                                                        else {
+                                                                                        if (displayActiveHours == true){
                                                                                             if (!validProperty.containsKey(exerciseId)) {
-                                                                                                validProperty.put(exerciseId,Double.parseDouble(document.getString("CaloriesBurned")));
-                                                                                            }
-                                                                                            else {
-                                                                                                validProperty.put(exerciseId,validProperty.get(exerciseId)+Double.parseDouble(document.getString("CaloriesBurned")));
+                                                                                                validProperty.put(exerciseId, Double.parseDouble(document.getString("CaloriesBurned")));
+                                                                                            } else {
+                                                                                                validProperty.put(exerciseId, validProperty.get(exerciseId) + Double.parseDouble(document.getString("CaloriesBurned")));
                                                                                             }
                                                                                         }
                                                                                         db.collection("users").document(user.getUid()).collection("userData").document("Analysis").set(validProperty, SetOptions.merge());
@@ -114,13 +113,13 @@ public class ExerciseGraph_Page extends AppCompatActivity {
                                                                 }
                                                             }
                                                             //db.collection("users").document(user.getUid()).collection("userData").document("Analysis").set(validProperty, SetOptions.merge());
-                                                            validActivities.put("activities",activities);
+                                                            validActivities.put("activities", activities);
                                                             db.collection("users").document(user.getUid()).collection("userData").document("Analysis").set(validActivities, SetOptions.merge());
                                                         }
-                                                    }
+
                                                 });
                                     }
-                                }
+                                    }
                             }
                             validDates.put("validDates",validDatesArray);
                             db.collection("users").document(user.getUid()).collection("userData").document("Analysis").set(validDates, SetOptions.merge());
