@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Spinner;
@@ -60,11 +61,12 @@ public class UpdateProfilePage extends AppCompatActivity {
 
             }
         });
+
         FirebaseAuth mAuth = FirebaseAuth.getInstance(); //Grabs current instance of database
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         FirebaseUser user = mAuth.getCurrentUser(); //Grabs current user
-        DocumentReference docRef = db.collection("users").document(user.getUid().toString()).collection("userData").document("profile");
-        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() { //Does the .get() command with a custom onComplete
+        DocumentReference newRef = db.collection("users").document(user.getUid().toString()).collection("userData").document("profile");
+        newRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() { //Does the .get() command with a custom onComplete
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
@@ -80,6 +82,15 @@ public class UpdateProfilePage extends AppCompatActivity {
                     currSex = document.getString("Sex");
 
                     sexSpinner.setSelection(adapter.getPosition(currSex));
+
+                    Button finishButton = (Button) findViewById(R.id.button28);
+
+                    if(document.getString("setup").equals("true")) {
+                        finishButton.setVisibility(View.VISIBLE);
+                    }
+                    else{
+                        finishButton.setVisibility(View.INVISIBLE);
+                    }
 
                 }
             }
@@ -152,7 +163,15 @@ public class UpdateProfilePage extends AppCompatActivity {
         userInfo.put("Height", height.getText().toString());
         userInfo.put("Weight", weight.getText().toString());
         userInfo.put("Sex", currSex);
-        db.collection("users").document(user.getUid().toString()).collection("userData").document("profile").set(userInfo,SetOptions.merge());
-        finish();
+        if((age.getText().toString().equals("")) || (height.getText().toString().equals("")) || (weight.getText().toString().equals(""))){
+            Toast.makeText(getApplicationContext(), "Fill in fields", Toast.LENGTH_SHORT).show();
+        }
+        else{
+            String flag;
+            flag = "true";
+            userInfo.put("setup", flag);
+            db.collection("users").document(user.getUid().toString()).collection("userData").document("profile").set(userInfo,SetOptions.merge());
+            finish();
+        }
     }
 }

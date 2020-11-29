@@ -57,8 +57,13 @@ public class MainActivity extends AppCompatActivity {
                                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                                         if (task.isSuccessful()) {
                                             DocumentSnapshot document = task.getResult(); //Grab snapshot of extraData
-
-                                            Intent intent = new Intent(getApplicationContext(), MainScreenPage.class);
+                                            String flag = document.getString("setup");
+                                            Intent intent;
+                                            if(flag.equals("false")){
+                                                intent = new Intent(getApplicationContext(), MainScreenPage.class);
+                                                startActivity(intent);
+                                            }
+                                            intent = new Intent(getApplicationContext(), UpdateProfilePage.class);
                                             startActivity(intent);
                                         }
                                     }
