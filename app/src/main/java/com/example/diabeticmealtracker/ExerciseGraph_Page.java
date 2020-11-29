@@ -22,6 +22,7 @@ import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 public class ExerciseGraph_Page extends AppCompatActivity {
@@ -47,16 +48,19 @@ public class ExerciseGraph_Page extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
+                            ArrayList<String> validDatesArray = new ArrayList<>();
+                            Map<String,Object> validDates = new HashMap<>();
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 String docId = document.getId();
-                                Toast.makeText(getApplicationContext(), docId, Toast.LENGTH_SHORT).show();
                                 if (!docId.equals("profile")) {
-                                    Toast.makeText(getApplicationContext(), "We in", Toast.LENGTH_SHORT).show();
                                     int documentDate = Integer.parseInt(docId);
                                     if (documentDate >= Integer.parseInt(dateRange.substring(0, 8)) && documentDate <= Integer.parseInt(dateRange.substring(9))) {
+                                        validDatesArray.add(docId);
                                     }
                                 }
                             }
+                            validDates.put("validDates",validDatesArray);
+                            db.collection("users").document(user.getUid()).collection("userData").document("Analysis").set(validDates);
                         }
                         else {
                             Toast.makeText(getApplicationContext(), "Error in retrieving documents from database", Toast.LENGTH_SHORT).show();
