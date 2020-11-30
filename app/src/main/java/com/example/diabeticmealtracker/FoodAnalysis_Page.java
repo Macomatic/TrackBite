@@ -28,7 +28,7 @@ public class FoodAnalysis_Page extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food_analysis_page);
-        isCustom = false;
+        isCustom = true;
 
         EditText firstRange = (EditText) findViewById(R.id.customRange1);
         EditText lastRange = (EditText) findViewById(R.id.customRange2);
@@ -158,7 +158,7 @@ public class FoodAnalysis_Page extends AppCompatActivity {
             String[] graphValues = new String[2];
             graphValues[0] = this.currRange;
             graphValues[1] = this.currFood;
-            Intent intent = new Intent(getApplicationContext(), ExerciseGraph_Page.class);
+            Intent intent = new Intent(getApplicationContext(), FoodGraph_Page.class);
             startActivity(intent.putExtra("values", graphValues));
         }
     }

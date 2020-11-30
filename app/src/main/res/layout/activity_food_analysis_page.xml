@@ -104,7 +104,7 @@
 
     <Spinner
         android:id="@+id/foodSpinner"
-        android:layout_width="150dp"
+        android:layout_width="170dp"
         android:layout_height="wrap_content"
         android:theme="@style/SpinnerTheme"
         app:layout_constraintBottom_toBottomOf="parent"
