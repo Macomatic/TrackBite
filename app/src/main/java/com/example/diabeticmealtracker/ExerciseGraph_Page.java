@@ -209,7 +209,7 @@ public class ExerciseGraph_Page extends AppCompatActivity {
                                 Double bSlow = (Double) dbValues.get("Ballroom (slow)");
                                 dataEntries.add(new ValueDataEntry("Ballroom (slow)",bSlow));
                             }
-                            if (dbValues.containsKey("Biking")) {
+                            if (dbValues.containsKey("Ballroom (fast)")) {
                                 Double bFast = (Double) dbValues.get("Ballroom (fast)");
                                 dataEntries.add(new ValueDataEntry("Ballroom (fast)",bFast));
                             }
