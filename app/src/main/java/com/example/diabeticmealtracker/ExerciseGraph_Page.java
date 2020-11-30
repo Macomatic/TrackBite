@@ -110,7 +110,7 @@ public class ExerciseGraph_Page extends AppCompatActivity {
                                                                                             }
                                                                                         }
                                                                                         //validProperties.put("Properties",validProperty);
-                                                                                        db.collection("users").document(user.getUid()).collection("userData").document("Analysis").set(validProperty, SetOptions.merge());
+                                                                                        db.collection("users").document(user.getUid()).collection("userData").document("Analysis").set(validProperty);
                                                                                     }
 
                                                                                 }
@@ -200,7 +200,7 @@ public class ExerciseGraph_Page extends AppCompatActivity {
                                 Double bSlow = (Double) dbValues.get("Ballroom (slow)");
                                 dataEntries.add(new ValueDataEntry("Ballroom (slow)",bSlow));
                             }
-                            if (dbValues.containsKey("Biking")) {
+                            if (dbValues.containsKey("Ballroom (fast)")) {
                                 Double bFast = (Double) dbValues.get("Ballroom (fast)");
                                 dataEntries.add(new ValueDataEntry("Ballroom (fast)",bFast));
                             }
@@ -254,10 +254,7 @@ public class ExerciseGraph_Page extends AppCompatActivity {
                             }
                             pie.data(dataEntries);
                             anyChartView.setChart(pie);
-
                         }
-                            //[activities=[Ballroom, slow, Biking, Nadisodhana, Power Yoga, Running, Tap, Walking], Properties={Walking=1394.2395833333333, Tap=1512.0, Biking=880.1770833333333, Ballroom, slow=1575.0, Running=3717.50625, Nadisodhana=424.55, Power Yoga=9.1}, validDates=[20201127, 20201128, 20201129]]
-
                         else {
                             Toast.makeText(getApplicationContext(), "Null data", Toast.LENGTH_SHORT).show();
                         }
@@ -361,24 +358,6 @@ public class ExerciseGraph_Page extends AppCompatActivity {
     }
 
     public void backExerciseGraphPage (View view){
-        FirebaseAuth mAuth = FirebaseAuth.getInstance(); //Grabs current instance of database
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        FirebaseUser user = mAuth.getCurrentUser(); //Grabs current user
-
-        db.collection("users").document(user.getUid()).collection("userData").document("Analysis")
-                .delete()
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        finish();
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-
-                    }
-                });
-
+        finish();
     }
 }
