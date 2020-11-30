@@ -399,8 +399,8 @@ public class ExerciseGraph_Page extends AppCompatActivity {
     }
 
     public String convertStringToDate(String date) { // Format of yyyymmdd
-        int monthIndex = Integer.parseInt(date.substring(2,4))-1;
-        return this.months[monthIndex] + " " + date.substring(0,2) + ", " + date.substring(4);
+        int monthIndex = Integer.parseInt(date.substring(4,6))-1;
+        return this.months[monthIndex] + " " + date.substring(6) + ", " + date.substring(0,4);
     }
 
     public void backExerciseGraphPage (View view){
