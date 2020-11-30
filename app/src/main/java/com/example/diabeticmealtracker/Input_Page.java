@@ -31,4 +31,8 @@ public class Input_Page extends AppCompatActivity {
         Intent intent = new Intent (getApplicationContext(), CanadaFoodGuideReference.class);
         startActivity(intent);
     }
+    public void viewMoreButtonClick (View view){
+        Intent intent = new Intent (getApplicationContext(), DailyInakePage.class);
+        startActivity(intent);
+    }
 }

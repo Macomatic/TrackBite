@@ -38,6 +38,7 @@ public class DailyInakePage extends AppCompatActivity {
         String dateNum = splitDate[1];
         String year = splitDate[2];
         String date = year + month + dateNum;
+        String date2 = year + "-" + month + "-"+ dateNum;
 
         FirebaseAuth mAuth = FirebaseAuth.getInstance(); //Grabs current instance of database
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -54,6 +55,8 @@ public class DailyInakePage extends AppCompatActivity {
                     TextView fats = (TextView) findViewById(R.id.fatView);
                     TextView sugar = (TextView) findViewById(R.id.sugarView);
                     TextView chol = (TextView) findViewById(R.id.cholView);
+                    TextView intakeDate = (TextView) findViewById(R.id.textViewDate);
+                    intakeDate.setText(date2);
 
                     if(document.exists()){
                         calories.setText(document.getString("Total calories") + "g");
