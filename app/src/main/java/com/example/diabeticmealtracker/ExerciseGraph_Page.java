@@ -63,6 +63,7 @@ public class ExerciseGraph_Page extends AppCompatActivity {
         new CountDownTimer(3000, 1000) {
 
             public void onTick(long millisUntilFinished) {
+                button.setBackgroundResource(R.drawable.my_button_design);
                 button.setText("seconds remaining: " + millisUntilFinished / 1000);
                 button.setTextColor(getApplication().getResources().getColor(R.color.textColor));
                 button.setBackgroundColor(getApplication().getResources().getColor(R.color.button_background2));
