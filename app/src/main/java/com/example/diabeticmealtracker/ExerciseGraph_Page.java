@@ -54,7 +54,6 @@ public class ExerciseGraph_Page extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exercise_graph__page);
 
-
         FirebaseAuth mAuth = FirebaseAuth.getInstance(); //Grabs current instance of database
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         FirebaseUser user = mAuth.getCurrentUser(); //Grabs current user
@@ -176,36 +175,101 @@ public class ExerciseGraph_Page extends AppCompatActivity {
                 this.displayActiveHours = true;
             }
         }
+
+    }
+
+    public void generateGraph(View view) {
+        FirebaseAuth mAuth = FirebaseAuth.getInstance(); //Grabs current instance of database
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        FirebaseUser user = mAuth.getCurrentUser(); //Grabs current user
         db.collection("users").document(user.getUid()).collection("userData").document("Analysis")
-                .addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
-                    public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                        if (error != null) {
-                            Toast.makeText(getApplicationContext(), "Listener Error", Toast.LENGTH_SHORT).show();
-                        }
-                        if (value != null && value.exists()) {
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot document = task.getResult();
+                            Map<String,Object> dbValues = document.getData();
                             AnyChartView anyChartView = findViewById(R.id.caloriesPieChart);
                             List<DataEntry> dataEntries = new ArrayList<>();
                             Pie pie = AnyChart.pie();
-                            Map<String,Object> dbValues = value.getData();
-                            Set<String> temp = dbValues.keySet();
-                            ArrayList<String> temp2 =new ArrayList<String>();
-                            for (String x : temp) {
-                                temp2.add(x);
+                            if (dbValues.containsKey("Biking")) {
+                                Double biking = (Double) dbValues.get("Biking");
+                                dataEntries.add(new ValueDataEntry("Biking",biking));
                             }
-                            for (int i = 0; i < temp.size(); i++) {
-                                dataEntries.add(new ValueDataEntry(temp2.get(i), (Number) dbValues.get(temp2.get(i))));
+                            if (dbValues.containsKey("Walking")) {
+                                Double walking = (Double) dbValues.get("Walking");
+                                dataEntries.add(new ValueDataEntry("Walking",walking));
+                            }
+                            if (dbValues.containsKey("Running")) {
+                                Double running = (Double) dbValues.get("Running");
+                                dataEntries.add(new ValueDataEntry("Running",running));
+                            }
+                            if (dbValues.containsKey("Ballroom (slow)")) {
+                                Double bSlow = (Double) dbValues.get("Ballroom (slow)");
+                                dataEntries.add(new ValueDataEntry("Ballroom (slow)",bSlow));
+                            }
+                            if (dbValues.containsKey("Ballroom (fast)")) {
+                                Double bFast = (Double) dbValues.get("Ballroom (fast)");
+                                dataEntries.add(new ValueDataEntry("Ballroom (fast)",bFast));
+                            }
+                            if (dbValues.containsKey("Caribbean")) {
+                                Double caribbean = (Double) dbValues.get("Caribbean");
+                                dataEntries.add(new ValueDataEntry("Caribbean",caribbean));
+                            }
+                            if (dbValues.containsKey("Tap")) {
+                                Double tap = (Double) dbValues.get("Tap");
+                                dataEntries.add(new ValueDataEntry("Tap",tap));
+                            }
+                            if (dbValues.containsKey("Modern")) {
+                                Double modern = (Double) dbValues.get("Modern");
+                                dataEntries.add(new ValueDataEntry("Modern",modern));
+                            }
+                            if (dbValues.containsKey("Aerobic 4-inch step")) {
+                                Double a4Step = (Double) dbValues.get("Aerobic 4-inch step");
+                                dataEntries.add(new ValueDataEntry("Aerobic 4-inch step",a4Step));
+                            }
+                            if (dbValues.containsKey("Aerobic (General)")) {
+                                Double aGeneral = (Double) dbValues.get("Aerobic (General)");
+                                dataEntries.add(new ValueDataEntry("Aerobic (General)",aGeneral));
+                            }
+                            if (dbValues.containsKey("Aerobic (Low Impact)")) {
+                                Double aLow = (Double) dbValues.get("Aerobic (Low Impact)");
+                                dataEntries.add(new ValueDataEntry("Aerobic (Low Impact)",aLow));
+                            }
+                            if (dbValues.containsKey("Aerobic (High Impact)")) {
+                                Double aHigh = (Double) dbValues.get("Aerobic (High Impact)");
+                                dataEntries.add(new ValueDataEntry("Aerobic (High Impact)",aHigh));
+                            }
+                            if (dbValues.containsKey("Nadisodhana")) {
+                                Double nad = (Double) dbValues.get("Nadisodhana");
+                                dataEntries.add(new ValueDataEntry("Nadisodhana",nad));
+                            }
+                            if (dbValues.containsKey("Hatha")) {
+                                Double hat = (Double) dbValues.get("Hatha");
+                                dataEntries.add(new ValueDataEntry("Hatha",hat));
+                            }
+                            if (dbValues.containsKey("Sitting & Stretching")) {
+                                Double sAndS = (Double) dbValues.get("Sitting & Stretching");
+                                dataEntries.add(new ValueDataEntry("Sitting & Stretching",sAndS));
+                            }
+                            if (dbValues.containsKey("Surya Namaskar")) {
+                                Double suN = (Double) dbValues.get("Surya Namaskar");
+                                dataEntries.add(new ValueDataEntry("Surya Namaskar",suN));
+                            }
+                            if (dbValues.containsKey("Power Yoga")) {
+                                Double pYoga = (Double) dbValues.get("Power Yoga");
+                                dataEntries.add(new ValueDataEntry("Power Yoga",pYoga));
                             }
                             pie.data(dataEntries);
                             anyChartView.setChart(pie);
                         }
                         else {
-                            Toast.makeText(getApplicationContext(), "Null data", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "Task unsuccessful", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
     }
-
     public String convertMonthNum(String month) {
         if (month.equals("January")) {
             return "01";
