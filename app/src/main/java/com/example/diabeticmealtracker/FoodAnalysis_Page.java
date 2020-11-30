@@ -66,8 +66,8 @@ public class FoodAnalysis_Page extends AppCompatActivity {
                     lastRange.getText().clear();
                     firstRange.setEnabled(true);
                     lastRange.setEnabled(true);
-                    firstRange.setHint("ddmmyyyy");
-                    lastRange.setHint("ddmmyyyy");
+                    firstRange.setHint("dd/mm/yyyy");
+                    lastRange.setHint("dd/mm/yyyy");
                 }
                 else {
                     firstRange.getText().clear();

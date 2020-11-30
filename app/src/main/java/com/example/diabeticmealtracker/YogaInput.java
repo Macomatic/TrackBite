@@ -72,7 +72,7 @@ public class YogaInput extends AppCompatActivity {
         List<String> yogaArray = new ArrayList<String>();
         yogaArray.add("Nadisodhana");
         yogaArray.add("Hatha");
-        yogaArray.add("Sitting/Stretching");
+        yogaArray.add("Sitting & Stretching");
         yogaArray.add("Surya Namaskar");
         yogaArray.add("Power Yoga");
 

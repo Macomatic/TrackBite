@@ -121,9 +121,9 @@
 
     <EditText
         android:id="@+id/lastCustomRange"
-        android:layout_width="153dp"
-        android:layout_height="47dp"
-        android:ems="10"
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        android:ems="11"
         android:fontFamily="@font/merriweather_bold"
         android:gravity="center"
         android:hint="dd/mm/yyyy"
@@ -137,8 +137,8 @@
 
     <EditText
         android:id="@+id/firstCustomRange"
-        android:layout_width="153dp"
-        android:layout_height="47dp"
+        android:layout_width="150dp"
+        android:layout_height="40dp"
         android:ems="10"
         android:fontFamily="@font/merriweather_bold"
         android:gravity="center"

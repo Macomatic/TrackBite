@@ -69,15 +69,15 @@ public class DanceInput extends AppCompatActivity {
 
         // List of Activities
         List<String> danceArray = new ArrayList<String>();
-        danceArray.add("Ballroom, slow");
-        danceArray.add("Ballroom, fast");
+        danceArray.add("Ballroom (slow)");
+        danceArray.add("Ballroom (fast)");
         danceArray.add("Caribbean");
         danceArray.add("Tap");
-        danceArray.add("Modern/Ballet/Jazz");
+        danceArray.add("Modern");
         danceArray.add("Aerobic 4-inch step");
-        danceArray.add("Aerobic, general");
-        danceArray.add("Aerobic, low impact");
-        danceArray.add("Aerobic, high impact");
+        danceArray.add("Aerobic (General)");
+        danceArray.add("Aerobic (Low Impact)");
+        danceArray.add("Aerobic (High Impact)");
 
 
         // Array adapter (context, layout of spinner, and array values in the spinner)
