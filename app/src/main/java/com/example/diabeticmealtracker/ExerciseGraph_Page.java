@@ -32,6 +32,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SetOptions;
 
+import java.lang.reflect.Array;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -181,9 +182,17 @@ public class ExerciseGraph_Page extends AppCompatActivity {
                         }
                         if (value != null && value.exists()) {
                             Map<String,Object> data = value.getData();
-                            Object[] objectArray = data.entrySet().toArray();
-                            //Log.d("YO",Arrays.toString(objectArray));
-                            Log.d("TEST1",objectArray[0].toString());
+                            String fullArray = data.entrySet().toArray().toString();
+                            String values = fullArray.substring(fullArray.indexOf("[")+1,fullArray.indexOf("]"));
+                            String activities = fullArray.substring(fullArray.indexOf("{")+1,fullArray.indexOf("}"));
+                            String[] activitiesArray = activities.split(",");
+                            String[] stringValuesArray = values.split(",");
+                            double[] valuesArray = new double[stringValuesArray.length];
+                            for (int i =0; i<stringValuesArray.length;i++) {
+                                valuesArray[i] = Double.parseDouble(stringValuesArray[i]);
+                            }
+                            AnyChartView anyChartView = findViewById(R.id.caloriesPieChart);
+                            setupPieChart(activitiesArray,valuesArray,anyChartView);
                             //[activities=[Ballroom, slow, Biking, Nadisodhana, Power Yoga, Running, Tap, Walking], Properties={Walking=1394.2395833333333, Tap=1512.0, Biking=880.1770833333333, Ballroom, slow=1575.0, Running=3717.50625, Nadisodhana=424.55, Power Yoga=9.1}, validDates=[20201127, 20201128, 20201129]]
 
                         }
@@ -194,7 +203,7 @@ public class ExerciseGraph_Page extends AppCompatActivity {
                 });
     }
 
-    public void setupPieChart(double[] types, double[] values, AnyChartView anyChartView){
+    public void setupPieChart(String[] types, double[] values, AnyChartView anyChartView){
         Pie pie = AnyChart.pie();
         List<DataEntry> dataEntries = new ArrayList<>();
         for (int i = 0; i < values.length; i++) {
