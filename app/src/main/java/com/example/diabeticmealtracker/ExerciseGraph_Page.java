@@ -49,8 +49,6 @@ public class ExerciseGraph_Page extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exercise_graph__page);
 
-        this.displayActiveHours = false;
-        this.displayCaloriesBurned = false;
 
         FirebaseAuth mAuth = FirebaseAuth.getInstance(); //Grabs current instance of database
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -66,6 +64,8 @@ public class ExerciseGraph_Page extends AppCompatActivity {
                             Map<String,Object> validActivities = new HashMap<>();
                             Map<String,Double> validProperty = new HashMap<>();
                             ArrayList<String> activities = new ArrayList<String>();
+                            boolean displayActiveHours = true;
+
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 String docId = document.getId();
                                 if (!docId.equals("profile") && !docId.equals("Analysis")) {
@@ -98,7 +98,7 @@ public class ExerciseGraph_Page extends AppCompatActivity {
                                                                                                 validProperty.put(exerciseId, validProperty.get(exerciseId) + Double.parseDouble(document.getString("Duration")));
                                                                                             }
                                                                                         }
-                                                                                        if (displayActiveHours == true){
+                                                                                        else {
                                                                                             if (!validProperty.containsKey(exerciseId)) {
                                                                                                 validProperty.put(exerciseId, Double.parseDouble(document.getString("CaloriesBurned")));
                                                                                             } else {
