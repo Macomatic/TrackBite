@@ -16,6 +16,11 @@
         <item>"Female"</item>
     </string-array>
 
+    <string-array name="unit1">
+        <item>"Cm-Inches"</item>
+        <item>"Inches-Cm"</item>
+    </string-array>
+
     <style name="SpinnerTheme">
         <item name="android:fontFamily">@font/merriweather_bold</item>
         <item name="android:gravity">center</item>
