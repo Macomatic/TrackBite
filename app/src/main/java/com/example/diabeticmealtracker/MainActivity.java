@@ -34,10 +34,6 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void extraButtonClick (View view){
-        Intent intent = new Intent (getApplicationContext(), ExtraPage.class);
-        startActivity(intent);
-    }
 
     public void loginButtonClick (View view){
         mAuth = FirebaseAuth.getInstance();
