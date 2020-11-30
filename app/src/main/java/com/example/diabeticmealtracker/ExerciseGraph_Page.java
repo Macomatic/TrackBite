@@ -109,25 +109,24 @@ public class ExerciseGraph_Page extends AppCompatActivity {
                                                                                                 validProperty.put(exerciseId, validProperty.get(exerciseId) + Double.parseDouble(document.getString("CaloriesBurned")));
                                                                                             }
                                                                                         }
-                                                                                        validProperties.put("Properties",validProperty);
-                                                                                        db.collection("users").document(user.getUid()).collection("userData").document("Analysis").set(validProperties, SetOptions.merge());
+                                                                                        //validProperties.put("Properties",validProperty);
+                                                                                        db.collection("users").document(user.getUid()).collection("userData").document("Analysis").set(validProperty, SetOptions.merge());
                                                                                     }
 
                                                                                 }
                                                                             });
                                                                 }
                                                             }
-                                                            //db.collection("users").document(user.getUid()).collection("userData").document("Analysis").set(validProperty, SetOptions.merge());
-                                                            validActivities.put("activities", activities);
-                                                            db.collection("users").document(user.getUid()).collection("userData").document("Analysis").set(validActivities, SetOptions.merge());
+                                                            //validActivities.put("activities", activities);
+                                                            //db.collection("users").document(user.getUid()).collection("userData").document("Analysis").set(validActivities, SetOptions.merge());
                                                         }
 
                                                 });
                                     }
                                     }
                             }
-                            validDates.put("validDates",validDatesArray);
-                            db.collection("users").document(user.getUid()).collection("userData").document("Analysis").set(validDates, SetOptions.merge());
+                            //validDates.put("validDates",validDatesArray);
+                            //db.collection("users").document(user.getUid()).collection("userData").document("Analysis").set(validDates, SetOptions.merge());
                         }
                         else {
                             Toast.makeText(getApplicationContext(), "Error in retrieving documents from database", Toast.LENGTH_SHORT).show();
@@ -181,36 +180,89 @@ public class ExerciseGraph_Page extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(), "Listener Error", Toast.LENGTH_SHORT).show();
                         }
                         if (value != null && value.exists()) {
-                            Map<String,Object> data = value.getData();
-                            String fullArray = data.entrySet().toArray().toString();
-                            String values = fullArray.substring(fullArray.indexOf("[")+1,fullArray.indexOf("]"));
-                            String activities = fullArray.substring(fullArray.indexOf("{")+1,fullArray.indexOf("}"));
-                            String[] activitiesArray = activities.split(",");
-                            String[] stringValuesArray = values.split(",");
-                            double[] valuesArray = new double[stringValuesArray.length];
-                            for (int i =0; i<stringValuesArray.length;i++) {
-                                valuesArray[i] = Double.parseDouble(stringValuesArray[i]);
-                            }
                             AnyChartView anyChartView = findViewById(R.id.caloriesPieChart);
-                            setupPieChart(activitiesArray,valuesArray,anyChartView);
-                            //[activities=[Ballroom, slow, Biking, Nadisodhana, Power Yoga, Running, Tap, Walking], Properties={Walking=1394.2395833333333, Tap=1512.0, Biking=880.1770833333333, Ballroom, slow=1575.0, Running=3717.50625, Nadisodhana=424.55, Power Yoga=9.1}, validDates=[20201127, 20201128, 20201129]]
+                            List<DataEntry> dataEntries = new ArrayList<>();
+                            Pie pie = AnyChart.pie();
+                            Map<String,Object> dbValues = value.getData();
+                            if (dbValues.containsKey("Biking")) {
+                                Double biking = (Double) dbValues.get("Biking");
+                                dataEntries.add(new ValueDataEntry("Biking",biking));
+                            }
+                            if (dbValues.containsKey("Walking")) {
+                                Double walking = (Double) dbValues.get("Walking");
+                                dataEntries.add(new ValueDataEntry("Walking",walking));
+                            }
+                            if (dbValues.containsKey("Running")) {
+                                Double running = (Double) dbValues.get("Running");
+                                dataEntries.add(new ValueDataEntry("Running",running));
+                            }
+                            if (dbValues.containsKey("Ballroom (slow)")) {
+                                Double bSlow = (Double) dbValues.get("Ballroom (slow)");
+                                dataEntries.add(new ValueDataEntry("Ballroom (slow)",bSlow));
+                            }
+                            if (dbValues.containsKey("Biking")) {
+                                Double bFast = (Double) dbValues.get("Ballroom (fast)");
+                                dataEntries.add(new ValueDataEntry("Ballroom (fast)",bFast));
+                            }
+                            if (dbValues.containsKey("Caribbean")) {
+                                Double caribbean = (Double) dbValues.get("Caribbean");
+                                dataEntries.add(new ValueDataEntry("Caribbean",caribbean));
+                            }
+                            if (dbValues.containsKey("Tap")) {
+                                Double tap = (Double) dbValues.get("Tap");
+                                dataEntries.add(new ValueDataEntry("Tap",tap));
+                            }
+                            if (dbValues.containsKey("Modern")) {
+                                Double modern = (Double) dbValues.get("Modern");
+                                dataEntries.add(new ValueDataEntry("Modern",modern));
+                            }
+                            if (dbValues.containsKey("Aerobic 4-inch step")) {
+                                Double a4Step = (Double) dbValues.get("Aerobic 4-inch step");
+                                dataEntries.add(new ValueDataEntry("Aerobic 4-inch step",a4Step));
+                            }
+                            if (dbValues.containsKey("Aerobic (General)")) {
+                                Double aGeneral = (Double) dbValues.get("Aerobic (General)");
+                                dataEntries.add(new ValueDataEntry("Aerobic (General)",aGeneral));
+                            }
+                            if (dbValues.containsKey("Aerobic (Low Impact)")) {
+                                Double aLow = (Double) dbValues.get("Aerobic (Low Impact)");
+                                dataEntries.add(new ValueDataEntry("Aerobic (Low Impact)",aLow));
+                            }
+                            if (dbValues.containsKey("Aerobic (High Impact)")) {
+                                Double aHigh = (Double) dbValues.get("Aerobic (High Impact)");
+                                dataEntries.add(new ValueDataEntry("Aerobic (High Impact)",aHigh));
+                            }
+                            if (dbValues.containsKey("Nadisodhana")) {
+                                Double nad = (Double) dbValues.get("Nadisodhana");
+                                dataEntries.add(new ValueDataEntry("Nadisodhana",nad));
+                            }
+                            if (dbValues.containsKey("Hatha")) {
+                                Double hat = (Double) dbValues.get("Hatha");
+                                dataEntries.add(new ValueDataEntry("Hatha",hat));
+                            }
+                            if (dbValues.containsKey("Sitting & Stretching")) {
+                                Double sAndS = (Double) dbValues.get("Sitting & Stretching");
+                                dataEntries.add(new ValueDataEntry("Sitting & Stretching",sAndS));
+                            }
+                            if (dbValues.containsKey("Surya Namaskar")) {
+                                Double suN = (Double) dbValues.get("Surya Namaskar");
+                                dataEntries.add(new ValueDataEntry("Surya Namaskar",suN));
+                            }
+                            if (dbValues.containsKey("Power Yoga")) {
+                                Double pYoga = (Double) dbValues.get("Power Yoga");
+                                dataEntries.add(new ValueDataEntry("Power Yoga",pYoga));
+                            }
+                            pie.data(dataEntries);
+                            anyChartView.setChart(pie);
 
                         }
+                            //[activities=[Ballroom, slow, Biking, Nadisodhana, Power Yoga, Running, Tap, Walking], Properties={Walking=1394.2395833333333, Tap=1512.0, Biking=880.1770833333333, Ballroom, slow=1575.0, Running=3717.50625, Nadisodhana=424.55, Power Yoga=9.1}, validDates=[20201127, 20201128, 20201129]]
+
                         else {
                             Toast.makeText(getApplicationContext(), "Null data", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
-    }
-
-    public void setupPieChart(String[] types, double[] values, AnyChartView anyChartView){
-        Pie pie = AnyChart.pie();
-        List<DataEntry> dataEntries = new ArrayList<>();
-        for (int i = 0; i < values.length; i++) {
-            dataEntries.add(new ValueDataEntry(types[i],values[i]));
-        }
-        pie.data(dataEntries);
-        anyChartView.setChart(pie);
     }
 
     public String convertMonthNum(String month) {
