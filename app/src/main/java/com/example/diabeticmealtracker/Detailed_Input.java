@@ -165,39 +165,94 @@ public class Detailed_Input extends AppCompatActivity {
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                         if (task.isSuccessful()) {
                             DocumentSnapshot document = task.getResult(); //Grab snapshot of requirements
-                            Map<String,Object> totals = new HashMap<>();
+                            Map<String, Object> totals = new HashMap<>();
                             //String calories = document.getString("CaloriesBurned").substring(0,document.getString("CaloriesBurned").indexOf("."));
                             if (!document.exists()) {
-                                totals.put("Total Burned Calories","0");
+                                // exercise
+                                totals.put("Total Burned Calories", "0");
                                 totals.put("Total Active Hours", "0");
-                                totals.put("Total carbs",carbohydrates);
-                                totals.put("Total fats", fats);
-                                totals.put("Total proteins","0");
-                                totals.put("Total calories",calories);
-                                totals.put("Fiber",fibre);
-                                totals.put("Sugar",sugar);
-                                //Add the other vitamins,etc
+                                // basic
+                                totals.put("Total serving size", String.valueOf(servingSize));
+                                totals.put("Total carbs", String.valueOf(carbohydrates));
+                                totals.put("Total fats", String.valueOf(fats));
+                                totals.put("Total calories", String.valueOf(calories));
+                                totals.put("Total fiber", String.valueOf(fibre));
+                                totals.put("Total sugar", String.valueOf(sugar));
+                                // detailed
+                                totals.put("Total sfat", sFat);
+                                totals.put("Total tfat", tFat);
+                                totals.put("Total cholesterol", cholesterol);
+                                totals.put("Total sodium", sodium);
+                                totals.put("Total protein", protein);
+                                totals.put("Total calcium", calcium);
+                                totals.put("Total potassium", potassium);
+                                totals.put("Total iron", iron);
+                                totals.put("Total zinc", zinc);
+                                totals.put("Total vitamin a", vitaminA);
+                                totals.put("Total vitamin b", vitaminB);
+                                totals.put("Total vitamin c", vitaminC);
                                 db.collection("users").document(user.getUid()).collection("userData").document(date).collection("Total").document("Total").set(totals);
-                            }
-                            else {
+                            } else {
+                                // basic
+                                float totalServingSize = Float.parseFloat(document.getString("Total serving size"));
                                 float totalFats = Float.parseFloat(document.getString("Total fats"));
                                 float totalCarbs = Float.parseFloat(document.getString("Total carbs"));
-                                float totalSugar = Float.parseFloat(document.getString("Sugar"));
-                                float totalFibre = Float.parseFloat(document.getString("Fiber"));
+                                float totalSugar = Float.parseFloat(document.getString("Total sugar"));
+                                float totalFibre = Float.parseFloat(document.getString("Total fiber"));
                                 float totalCalories = Float.parseFloat(document.getString("Total calories"));
-                                float totalProteins = Float.parseFloat(document.getString("Total proteins"));
+                                // detailed
+                                float totalSFat = Float.parseFloat(document.getString("Total sfat"));
+                                float totalTFat = Float.parseFloat(document.getString("Total tfat"));
+                                float totalCholesterol = Float.parseFloat(document.getString("Total cholesterol"));
+                                float totalSodium = Float.parseFloat(document.getString("Total sodium"));
+                                float totalProtein = Float.parseFloat(document.getString("Total protein"));
+                                float totalCalcium = Float.parseFloat(document.getString("Total calcium"));
+                                float totalPotassium = Float.parseFloat(document.getString("Total potassium"));
+                                float totalIron = Float.parseFloat(document.getString("Total iron"));
+                                float totalZinc = Float.parseFloat(document.getString("Total zinc"));
+                                float totalVitaminA = Float.parseFloat(document.getString("Total vitamin a"));
+                                float totalVitaminB = Float.parseFloat(document.getString("Total vitamin b"));
+                                float totalVitaminC = Float.parseFloat(document.getString("Total vitamin c"));
+                                // adding to the total
+                                // basic
+                                totalServingSize += servingSize;
                                 totalFats += fats;
                                 totalCarbs += carbohydrates;
                                 totalSugar += sugar;
                                 totalFibre += fibre;
                                 totalCalories += calories;
-                                totalProteins += Float.parseFloat(protein);
-                                totals.put("Total carbs",String.valueOf(totalCarbs));
+                                totals.put("Total serving size", String.valueOf(totalServingSize));
                                 totals.put("Total fats", String.valueOf(totalFats));
-                                totals.put("Sugar", String.valueOf(totalSugar));
+                                totals.put("Total carbs", String.valueOf(totalCarbs));
+                                totals.put("Total sugar", String.valueOf(totalSugar));
+                                totals.put("Total fiber", String.valueOf(totalFibre));
                                 totals.put("Total calories", String.valueOf(totalCalories));
-                                totals.put("Fiber", String.valueOf(totalFibre));
-                                totals.put("Total proteins", String.valueOf(totalProteins));
+                                // detailed
+                                totalSFat += Float.parseFloat(sFat);
+                                totalTFat += Float.parseFloat(tFat);
+                                totalCholesterol += Float.parseFloat(cholesterol);
+                                totalSodium += Float.parseFloat(sodium);
+                                totalProtein += Float.parseFloat(protein);
+                                totalCalcium += Float.parseFloat(calcium);
+                                totalPotassium += Float.parseFloat(potassium);
+                                totalIron += Float.parseFloat(iron);
+                                totalZinc += Float.parseFloat(zinc);
+                                totalVitaminA += Float.parseFloat(vitaminA);
+                                totalVitaminB += Float.parseFloat(vitaminB);
+                                totalVitaminC += Float.parseFloat(vitaminC);
+                                totals.put("Total sfat", String.valueOf(totalSFat));
+                                totals.put("Total tfat", String.valueOf(totalTFat));
+                                totals.put("Total cholesterol", String.valueOf(totalCholesterol));
+                                totals.put("Total sodium", String.valueOf(totalSodium));
+                                totals.put("Total protein", String.valueOf(totalProtein));
+                                totals.put("Total calcium", String.valueOf(totalCalcium));
+                                totals.put("Total potassium", String.valueOf(totalPotassium));
+                                totals.put("Total iron", String.valueOf(totalIron));
+                                totals.put("Total zinc", String.valueOf(totalZinc));
+                                totals.put("Total vitamin a", String.valueOf(totalVitaminA));
+                                totals.put("Total vitamin b", String.valueOf(totalVitaminB));
+                                totals.put("Total vitamin c", String.valueOf(totalVitaminC));
+                                // sending to the database
                                 db.collection("users").document(user.getUid().toString()).collection("userData").document(date).collection("Total").document("Total").set(totals, SetOptions.merge());
                             }
                         }
@@ -242,8 +297,8 @@ public class Detailed_Input extends AppCompatActivity {
         String year = splitDate[2];
         String date = year + month + dateNum;
 
-        Map<String,Object> Date = new HashMap<>();
-        Date.put("Date",date);
+        Map<String, Object> Date = new HashMap<>();
+        Date.put("Date", date);
 //            db.collection("users").document(user.getUid().toString()).set(date);
         db.collection("users").document(user.getUid().toString()).collection("userData").document(date).set(Date);
 

@@ -109,8 +109,8 @@ public class Basic_Input extends AppCompatActivity {
 
                 // push food object onto firebase based on the meal time selected
                 db.collection("users").document(user.getUid().toString()).collection("userData").document(date).collection("Food").document(name).set(userInfo, SetOptions.merge());
-                Map<String,Object> Date = new HashMap<>();
-                Date.put("Date",date);
+                Map<String, Object> Date = new HashMap<>();
+                Date.put("Date", date);
                 // notification saying the input has been successfully added to firebase
                 Toast.makeText(Basic_Input.this, "Input Successful", Toast.LENGTH_LONG).show();
 
@@ -121,35 +121,55 @@ public class Basic_Input extends AppCompatActivity {
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                         if (task.isSuccessful()) {
                             DocumentSnapshot document = task.getResult(); //Grab snapshot of requirements
-                            Map<String,Object> totals = new HashMap<>();
+                            Map<String, Object> totals = new HashMap<>();
                             //String calories = document.getString("CaloriesBurned").substring(0,document.getString("CaloriesBurned").indexOf("."));
                             if (!document.exists()) {
-                                totals.put("Total Burned Calories","0");
+                                // exercise
+                                totals.put("Total Burned Calories", "0");
                                 totals.put("Total Active Hours", "0");
-                                totals.put("Total carbs",carbohydrates);
-                                totals.put("Total fats", fats);
-                                totals.put("Total proteins","0");
-                                totals.put("Total calories",calories);
-                                totals.put("Fiber",fibre);
-                                totals.put("Sugar",sugar);
+                                // basic
+                                totals.put("Total serving size", String.valueOf(servingSize));
+                                totals.put("Total carbs", String.valueOf(carbohydrates));
+                                totals.put("Total fats", String.valueOf(fats));
+                                totals.put("Total calories", String.valueOf(calories));
+                                totals.put("Total fiber", String.valueOf(fibre));
+                                totals.put("Total sugar", String.valueOf(sugar));
+                                // detailed
+                                totals.put("Total saturated fats", "0");
+                                totals.put("Total trans fats", "0");
+                                totals.put("Total cholesterol", "0");
+                                totals.put("Total sodium", "0");
+                                totals.put("Total protein", "0");
+                                totals.put("Total calcium", "0");
+                                totals.put("Total potassium", "0");
+                                totals.put("Total iron", "0");
+                                totals.put("Total zinc", "0");
+                                totals.put("Total vitamin a", "0");
+                                totals.put("Total vitamin b", "0");
+                                totals.put("Total vitamin c", "0");
+                                // Add to the database
                                 db.collection("users").document(user.getUid()).collection("userData").document(date).collection("Total").document("Total").set(totals, SetOptions.merge());
-                            }
-                            else {
+                            } else {
+                                // basic
+                                float totalServingSize = Float.parseFloat(document.getString("Total serving size"));
                                 float totalFats = Float.parseFloat(document.getString("Total fats"));
                                 float totalCarbs = Float.parseFloat(document.getString("Total carbs"));
-                                float totalSugar = Float.parseFloat(document.getString("Sugar"));
-                                float totalFibre = Float.parseFloat(document.getString("Fiber"));
+                                float totalSugar = Float.parseFloat(document.getString("Total sugar"));
+                                float totalFibre = Float.parseFloat(document.getString("Total fiber"));
                                 float totalCalories = Float.parseFloat(document.getString("Total calories"));
+                                // adding to the total
+                                totalServingSize += servingSize;
                                 totalFats += fats;
                                 totalCarbs += carbohydrates;
                                 totalSugar += sugar;
                                 totalFibre += fibre;
                                 totalCalories += calories;
-                                totals.put("Total carbs",String.valueOf(totalCarbs));
+                                totals.put("Total serving size", String.valueOf(totalServingSize));
                                 totals.put("Total fats", String.valueOf(totalFats));
-                                totals.put("Sugar", String.valueOf(totalSugar));
+                                totals.put("Total carbs", String.valueOf(totalCarbs));
+                                totals.put("Total sugar", String.valueOf(totalSugar));
+                                totals.put("Total fiber", String.valueOf(totalFibre));
                                 totals.put("Total calories", String.valueOf(totalCalories));
-                                totals.put("Fiber", String.valueOf(totalFibre));
                                 db.collection("users").document(user.getUid().toString()).collection("userData").document(date).collection("Total").document("Total").set(totals, SetOptions.merge());
                             }
                         }
@@ -180,8 +200,8 @@ public class Basic_Input extends AppCompatActivity {
         String year = splitDate[2];
         String date = year + month + dateNum;
 
-        Map<String,Object> Date = new HashMap<>();
-        Date.put("Date",date);
+        Map<String, Object> Date = new HashMap<>();
+        Date.put("Date", date);
 //            db.collection("users").document(user.getUid().toString()).set(date);
         db.collection("users").document(user.getUid().toString()).collection("userData").document(date).set(Date);
 
