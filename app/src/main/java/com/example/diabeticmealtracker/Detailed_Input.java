@@ -107,27 +107,27 @@ public class Detailed_Input extends AppCompatActivity {
                 String date = year + month + dateNum;
 
                 // parsing the input from the input fields
-                String name = (String) txtName.getText().toString().trim();
-                String servingSize = (String) txtServingSize.getText().toString().trim();
-                String fats = (String) txtFats.getText().toString().trim();
-                String carbohydrates = (String) txtCarbohydrates.getText().toString().trim();
-                String sugar = (String) txtSugar.getText().toString().trim();
-                String fibre = (String) txtFibre.getText().toString().trim();
-                String calories = (String) txtCalories.getText().toString().trim();
+                String name = txtName.getText().toString().trim();
+                String servingSize = initializeInput(txtServingSize.getText().toString().trim());
+                String fats = initializeInput(txtFats.getText().toString().trim());
+                String carbohydrates = initializeInput(txtCarbohydrates.getText().toString().trim());
+                String sugar = initializeInput(txtSugar.getText().toString().trim());
+                String fibre = initializeInput(txtFibre.getText().toString().trim());
+                String calories = initializeInput(txtCalories.getText().toString().trim());
                 String meal = spnMeal.getSelectedItem().toString();
                 // parsing detailed input
-                String sFat = (String) txtSFat.getText().toString().trim();
-                String tFat = (String) txtTFat.getText().toString().trim();
-                String cholesterol = (String) txtCholesterol.getText().toString().trim();
-                String sodium = (String) txtSodium.getText().toString().trim();
-                String protein = (String) txtProtein.getText().toString().trim();
-                String calcium = (String) txtCalcium.getText().toString().trim();
-                String potassium = (String) txtPotassium.getText().toString().trim();
-                String iron = (String) txtIron.getText().toString().trim();
-                String zinc = (String) txtZinc.getText().toString().trim();
-                String vitaminA = (String) txtVitA.getText().toString().trim();
-                String vitaminB = (String) txtVitB.getText().toString().trim();
-                String vitaminC = (String) txtVitC.getText().toString().trim();
+                String sFat = initializeInput(txtSFat.getText().toString().trim());
+                String tFat = initializeInput(txtTFat.getText().toString().trim());
+                String cholesterol = initializeInput(txtCholesterol.getText().toString().trim());
+                String sodium = initializeInput(txtSodium.getText().toString().trim());
+                String protein = initializeInput(txtProtein.getText().toString().trim());
+                String calcium = initializeInput(txtCalcium.getText().toString().trim());
+                String potassium = initializeInput(txtPotassium.getText().toString().trim());
+                String iron = initializeInput(txtIron.getText().toString().trim());
+                String zinc = initializeInput(txtZinc.getText().toString().trim());
+                String vitaminA = initializeInput(txtVitA.getText().toString().trim());
+                String vitaminB = initializeInput(txtVitB.getText().toString().trim());
+                String vitaminC = initializeInput(txtVitC.getText().toString().trim());
                 // setting the field inputs into the food object
                 userInfo.put("name", name);
                 userInfo.put("servingSize", servingSize);
@@ -138,18 +138,18 @@ public class Detailed_Input extends AppCompatActivity {
                 userInfo.put("calories", calories);
                 userInfo.put("meal", meal);
                 // setting additional input
-                pushNonNullData("saturatedFat", sFat);
-                pushNonNullData("transFat", tFat);
-                pushNonNullData("cholesterol", cholesterol);
-                pushNonNullData("sodium", sodium);
-                pushNonNullData("protein", protein);
-                pushNonNullData("calcium", calcium);
-                pushNonNullData("potassium", potassium);
-                pushNonNullData("iron", iron);
-                pushNonNullData("zinc", zinc);
-                pushNonNullData("vitaminA", vitaminA);
-                pushNonNullData("vitaminB", vitaminB);
-                pushNonNullData("vitaminC", vitaminC);
+                userInfo.put("saturatedFat", sFat);
+                userInfo.put("transFat", tFat);
+                userInfo.put("cholesterol", cholesterol);
+                userInfo.put("sodium", sodium);
+                userInfo.put("protein", protein);
+                userInfo.put("calcium", calcium);
+                userInfo.put("potassium", potassium);
+                userInfo.put("iron", iron);
+                userInfo.put("zinc", zinc);
+                userInfo.put("vitaminA", vitaminA);
+                userInfo.put("vitaminB", vitaminB);
+                userInfo.put("vitaminC", vitaminC);
 
                 // push food object onto firebase based on the meal time selected
                 db.collection("users").document(user.getUid().toString()).collection("userData").document(date).collection("Food").document(name).set(userInfo, SetOptions.merge());
@@ -172,25 +172,25 @@ public class Detailed_Input extends AppCompatActivity {
                                 totals.put("Total Burned Calories", "0");
                                 totals.put("Total Active Hours", "0");
                                 // basic
-                                totals.put("Total serving size", String.valueOf(Float.parseFloat("0") + servingSize));
-                                totals.put("Total carbs", String.valueOf(Float.parseFloat("0") + carbohydrates));
-                                totals.put("Total fats", String.valueOf(Float.parseFloat("0") + fats));
-                                totals.put("Total calories", String.valueOf(Float.parseFloat("0") + calories));
-                                totals.put("Total fiber", String.valueOf(Float.parseFloat("0") + fibre));
-                                totals.put("Total sugar", String.valueOf(Float.parseFloat("0") + sugar));
+                                totals.put("Total serving size", servingSize);
+                                totals.put("Total carbs", carbohydrates);
+                                totals.put("Total fats", fats);
+                                totals.put("Total calories", calories);
+                                totals.put("Total fiber", fibre);
+                                totals.put("Total sugar", sugar);
                                 // detailed
-                                totals.put("Total sfat", String.valueOf(Float.parseFloat("0") + Float.parseFloat(sFat)));
-                                totals.put("Total tfat", String.valueOf(Float.parseFloat("0") + Float.parseFloat(tFat)));
-                                totals.put("Total cholesterol", String.valueOf(Float.parseFloat("0") + Float.parseFloat(cholesterol)));
-                                totals.put("Total sodium", String.valueOf(Float.parseFloat("0") + Float.parseFloat(sodium)));
-                                totals.put("Total protein", String.valueOf(Float.parseFloat("0") + Float.parseFloat(protein)));
-                                totals.put("Total calcium", String.valueOf(Float.parseFloat("0") + Float.parseFloat(calcium)));
-                                totals.put("Total potassium", String.valueOf(Float.parseFloat("0") + Float.parseFloat(potassium)));
-                                totals.put("Total iron", String.valueOf(Float.parseFloat("0") + Float.parseFloat(iron)));
-                                totals.put("Total zinc", String.valueOf(Float.parseFloat("0") + Float.parseFloat(zinc)));
-                                totals.put("Total vitamin a", String.valueOf(Float.parseFloat("0") + Float.parseFloat(vitaminA)));
-                                totals.put("Total vitamin b", String.valueOf(Float.parseFloat("0") + Float.parseFloat(vitaminB)));
-                                totals.put("Total vitamin c", String.valueOf(Float.parseFloat("0") + Float.parseFloat(vitaminC)));
+                                totals.put("Total sfat", sFat);
+                                totals.put("Total tfat", tFat);
+                                totals.put("Total cholesterol", cholesterol);
+                                totals.put("Total sodium", sodium);
+                                totals.put("Total protein", protein);
+                                totals.put("Total calcium", calcium);
+                                totals.put("Total potassium", potassium);
+                                totals.put("Total iron", iron);
+                                totals.put("Total zinc", zinc);
+                                totals.put("Total vitamin a", vitaminA);
+                                totals.put("Total vitamin b", vitaminB);
+                                totals.put("Total vitamin c", vitaminC);
                                 db.collection("users").document(user.getUid()).collection("userData").document(date).collection("Total").document("Total").set(totals);
                             } else {
                                 // basic
@@ -335,9 +335,22 @@ public class Detailed_Input extends AppCompatActivity {
         }
     }
 
-    public void pushNonNullData(String name, String x) {
-        if (!x.equals("")) {
-            userInfo.put(name, Float.parseFloat(x));
+    // initialize the input
+    public String initializeInput(String field) {
+        Float testFloat;
+        boolean isNum = true;
+        // if they input not a number
+        try {
+            testFloat = Float.parseFloat(field);
+        } catch (NumberFormatException e) {
+            Toast.makeText(Detailed_Input.this, "Please enter in a number", Toast.LENGTH_LONG).show();
+            isNum = false;
+        }
+        // if they input empty
+        if (field.equals("") || isNum == false) {
+            return "0";
+        } else {
+            return field;
         }
     }
 
