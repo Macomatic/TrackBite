@@ -56,23 +56,6 @@
         app:layout_constraintVertical_bias="0.455" />
 
     <Button
-        android:id="@+id/button6"
-        android:layout_width="285dp"
-        android:layout_height="50dp"
-        android:background="@drawable/my_button_design"
-        android:backgroundTint="@color/button_background"
-        android:fontFamily="@font/titillium_web_semibold"
-        android:onClick="exerciseNotificationsClick"
-        android:text="Notifications"
-        android:textSize="18dp"
-        app:backgroundTint="@color/button_background"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.592" />
-
-    <Button
         android:id="@+id/button7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
