@@ -38,7 +38,6 @@ public class ExerciseAnalysis_Page extends AppCompatActivity {
         timeRangeArray.add("Year");
 
         List<String> exerciseAnalysisArray = new ArrayList<>();
-        exerciseAnalysisArray.add("All");
         exerciseAnalysisArray.add("Calories Burned");
         exerciseAnalysisArray.add("Active hours");
 

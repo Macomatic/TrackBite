@@ -32,7 +32,10 @@ public class RegisterPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_page);
     }
-
+    public void backRegisterPage (View view){
+        Intent intent = new Intent (getApplicationContext(), MainActivity.class);
+        startActivity(intent);
+    }
     public void FinishRegister (View view){
         mAuth = FirebaseAuth.getInstance(); //Grabs current instance of database
         FirebaseFirestore db = FirebaseFirestore.getInstance();

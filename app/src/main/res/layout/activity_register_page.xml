@@ -40,21 +40,6 @@
         app:layout_constraintVertical_bias="0.274" />
 
     <EditText
-        android:id="@+id/textPasswordRegister"
-        android:layout_width="245dp"
-        android:layout_height="41dp"
-        android:ems="20"
-        android:fontFamily="@font/merriweather_bold"
-        android:gravity="center_horizontal"
-        android:hint="Password"
-        android:inputType="textPassword"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.481" />
-
-    <EditText
         android:id="@+id/textConfirmPasswordRegister"
         android:layout_width="245dp"
         android:layout_height="41dp"
@@ -67,7 +52,22 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.582" />
+        app:layout_constraintVertical_bias="0.628" />
+
+    <EditText
+        android:id="@+id/textPasswordRegister"
+        android:layout_width="245dp"
+        android:layout_height="41dp"
+        android:ems="20"
+        android:fontFamily="@font/merriweather_bold"
+        android:gravity="center_horizontal"
+        android:hint="Password"
+        android:inputType="textPassword"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.527" />
 
     <EditText
         android:id="@+id/textUsernameRegister"
@@ -99,5 +99,35 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.123" />
+    <Button
+        android:id="@+id/button333"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="backRegisterPage"
+        android:text="Back"
+        android:textSize="18dp"
+        android:background="@drawable/my_button_design"
+        app:backgroundTint="@color/button_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.049"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.976" />
+
+    <TextView
+        android:id="@+id/textView44"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Password Length Must be 6+ Characters"
+        android:textSize="16dp"
+        android:fontFamily="@font/merriweather_bold"
+        android:textColor="#FF0000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.455" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
