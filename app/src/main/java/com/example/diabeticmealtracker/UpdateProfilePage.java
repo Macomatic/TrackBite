@@ -106,7 +106,7 @@ public class UpdateProfilePage extends AppCompatActivity {
             }
 
             public void onNothingSelected(AdapterView<?> adapterView) {
-                // your code here
+
             }
 
         });
@@ -137,25 +137,11 @@ public class UpdateProfilePage extends AppCompatActivity {
                 currSex = sexArray.get(pos);
             }
             public void onNothingSelected(AdapterView<?> adapterView) {
-                // your code here
+
             }
         });
-        //userInfo.put((String) sexSubmit )
 
-//        DocumentReference docRef = db.collection("users").document(user.getUid().toString()).collection("userData").document("profile");
-//        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() { //Does the .get() command with a custom onComplete
-//            @Override
-//            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-//                if (task.isSuccessful()) {
-//                    DocumentSnapshot document = task.getResult(); //Grab snapshot of requirements
-//
-//                    String name = document.getString("name");
-//                    String email = document.getString("email");
-//                    userInfo.put("name",name);
-//                    userInfo.put("email",email);
-//                }
-//            }
-//        });
+
         if (currSex == null) {
             currSex = "Male";
         }
@@ -165,6 +151,15 @@ public class UpdateProfilePage extends AppCompatActivity {
         userInfo.put("Sex", currSex);
         if((age.getText().toString().equals("")) || (height.getText().toString().equals("")) || (weight.getText().toString().equals(""))){
             Toast.makeText(getApplicationContext(), "Fill in fields", Toast.LENGTH_SHORT).show();
+        }
+        else if (Integer.parseInt(age.getText().toString()) >= 130){
+            Toast.makeText(getApplicationContext(), "Please Enter an Actual Age", Toast.LENGTH_SHORT).show();
+        }
+        else if (Integer.parseInt(height.getText().toString()) >= 300){
+            Toast.makeText(getApplicationContext(), "Please Enter an Actual Age", Toast.LENGTH_SHORT).show();
+        }
+        else if (Integer.parseInt(weight.getText().toString()) >= 600){
+            Toast.makeText(getApplicationContext(), "Please Enter an Actual Age", Toast.LENGTH_SHORT).show();
         }
         else{
             String flag;
