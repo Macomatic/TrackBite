@@ -66,7 +66,7 @@ public class ExerciseGraph_Page extends AppCompatActivity {
                             ArrayList<String> validDatesArray = new ArrayList<>();
                             Map<String,Object> validDates = new HashMap<>();
                             Map<String,Object> validActivities = new HashMap<>();
-                            Map<String,Double> validProperty = new HashMap<>();
+                            Map<String,Long> validProperty = new HashMap<>();
                             Map<String,Object> validProperties = new HashMap<>();
                             ArrayList<String> activities = new ArrayList<String>();
                             boolean displayActiveHours = false;
@@ -96,17 +96,20 @@ public class ExerciseGraph_Page extends AppCompatActivity {
                                                                                     if (task.isSuccessful()) {
                                                                                         DocumentSnapshot document = task.getResult();
                                                                                         if (displayActiveHours == true) {
+                                                                                            long temp = (long) Double.parseDouble(document.getString("Duration"));
                                                                                             if (!validProperty.containsKey(exerciseId)) {
-                                                                                                validProperty.put(exerciseId, Double.parseDouble(document.getString("Duration")));
+
+                                                                                                validProperty.put(exerciseId, temp);
                                                                                             } else {
-                                                                                                validProperty.put(exerciseId, validProperty.get(exerciseId) + Double.parseDouble(document.getString("Duration")));
+                                                                                                validProperty.put(exerciseId, validProperty.get(exerciseId) + temp);
                                                                                             }
                                                                                         }
                                                                                         else {
+                                                                                            long temp = (long) Double.parseDouble(document.getString("CaloriesBurned"));
                                                                                             if (!validProperty.containsKey(exerciseId)) {
-                                                                                                validProperty.put(exerciseId, Double.parseDouble(document.getString("CaloriesBurned")));
+                                                                                                validProperty.put(exerciseId, temp);
                                                                                             } else {
-                                                                                                validProperty.put(exerciseId, validProperty.get(exerciseId) + Double.parseDouble(document.getString("CaloriesBurned")));
+                                                                                                validProperty.put(exerciseId, validProperty.get(exerciseId) + temp);
                                                                                             }
                                                                                         }
                                                                                         //validProperties.put("Properties",validProperty);
@@ -185,71 +188,71 @@ public class ExerciseGraph_Page extends AppCompatActivity {
                             Pie pie = AnyChart.pie();
                             Map<String,Object> dbValues = value.getData();
                             if (dbValues.containsKey("Biking")) {
-                                Double biking = (Double) dbValues.get("Biking");
+                                Long biking = (Long) dbValues.get("Biking");
                                 dataEntries.add(new ValueDataEntry("Biking",biking));
                             }
                             if (dbValues.containsKey("Walking")) {
-                                Double walking = (Double) dbValues.get("Walking");
+                                Long walking = (Long) dbValues.get("Walking");
                                 dataEntries.add(new ValueDataEntry("Walking",walking));
                             }
                             if (dbValues.containsKey("Running")) {
-                                Double running = (Double) dbValues.get("Running");
+                                Long running = (Long) dbValues.get("Running");
                                 dataEntries.add(new ValueDataEntry("Running",running));
                             }
                             if (dbValues.containsKey("Ballroom (slow)")) {
-                                Double bSlow = (Double) dbValues.get("Ballroom (slow)");
+                                Long bSlow = (Long) dbValues.get("Ballroom (slow)");
                                 dataEntries.add(new ValueDataEntry("Ballroom (slow)",bSlow));
                             }
                             if (dbValues.containsKey("Ballroom (fast)")) {
-                                Double bFast = (Double) dbValues.get("Ballroom (fast)");
+                                Long bFast = (Long) dbValues.get("Ballroom (fast)");
                                 dataEntries.add(new ValueDataEntry("Ballroom (fast)",bFast));
                             }
                             if (dbValues.containsKey("Caribbean")) {
-                                Double caribbean = (Double) dbValues.get("Caribbean");
+                                Long caribbean = (Long) dbValues.get("Caribbean");
                                 dataEntries.add(new ValueDataEntry("Caribbean",caribbean));
                             }
                             if (dbValues.containsKey("Tap")) {
-                                Double tap = (Double) dbValues.get("Tap");
+                                Long tap = (Long) dbValues.get("Tap");
                                 dataEntries.add(new ValueDataEntry("Tap",tap));
                             }
                             if (dbValues.containsKey("Modern")) {
-                                Double modern = (Double) dbValues.get("Modern");
+                                Long modern = (Long) dbValues.get("Modern");
                                 dataEntries.add(new ValueDataEntry("Modern",modern));
                             }
                             if (dbValues.containsKey("Aerobic 4-inch step")) {
-                                Double a4Step = (Double) dbValues.get("Aerobic 4-inch step");
-                                dataEntries.add(new ValueDataEntry("Aerobic 4-inch step",a4Step));
+                                Long aFourStep = (Long) dbValues.get("Aerobic 4-inch step");
+                                dataEntries.add(new ValueDataEntry("Aerobic 4-inch step",aFourStep));
                             }
                             if (dbValues.containsKey("Aerobic (General)")) {
-                                Double aGeneral = (Double) dbValues.get("Aerobic (General)");
+                                Long aGeneral = (Long) dbValues.get("Aerobic (General)");
                                 dataEntries.add(new ValueDataEntry("Aerobic (General)",aGeneral));
                             }
                             if (dbValues.containsKey("Aerobic (Low Impact)")) {
-                                Double aLow = (Double) dbValues.get("Aerobic (Low Impact)");
+                                Long aLow = (Long) dbValues.get("Aerobic (Low Impact)");
                                 dataEntries.add(new ValueDataEntry("Aerobic (Low Impact)",aLow));
                             }
                             if (dbValues.containsKey("Aerobic (High Impact)")) {
-                                Double aHigh = (Double) dbValues.get("Aerobic (High Impact)");
+                                Long aHigh = (Long) dbValues.get("Aerobic (High Impact)");
                                 dataEntries.add(new ValueDataEntry("Aerobic (High Impact)",aHigh));
                             }
                             if (dbValues.containsKey("Nadisodhana")) {
-                                Double nad = (Double) dbValues.get("Nadisodhana");
+                                Long nad = (Long) dbValues.get("Nadisodhana");
                                 dataEntries.add(new ValueDataEntry("Nadisodhana",nad));
                             }
                             if (dbValues.containsKey("Hatha")) {
-                                Double hat = (Double) dbValues.get("Hatha");
+                                Long hat = (Long) dbValues.get("Hatha");
                                 dataEntries.add(new ValueDataEntry("Hatha",hat));
                             }
                             if (dbValues.containsKey("Sitting & Stretching")) {
-                                Double sAndS = (Double) dbValues.get("Sitting & Stretching");
+                                Long sAndS = (Long) dbValues.get("Sitting & Stretching");
                                 dataEntries.add(new ValueDataEntry("Sitting & Stretching",sAndS));
                             }
                             if (dbValues.containsKey("Surya Namaskar")) {
-                                Double suN = (Double) dbValues.get("Surya Namaskar");
+                                Long suN = (Long) dbValues.get("Surya Namaskar");
                                 dataEntries.add(new ValueDataEntry("Surya Namaskar",suN));
                             }
                             if (dbValues.containsKey("Power Yoga")) {
-                                Double pYoga = (Double) dbValues.get("Power Yoga");
+                                Long pYoga = (Long) dbValues.get("Power Yoga");
                                 dataEntries.add(new ValueDataEntry("Power Yoga",pYoga));
                             }
                             pie.data(dataEntries);
