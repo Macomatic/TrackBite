@@ -96,19 +96,40 @@ public class Basic_Input extends AppCompatActivity {
                 String fibre = initializeInput(txtFibre.getText().toString().trim());
                 String calories = initializeInput(txtCalories.getText().toString().trim());
                 String meal = spnMeal.getSelectedItem().toString();
-                // setting the field inputs into the food object
-                Map<String, Object> userInfo = new HashMap<>();
-                userInfo.put("name", name);
-                userInfo.put("servingSize", servingSize);
-                userInfo.put("fats", fats);
-                userInfo.put("carbohydrates", carbohydrates);
-                userInfo.put("sugar", sugar);
-                userInfo.put("fibre", fibre);
-                userInfo.put("calories", calories);
-                userInfo.put("meal", meal);
-
                 // push food object onto firebase based on the meal time selected
-                db.collection("users").document(user.getUid().toString()).collection("userData").document(date).collection("Food").document(name).set(userInfo, SetOptions.merge());
+                // check if the the meal already exists and if it does, add to the current one.
+                DocumentReference mealRef = db.collection("users").document(user.getUid().toString()).collection("userData").document(date).collection("Food").document(name);
+                mealRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot document = task.getResult(); //Grab snapshot of requirements
+                            Map<String, Object> userInfo = new HashMap<>();
+                            if (!document.exists()) {
+                                userInfo.put("name", name);
+                                userInfo.put("servingSize", servingSize);
+                                userInfo.put("fats", fats);
+                                userInfo.put("carbohydrates", carbohydrates);
+                                userInfo.put("sugar", sugar);
+                                userInfo.put("fibre", fibre);
+                                userInfo.put("calories", calories);
+                                userInfo.put("meal", meal);
+                                mealRef.set(userInfo);
+                            } else {
+                                userInfo.put("name", name);
+                                userInfo.put("servingSize", addTwoStrings(document.getString("servingSize"), servingSize));
+                                userInfo.put("fats", addTwoStrings(document.getString("fats"), fats));
+                                userInfo.put("carbohydrates", addTwoStrings(document.getString("carbohydrates"), carbohydrates));
+                                userInfo.put("sugar", addTwoStrings(document.getString("sugar"), sugar));
+                                userInfo.put("fibre", addTwoStrings(document.getString("fibre"), fibre));
+                                userInfo.put("calories", addTwoStrings(document.getString("calories"), calories));
+                                userInfo.put("meal", meal);
+                                mealRef.set(userInfo);
+                            }
+                        }
+                    }
+                });
+                //db.collection("users").document(user.getUid().toString()).collection("userData").document(date).collection("Food").document(name).set(userInfo, SetOptions.merge());
                 Map<String, Object> Date = new HashMap<>();
                 Date.put("Date", date);
                 // Total
@@ -201,7 +222,7 @@ public class Basic_Input extends AppCompatActivity {
 
         Map<String, Object> Date = new HashMap<>();
         Date.put("Date", date);
-//            db.collection("users").document(user.getUid().toString()).set(date);
+        // db.collection("users").document(user.getUid().toString()).set(date);
         db.collection("users").document(user.getUid().toString()).collection("userData").document(date).set(Date);
 
     }
@@ -254,6 +275,11 @@ public class Basic_Input extends AppCompatActivity {
         } else {
             return field;
         }
+    }
+
+    // add two numerical string values
+    public String addTwoStrings(String value1, String value2) {
+        return String.valueOf(Float.parseFloat(value1) + Float.parseFloat(value2));
     }
 
     public void backBasicInputPage(View view) {

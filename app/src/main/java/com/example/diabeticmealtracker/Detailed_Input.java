@@ -128,31 +128,68 @@ public class Detailed_Input extends AppCompatActivity {
                 String vitaminA = initializeInput(txtVitA.getText().toString().trim());
                 String vitaminB = initializeInput(txtVitB.getText().toString().trim());
                 String vitaminC = initializeInput(txtVitC.getText().toString().trim());
-                // setting the field inputs into the food object
-                userInfo.put("name", name);
-                userInfo.put("servingSize", servingSize);
-                userInfo.put("fats", fats);
-                userInfo.put("carbohydrates", carbohydrates);
-                userInfo.put("sugar", sugar);
-                userInfo.put("fibre", fibre);
-                userInfo.put("calories", calories);
-                userInfo.put("meal", meal);
-                // setting additional input
-                userInfo.put("saturatedFat", sFat);
-                userInfo.put("transFat", tFat);
-                userInfo.put("cholesterol", cholesterol);
-                userInfo.put("sodium", sodium);
-                userInfo.put("protein", protein);
-                userInfo.put("calcium", calcium);
-                userInfo.put("potassium", potassium);
-                userInfo.put("iron", iron);
-                userInfo.put("zinc", zinc);
-                userInfo.put("vitaminA", vitaminA);
-                userInfo.put("vitaminB", vitaminB);
-                userInfo.put("vitaminC", vitaminC);
-
                 // push food object onto firebase based on the meal time selected
-                db.collection("users").document(user.getUid().toString()).collection("userData").document(date).collection("Food").document(name).set(userInfo, SetOptions.merge());
+                // check if the the meal already exists and if it does, add to the current one.
+                DocumentReference mealRef = db.collection("users").document(user.getUid().toString()).collection("userData").document(date).collection("Food").document(name);
+                mealRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot document = task.getResult(); //Grab snapshot of requirements
+                            Map<String, Object> userInfo = new HashMap<>();
+                            if (!document.exists()) {
+                                // setting basic input
+                                userInfo.put("name", name);
+                                userInfo.put("servingSize", servingSize);
+                                userInfo.put("fats", fats);
+                                userInfo.put("carbohydrates", carbohydrates);
+                                userInfo.put("sugar", sugar);
+                                userInfo.put("fibre", fibre);
+                                userInfo.put("calories", calories);
+                                userInfo.put("meal", meal);
+                                // setting additional input
+                                userInfo.put("saturatedFat", sFat);
+                                userInfo.put("transFat", tFat);
+                                userInfo.put("cholesterol", cholesterol);
+                                userInfo.put("sodium", sodium);
+                                userInfo.put("protein", protein);
+                                userInfo.put("calcium", calcium);
+                                userInfo.put("potassium", potassium);
+                                userInfo.put("iron", iron);
+                                userInfo.put("zinc", zinc);
+                                userInfo.put("vitaminA", vitaminA);
+                                userInfo.put("vitaminB", vitaminB);
+                                userInfo.put("vitaminC", vitaminC);
+                                mealRef.set(userInfo);
+                            } else {
+                                // basic
+                                userInfo.put("name", name);
+                                userInfo.put("servingSize", addTwoStrings(document.getString("servingSize"), servingSize));
+                                userInfo.put("fats", addTwoStrings(document.getString("fats"), fats));
+                                userInfo.put("carbohydrates", addTwoStrings(document.getString("carbohydrates"), carbohydrates));
+                                userInfo.put("sugar", addTwoStrings(document.getString("sugar"), sugar));
+                                userInfo.put("fibre", addTwoStrings(document.getString("fibre"), fibre));
+                                userInfo.put("calories", addTwoStrings(document.getString("calories"), calories));
+                                userInfo.put("meal", meal);
+                                // setting additional input
+                                userInfo.put("saturatedFat", addTwoStrings(document.getString("saturatedFat"), sFat));
+                                userInfo.put("transFat", addTwoStrings(document.getString("transFat"), tFat));
+                                userInfo.put("cholesterol", addTwoStrings(document.getString("cholesterol"), cholesterol));
+                                userInfo.put("sodium", addTwoStrings(document.getString("sodium"), sodium));
+                                userInfo.put("protein", addTwoStrings(document.getString("protein"), protein));
+                                userInfo.put("calcium", addTwoStrings(document.getString("calcium"), calcium));
+                                userInfo.put("potassium", addTwoStrings(document.getString("potassium"), potassium));
+                                userInfo.put("iron", addTwoStrings(document.getString("iron"), iron));
+                                userInfo.put("zinc", addTwoStrings(document.getString("zinc"), zinc));
+                                userInfo.put("vitaminA", addTwoStrings(document.getString("vitaminA"), vitaminA));
+                                userInfo.put("vitaminB", addTwoStrings(document.getString("vitaminB"), vitaminB));
+                                userInfo.put("vitaminC", addTwoStrings(document.getString("vitaminC"), vitaminC));
+                                mealRef.set(userInfo);
+                            }
+                        }
+                    }
+                });
+                //db.collection("users").document(user.getUid().toString()).collection("userData").document(date).collection("Food").document(name).set(userInfo, SetOptions.merge());
                 Map<String, Object> Date = new HashMap<>();
                 Date.put("Date", date);
                 // notification saying the input has been successfully added to firebase
@@ -352,6 +389,11 @@ public class Detailed_Input extends AppCompatActivity {
         } else {
             return field;
         }
+    }
+
+    // add two numerical string values
+    public String addTwoStrings(String value1, String value2) {
+        return String.valueOf(Float.parseFloat(value1) + Float.parseFloat(value2));
     }
 
     public void backDetailedInputPage(View view) {
