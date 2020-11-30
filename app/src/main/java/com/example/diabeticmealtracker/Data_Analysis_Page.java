@@ -26,6 +26,12 @@ public class Data_Analysis_Page extends AppCompatActivity {
         Intent intent = new Intent (getApplicationContext(), FoodAnalysis_Page.class);
         startActivity(intent);
     }
+
+    public void viewMoreButtonClick (View view){
+        Intent intent = new Intent (getApplicationContext(), DailyInakePage.class);
+        startActivity(intent);
+    }
+
     public void exerciseAnalysisClick (View view){
         Intent intent = new Intent (getApplicationContext(), ExerciseAnalysis_Page.class);
         startActivity(intent);

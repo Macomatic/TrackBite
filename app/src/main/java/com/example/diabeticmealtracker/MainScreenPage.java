@@ -35,8 +35,4 @@ public class MainScreenPage extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void extraButtonClick (View view){
-        Intent intent = new Intent (getApplicationContext(), ExtraPage.class);
-        startActivity(intent);
-    }
 }

@@ -6,6 +6,23 @@
     android:layout_height="match_parent"
     tools:context=".Data_Analysis_Page">
 
+    <Button
+        android:id="@+id/viewMoreButtonClick"
+        android:layout_width="285dp"
+        android:layout_height="50dp"
+        android:background="@drawable/my_button_design"
+        android:fontFamily="@font/titillium_web_semibold"
+        android:onClick="viewMoreButtonClick"
+        android:text="Current Intake"
+        android:textSize="18dp"
+        app:backgroundTint="@color/button_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.523"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.66" />
+
     <TextView
         android:id="@+id/textView12"
         android:layout_width="wrap_content"
