@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -135,12 +136,14 @@ public class ExerciseAnalysis_Page extends AppCompatActivity {
                 } else if (isLastDateGreaterThanFirstDate == false) {
                     Toast.makeText(getApplicationContext(), "The last date comes before the first date", Toast.LENGTH_SHORT).show();
                 } else {
-                    String[] graphValues = new String[2];
+                    String[] graphValues = new String[3];
                     if (this.currTimeRange.equals("None") == false) {
                         graphValues[0] = this.currTimeRange;
                     } else {
                         graphValues[0] = firstRangeText + "-" + lastRangeText;
                     }
+                    Switch graphSwitch = (Switch) findViewById(R.id.graphSwitch);
+                    graphValues[2] = String.valueOf(graphSwitch.isChecked());
                     graphValues[1] = this.currActivityAnalyse;
                     Intent intent = new Intent(getApplicationContext(), ExerciseGraph_Page.class);
                     startActivity(intent.putExtra("values", graphValues));
@@ -148,9 +151,11 @@ public class ExerciseAnalysis_Page extends AppCompatActivity {
             }
         }
         else {
-            String[] graphValues = new String[2];
+            String[] graphValues = new String[3];
             graphValues[0] = this.currTimeRange;
             graphValues[1] = this.currActivityAnalyse;
+            Switch graphSwitch = (Switch) findViewById(R.id.graphSwitch);
+            graphValues[2] = String.valueOf(graphSwitch.isChecked());
             Intent intent = new Intent(getApplicationContext(), ExerciseGraph_Page.class);
             startActivity(intent.putExtra("values", graphValues));
 

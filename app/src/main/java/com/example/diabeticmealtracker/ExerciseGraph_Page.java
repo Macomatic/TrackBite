@@ -14,7 +14,9 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,7 +24,10 @@ import com.anychart.AnyChart;
 import com.anychart.AnyChartView;
 import com.anychart.chart.common.dataentry.DataEntry;
 import com.anychart.chart.common.dataentry.ValueDataEntry;
+import com.anychart.charts.Cartesian;
 import com.anychart.charts.Pie;
+import com.anychart.enums.TooltipPositionMode;
+import com.anychart.graphics.vector.Stroke;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -53,7 +58,7 @@ public class ExerciseGraph_Page extends AppCompatActivity {
 
     public boolean displayCaloriesBurned, displayActiveHours;
     public String dateRange;
-    public String[] months = new String[]{"January", "February", "March", "April","May","June","July","August","September","October","November","December"};
+    public String[] months = new String[]{"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +75,7 @@ public class ExerciseGraph_Page extends AppCompatActivity {
                 button.setEnabled(false);
                 button.setBackgroundResource(R.drawable.my_button_design);
             }
+
             public void onFinish() {
                 button.setText("Generate");
                 button.setTextColor(getApplication().getResources().getColor(R.color.white));
@@ -88,10 +94,12 @@ public class ExerciseGraph_Page extends AppCompatActivity {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             ArrayList<String> validDatesArray = new ArrayList<>();
-                            Map<String,Object> validDates = new HashMap<>();
-                            Map<String,Object> validActivities = new HashMap<>();
-                            Map<String,Double> validProperty = new HashMap<>();
-                            Map<String,Object> validProperties = new HashMap<>();
+                            Map<String, Object> validDates = new HashMap<>();
+                            Map<String, Object> validActivities = new HashMap<>();
+                            Map<String, Double> validProperty = new HashMap<>();
+                            Map<String, Object> validProperties = new HashMap<>();
+                            Map<String, Double> validTrend = new HashMap<>();
+                            ArrayList<String> trend = new ArrayList<>();
                             ArrayList<String> activities = new ArrayList<String>();
                             Bundle extra = getIntent().getExtras();
                             String[] values = extra.getStringArray("values");
@@ -104,7 +112,7 @@ public class ExerciseGraph_Page extends AppCompatActivity {
 
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 String docId = document.getId();
-                                if (!docId.equals("profile") && !docId.equals("Analysis")) {
+                                if (!docId.equals("profile") && !docId.equals("Analysis") && !docId.equals("LineAnalysis")) {
                                     int documentDate = Integer.parseInt(docId);
                                     if (documentDate >= Integer.parseInt(dateRange.substring(0, 8)) && documentDate <= Integer.parseInt(dateRange.substring(9))) {
                                         validDatesArray.add(docId);
@@ -119,50 +127,59 @@ public class ExerciseGraph_Page extends AppCompatActivity {
                                                                 if (!activities.contains(exerciseId)) {
                                                                     activities.add(exerciseId);
                                                                 }
-                                                                    db.collection("users").document(user.getUid()).collection("userData").document(docId).collection("Exercise").document(exerciseId)
-                                                                            .get()
-                                                                            .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                                                                                @Override
-                                                                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                                                                    if (task.isSuccessful()) {
-                                                                                        DocumentSnapshot document = task.getResult();
-                                                                                        if (displayActiveHours == true) {
-                                                                                            Double temp = Double.parseDouble(document.getString("Duration"));
-                                                                                            if (!validProperty.containsKey(exerciseId)) {
-
-                                                                                                validProperty.put(exerciseId, temp);
-                                                                                            } else {
-                                                                                                validProperty.put(exerciseId, validProperty.get(exerciseId) + temp);
-                                                                                            }
+                                                                db.collection("users").document(user.getUid()).collection("userData").document(docId).collection("Exercise").document(exerciseId)
+                                                                        .get()
+                                                                        .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                                                            @Override
+                                                                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                                                                if (task.isSuccessful()) {
+                                                                                    DocumentSnapshot document = task.getResult();
+                                                                                    if (displayActiveHours == true) {
+                                                                                        Double temp = Double.parseDouble(document.getString("Duration"));
+                                                                                        if (!validProperty.containsKey(exerciseId)) {
+                                                                                            validProperty.put(exerciseId, temp);
+                                                                                        } else {
+                                                                                            validProperty.put(exerciseId, validProperty.get(exerciseId) + temp);
                                                                                         }
-                                                                                        else {
-                                                                                            Double temp = Double.parseDouble(document.getString("CaloriesBurned"));
-                                                                                            if (!validProperty.containsKey(exerciseId)) {
-                                                                                                validProperty.put(exerciseId, temp);
-                                                                                            } else {
-                                                                                                validProperty.put(exerciseId, validProperty.get(exerciseId) + temp);
-                                                                                            }
+                                                                                        if (!validTrend.containsKey(docId)) {
+                                                                                            validTrend.put(docId, temp);
+                                                                                        } else {
+                                                                                            validTrend.put(docId, validTrend.get(docId) + temp);
                                                                                         }
-                                                                                        //validProperties.put("Properties",validProperty);
-                                                                                        db.collection("users").document(user.getUid()).collection("userData").document("Analysis").set(validProperty);
+                                                                                    } else {
+                                                                                        Double temp = Double.parseDouble(document.getString("CaloriesBurned"));
+                                                                                        if (!validProperty.containsKey(exerciseId)) {
+                                                                                            validProperty.put(exerciseId, temp);
+                                                                                        } else {
+                                                                                            validProperty.put(exerciseId, validProperty.get(exerciseId) + temp);
+                                                                                        }
+                                                                                        if (!validTrend.containsKey(docId)) {
+                                                                                            validTrend.put(docId, temp);
+                                                                                        } else {
+                                                                                            validTrend.put(docId, validTrend.get(docId) + temp);
+                                                                                        }
                                                                                     }
+                                                                                    //validProperties.put("Properties",validProperty);
+                                                                                    db.collection("users").document(user.getUid()).collection("userData").document("Analysis").set(validProperty);
+                                                                                    db.collection("users").document(user.getUid()).collection("userData").document("LineAnalysis").set(validTrend);
 
                                                                                 }
-                                                                            });
-                                                                }
+
+                                                                            }
+                                                                        });
                                                             }
-                                                            //validActivities.put("activities", activities);
-                                                            //db.collection("users").document(user.getUid()).collection("userData").document("Analysis").set(validActivities, SetOptions.merge());
                                                         }
+                                                        //validActivities.put("activities", activities);
+                                                        //db.collection("users").document(user.getUid()).collection("userData").document("Analysis").set(validActivities, SetOptions.merge());
+                                                    }
 
                                                 });
                                     }
-                                    }
+                                }
                             }
                             //validDates.put("validDates",validDatesArray);
                             //db.collection("users").document(user.getUid()).collection("userData").document("Analysis").set(validDates, SetOptions.merge());
-                        }
-                        else {
+                        } else {
                             Toast.makeText(getApplicationContext(), "Error in retrieving documents from database", Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -209,7 +226,7 @@ public class ExerciseGraph_Page extends AppCompatActivity {
 
     }
 
-    public void generateGraph(View view) {
+    public void generatePieGraph(View view) {
         Bundle extra = getIntent().getExtras();
         String[] values = extra.getStringArray("values");
         FirebaseAuth mAuth = FirebaseAuth.getInstance(); //Grabs current instance of database
@@ -222,77 +239,77 @@ public class ExerciseGraph_Page extends AppCompatActivity {
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                         if (task.isSuccessful()) {
                             DocumentSnapshot document = task.getResult();
-                            Map<String,Object> dbValues = document.getData();
+                            Map<String, Object> dbValues = document.getData();
                             AnyChartView anyChartView = findViewById(R.id.caloriesPieChart);
                             List<DataEntry> dataEntries = new ArrayList<>();
                             Pie pie = AnyChart.pie();
                             if (dbValues.containsKey("Biking")) {
                                 Double biking = (Double) dbValues.get("Biking");
-                                dataEntries.add(new ValueDataEntry("Biking",biking));
+                                dataEntries.add(new ValueDataEntry("Biking", biking));
                             }
                             if (dbValues.containsKey("Walking")) {
                                 Double walking = (Double) dbValues.get("Walking");
-                                dataEntries.add(new ValueDataEntry("Walking",walking));
+                                dataEntries.add(new ValueDataEntry("Walking", walking));
                             }
                             if (dbValues.containsKey("Running")) {
                                 Double running = (Double) dbValues.get("Running");
-                                dataEntries.add(new ValueDataEntry("Running",running));
+                                dataEntries.add(new ValueDataEntry("Running", running));
                             }
                             if (dbValues.containsKey("Ballroom (slow)")) {
                                 Double bSlow = (Double) dbValues.get("Ballroom (slow)");
-                                dataEntries.add(new ValueDataEntry("Ballroom (slow)",bSlow));
+                                dataEntries.add(new ValueDataEntry("Ballroom (slow)", bSlow));
                             }
                             if (dbValues.containsKey("Ballroom (fast)")) {
                                 Double bFast = (Double) dbValues.get("Ballroom (fast)");
-                                dataEntries.add(new ValueDataEntry("Ballroom (fast)",bFast));
+                                dataEntries.add(new ValueDataEntry("Ballroom (fast)", bFast));
                             }
                             if (dbValues.containsKey("Caribbean")) {
                                 Double caribbean = (Double) dbValues.get("Caribbean");
-                                dataEntries.add(new ValueDataEntry("Caribbean",caribbean));
+                                dataEntries.add(new ValueDataEntry("Caribbean", caribbean));
                             }
                             if (dbValues.containsKey("Tap")) {
                                 Double tap = (Double) dbValues.get("Tap");
-                                dataEntries.add(new ValueDataEntry("Tap",tap));
+                                dataEntries.add(new ValueDataEntry("Tap", tap));
                             }
                             if (dbValues.containsKey("Modern")) {
                                 Double modern = (Double) dbValues.get("Modern");
-                                dataEntries.add(new ValueDataEntry("Modern",modern));
+                                dataEntries.add(new ValueDataEntry("Modern", modern));
                             }
                             if (dbValues.containsKey("Aerobic 4-inch step")) {
                                 Double a4Step = (Double) dbValues.get("Aerobic 4-inch step");
-                                dataEntries.add(new ValueDataEntry("Aerobic 4-inch step",a4Step));
+                                dataEntries.add(new ValueDataEntry("Aerobic 4-inch step", a4Step));
                             }
                             if (dbValues.containsKey("Aerobic (General)")) {
                                 Double aGeneral = (Double) dbValues.get("Aerobic (General)");
-                                dataEntries.add(new ValueDataEntry("Aerobic (General)",aGeneral));
+                                dataEntries.add(new ValueDataEntry("Aerobic (General)", aGeneral));
                             }
                             if (dbValues.containsKey("Aerobic (Low Impact)")) {
                                 Double aLow = (Double) dbValues.get("Aerobic (Low Impact)");
-                                dataEntries.add(new ValueDataEntry("Aerobic (Low Impact)",aLow));
+                                dataEntries.add(new ValueDataEntry("Aerobic (Low Impact)", aLow));
                             }
                             if (dbValues.containsKey("Aerobic (High Impact)")) {
                                 Double aHigh = (Double) dbValues.get("Aerobic (High Impact)");
-                                dataEntries.add(new ValueDataEntry("Aerobic (High Impact)",aHigh));
+                                dataEntries.add(new ValueDataEntry("Aerobic (High Impact)", aHigh));
                             }
                             if (dbValues.containsKey("Nadisodhana")) {
                                 Double nad = (Double) dbValues.get("Nadisodhana");
-                                dataEntries.add(new ValueDataEntry("Nadisodhana",nad));
+                                dataEntries.add(new ValueDataEntry("Nadisodhana", nad));
                             }
                             if (dbValues.containsKey("Hatha")) {
                                 Double hat = (Double) dbValues.get("Hatha");
-                                dataEntries.add(new ValueDataEntry("Hatha",hat));
+                                dataEntries.add(new ValueDataEntry("Hatha", hat));
                             }
                             if (dbValues.containsKey("Sitting & Stretching")) {
                                 Double sAndS = (Double) dbValues.get("Sitting & Stretching");
-                                dataEntries.add(new ValueDataEntry("Sitting & Stretching",sAndS));
+                                dataEntries.add(new ValueDataEntry("Sitting & Stretching", sAndS));
                             }
                             if (dbValues.containsKey("Surya Namaskar")) {
                                 Double suN = (Double) dbValues.get("Surya Namaskar");
-                                dataEntries.add(new ValueDataEntry("Surya Namaskar",suN));
+                                dataEntries.add(new ValueDataEntry("Surya Namaskar", suN));
                             }
                             if (dbValues.containsKey("Power Yoga")) {
                                 Double pYoga = (Double) dbValues.get("Power Yoga");
-                                dataEntries.add(new ValueDataEntry("Power Yoga",pYoga));
+                                dataEntries.add(new ValueDataEntry("Power Yoga", pYoga));
                             }
                             pie.data(dataEntries);
                             if (values[1].equals("Calories Burned")) {
@@ -301,12 +318,82 @@ public class ExerciseGraph_Page extends AppCompatActivity {
                                 pie.title("Pie graph for Active Hours");
                             }
                             anyChartView.setChart(pie);
-                        }
-                        else {
+                        } else {
                             Toast.makeText(getApplicationContext(), "Task unsuccessful", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
+    }
+
+    public void generateLineGraph(View view) {
+        Bundle extra = getIntent().getExtras();
+        String[] values = extra.getStringArray("values");
+        FirebaseAuth mAuth = FirebaseAuth.getInstance(); //Grabs current instance of database
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        FirebaseUser user = mAuth.getCurrentUser(); //Grabs current user
+        //Line Graph Creation
+        db.collection("users").document(user.getUid()).collection("userData").document("LineAnalysis")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot document = task.getResult();
+                            Map<String,Object> dbValues2 = document.getData();
+                            AnyChartView anyChartView = findViewById(R.id.caloriesPieChart);
+                            Cartesian cartesian = AnyChart.line();
+                            if (values[1].equals("Calories Burned")) {
+                                cartesian.yAxis(0).title("Calories burned");
+                                cartesian.title("Line graph for Calories Burned");
+                            } else {
+                                cartesian.yAxis(0).title("Active Hours");
+                                cartesian.title("Line graph for Active Hours");
+                            }
+                            List<DataEntry> seriesData = new ArrayList<>();
+                            db.collection("users").document(user.getUid().toString()).collection("userData")
+                                    .get()
+                                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                            if (task.isSuccessful()) {
+                                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                                    String docId = document.getId();
+                                                    if (!docId.equals("LineAnalysis") && !docId.equals("profile") && !docId.equals("Analysis")) {
+                                                        if (dbValues2.containsKey(docId)) {
+                                                            seriesData.add(new ValueDataEntry(convertStringToDate(docId), (Number) dbValues2.get(docId)));
+                                                        }
+                                                    }
+                                                }
+                                                cartesian.animation(true);
+                                                cartesian.crosshair().enabled(true);
+                                                cartesian.crosshair()
+                                                        .yLabel(true)
+                                                        .yStroke((Stroke)null,null,null,(String)null,(String)null);
+                                                cartesian.tooltip().positionMode(TooltipPositionMode.POINT);
+                                                cartesian.xAxis(0).title("Date");
+                                                cartesian.data(seriesData);
+                                                anyChartView.setChart(cartesian);
+                                            }
+                                            else {
+                                                Toast.makeText(getApplicationContext(), "Failed", Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
+                                    });
+                        }
+                    }
+                });
+}
+
+    public void switchGraph(View view) {
+        Bundle extra = getIntent().getExtras();
+        String[] values = extra.getStringArray("values");
+        Boolean state = Boolean.parseBoolean(values[2]);
+        if (state) {
+            generatePieGraph(view);
+        }
+        else {
+            generateLineGraph(view);
+        }
     }
     public String convertMonthNum(String month) {
         if (month.equals("January")) {
@@ -413,7 +500,21 @@ public class ExerciseGraph_Page extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        finish();
+                        db.collection("users").document(user.getUid()).collection("userData").document("LineAnalysis")
+                                .delete()
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        finish();
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+
+                                    }
+                                });
+
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
