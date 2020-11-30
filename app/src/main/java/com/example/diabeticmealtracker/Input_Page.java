@@ -18,10 +18,7 @@ public class Input_Page extends AppCompatActivity {
         Intent intent = new Intent (Input_Page.this, Manual_Input.class);
         startActivity(intent);
     }
-    public void onBarcodeScan(View view){
-        Intent intent = new Intent (Input_Page.this, Barcode_Scan.class);
-        startActivity(intent);
-    }
+
     public void databaseButtonClick (View view){
         Intent intent = new Intent (getApplicationContext(), Database_Page.class);
         startActivity(intent);
@@ -29,8 +26,8 @@ public class Input_Page extends AppCompatActivity {
     public void backInputPage (View view){
         finish();
     }
-    public void onScanNutritionalFacts (View view){
-        Intent intent = new Intent (getApplicationContext(), ScanNutritionalFacts.class);
+    public void canadaFoodGuideClick (View view){
+        Intent intent = new Intent (getApplicationContext(), CanadaFoodGuideReference.class);
         startActivity(intent);
     }
 }
