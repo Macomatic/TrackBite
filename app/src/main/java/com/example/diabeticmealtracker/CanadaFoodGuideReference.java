@@ -52,7 +52,7 @@ public class CanadaFoodGuideReference extends AppCompatActivity {
     }
 
     public void onlineCFG (View view){
-        Uri uri = Uri.parse("https://food-guide.canada.ca/en/"); 
+        Uri uri = Uri.parse("https://food-guide.canada.ca/en/");
         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
         startActivity(intent);
     }
