@@ -45,6 +45,7 @@ public class FoodAnalysis_Page extends AppCompatActivity {
 
         List<String> foodArray = new ArrayList<>();
         foodArray.add("All");
+        foodArray.add("Calories");
         foodArray.add("Carbohydrates");
         foodArray.add("Fats");
         foodArray.add("Protein");
