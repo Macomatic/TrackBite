@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -30,6 +31,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void registerButtonClick (View view){
         Intent intent = new Intent (getApplicationContext(), RegisterPage.class);
+        startActivity(intent);
+    }
+
+    public void extraButtonClick (View view){
+        Intent intent = new Intent (getApplicationContext(), ExtraPage.class);
         startActivity(intent);
     }
 
