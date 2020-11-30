@@ -17,6 +17,8 @@ import com.anychart.chart.common.dataentry.DataEntry;
 import com.anychart.chart.common.dataentry.ValueDataEntry;
 import com.anychart.charts.Pie;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -63,8 +65,9 @@ public class ExerciseGraph_Page extends AppCompatActivity {
                             Map<String,Object> validDates = new HashMap<>();
                             Map<String,Object> validActivities = new HashMap<>();
                             Map<String,Double> validProperty = new HashMap<>();
+                            Map<String,Object> validProperties = new HashMap<>();
                             ArrayList<String> activities = new ArrayList<String>();
-                            boolean displayActiveHours = true;
+                            boolean displayActiveHours = false;
 
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 String docId = document.getId();
@@ -81,7 +84,6 @@ public class ExerciseGraph_Page extends AppCompatActivity {
                                                             for (QueryDocumentSnapshot document : task.getResult()) {
                                                                 String exerciseId = document.getId();
                                                                 if (!activities.contains(exerciseId)) {
-                                                                    Toast.makeText(getApplicationContext(), exerciseId, Toast.LENGTH_SHORT).show();
                                                                     activities.add(exerciseId);
                                                                 }
                                                                     db.collection("users").document(user.getUid()).collection("userData").document(docId).collection("Exercise").document(exerciseId)
@@ -105,7 +107,8 @@ public class ExerciseGraph_Page extends AppCompatActivity {
                                                                                                 validProperty.put(exerciseId, validProperty.get(exerciseId) + Double.parseDouble(document.getString("CaloriesBurned")));
                                                                                             }
                                                                                         }
-                                                                                        db.collection("users").document(user.getUid()).collection("userData").document("Analysis").set(validProperty, SetOptions.merge());
+                                                                                        validProperties.put("Properties",validProperty);
+                                                                                        db.collection("users").document(user.getUid()).collection("userData").document("Analysis").set(validProperties, SetOptions.merge());
                                                                                     }
 
                                                                                 }
@@ -319,6 +322,24 @@ public class ExerciseGraph_Page extends AppCompatActivity {
     }
 
     public void backExerciseGraphPage (View view){
-        finish();
+        FirebaseAuth mAuth = FirebaseAuth.getInstance(); //Grabs current instance of database
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        FirebaseUser user = mAuth.getCurrentUser(); //Grabs current user
+
+        db.collection("users").document(user.getUid()).collection("userData").document("Analysis")
+                .delete()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        finish();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+
+                    }
+                });
+
     }
 }
