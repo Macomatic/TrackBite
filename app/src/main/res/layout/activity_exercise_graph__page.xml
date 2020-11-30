@@ -80,14 +80,17 @@
         android:id="@+id/button3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="196dp"
-        android:layout_marginEnd="18dp"
-        android:text="Generate"
+        android:background="@drawable/my_button_design"
         android:onClick="generateGraph"
-        app:layout_constraintBottom_toBottomOf="@+id/button20"
+        android:text="Generate"
+        android:textSize="18dp"
+        app:backgroundTint="@color/button_background"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/button20"
-        app:layout_constraintTop_toTopOf="@+id/button20" />
+        app:layout_constraintHorizontal_bias="0.942"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.976" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

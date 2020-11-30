@@ -3,12 +3,18 @@ package com.example.diabeticmealtracker;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -53,6 +59,23 @@ public class ExerciseGraph_Page extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exercise_graph__page);
+        Button button = (Button) findViewById(R.id.button3);
+        new CountDownTimer(3000, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+                button.setBackgroundResource(R.drawable.my_button_design);
+                button.setText("seconds remaining: " + millisUntilFinished / 1000);
+                button.setTextColor(getApplication().getResources().getColor(R.color.textColor));
+                button.setBackgroundColor(getApplication().getResources().getColor(R.color.button_background2));
+                button.setEnabled(false);
+            }
+            public void onFinish() {
+                button.setText("Generate");
+                button.setTextColor(getApplication().getResources().getColor(R.color.white));
+                button.setBackgroundResource(R.drawable.my_button_design);
+                button.setEnabled(true);
+            }
+        }.start();
 
         FirebaseAuth mAuth = FirebaseAuth.getInstance(); //Grabs current instance of database
         FirebaseFirestore db = FirebaseFirestore.getInstance();
