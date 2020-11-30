@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -146,7 +147,6 @@ public class ExerciseGraph_Page extends AppCompatActivity {
 
         TextView timeRange = (TextView) findViewById(R.id.activityTimeRange);
         TextView exerciseAnalysis = (TextView) findViewById(R.id.exerciseAnalysis);
-        TextView testDB = (TextView) findViewById(R.id.testDBReading);
 
         if (values[0].equals("Week") || values[0].equals("Month") || values[0].equals("Year")) {
             timeRange.setText("Data for the last " + values[0]);
@@ -176,37 +176,15 @@ public class ExerciseGraph_Page extends AppCompatActivity {
                 .addSnapshotListener(new EventListener<DocumentSnapshot>() {
                     @Override
                     public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                        String dbText = "";
                         if (error != null) {
                             Toast.makeText(getApplicationContext(), "Listener Error", Toast.LENGTH_SHORT).show();
                         }
                         if (value != null && value.exists()) {
-                            Object[] dates = value.getData().entrySet().toArray();
-                            dbText = Arrays.toString(dates);
-                            testDB.setText(dbText);
-
-//                            for (int i = 0; i < dates.length; i++) {
-//                                db.collection("users").document(user.getUid()).collection("userData").document(dates[i].toString()).collection("Exercise")
-//                                        .get()
-//                                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//                                            @Override
-//                                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                                                if (task.isSuccessful()) {
-//                                                    List<String> list = new ArrayList<>();
-//                                                    for (QueryDocumentSnapshot document : task.getResult()) {
-//                                                        String docId = document.getId();
-//                                                        if (!list.contains(docId)) {
-//                                                            list.add(document.getId());
-//                                                        }
-//                                                    }
-//                                                    String[] act = {"Walk", "Run", "Bike"};
-//                                                    double[] values = {2000,5000,3000,1000,500};
-//                                                    AnyChartView anyChartView = findViewById(R.id.caloriesPieChart);
-//                                                    setupPieChart(list,values,anyChartView);
-//                                                }
-//                                            }
-//                                        });
-//                            }
+                            Map<String,Object> data = value.getData();
+                            Object[] objectArray = data.entrySet().toArray();
+                            //Log.d("YO",Arrays.toString(objectArray));
+                            Log.d("TEST1",objectArray[0].toString());
+                            //[activities=[Ballroom, slow, Biking, Nadisodhana, Power Yoga, Running, Tap, Walking], Properties={Walking=1394.2395833333333, Tap=1512.0, Biking=880.1770833333333, Ballroom, slow=1575.0, Running=3717.50625, Nadisodhana=424.55, Power Yoga=9.1}, validDates=[20201127, 20201128, 20201129]]
 
                         }
                         else {
@@ -216,11 +194,11 @@ public class ExerciseGraph_Page extends AppCompatActivity {
                 });
     }
 
-    public void setupPieChart(List<String> types, double[] values, AnyChartView anyChartView){
+    public void setupPieChart(double[] types, double[] values, AnyChartView anyChartView){
         Pie pie = AnyChart.pie();
         List<DataEntry> dataEntries = new ArrayList<>();
         for (int i = 0; i < values.length; i++) {
-            dataEntries.add(new ValueDataEntry(types.get(i),values[i]));
+            dataEntries.add(new ValueDataEntry(types[i],values[i]));
         }
         pie.data(dataEntries);
         anyChartView.setChart(pie);
