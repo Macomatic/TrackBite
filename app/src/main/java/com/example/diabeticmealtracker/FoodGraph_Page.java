@@ -5,8 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.speech.tts.TextToSpeech;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -21,14 +23,36 @@ import java.util.Date;
 
 public class FoodGraph_Page extends AppCompatActivity {
 
-    public String displayedContent;
-    public String dateRange;
+    public String dateRange, displayedContent, whichGraph;
     public String[] months = new String[]{"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food_graph__page);
+        Button button = (Button) findViewById(R.id.button9);
+        new CountDownTimer(3000, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+                button.setBackgroundResource(R.drawable.my_button_design);
+                button.setText("seconds remaining: " + millisUntilFinished / 1000);
+                button.setTextColor(getApplication().getResources().getColor(R.color.textColor));
+                button.setBackgroundColor(getApplication().getResources().getColor(R.color.button_background2));
+                button.setEnabled(false);
+                button.setBackgroundResource(R.drawable.my_button_design);
+            }
+
+            public void onFinish() {
+                button.setText("Generate");
+                button.setTextColor(getApplication().getResources().getColor(R.color.white));
+                button.setBackgroundResource(R.drawable.my_button_design);
+                button.setEnabled(true);
+            }
+        }.start();
+
+        FirebaseAuth mAuth = FirebaseAuth.getInstance(); //Grabs current instance of database
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        FirebaseUser user = mAuth.getCurrentUser(); //Grabs current user
     }
 
     protected void onStart() {
@@ -36,11 +60,34 @@ public class FoodGraph_Page extends AppCompatActivity {
         Bundle extra = getIntent().getExtras();
         String[] values = extra.getStringArray("values");
 
+
+        FirebaseAuth mAuth = FirebaseAuth.getInstance(); //Grabs current instance of database
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        FirebaseUser user = mAuth.getCurrentUser(); //Grabs current user
+
         TextView timeRange = (TextView) findViewById(R.id.timeRange);
-        TextView foodAnalysed = (TextView) findViewById(R.id.foodAnalysed);
+        TextView foodAnalysed = (TextView) findViewById(R.id.foodAnalysed); //exerciseAnalysis
 
         timeRange.setText(values[0]);
         foodAnalysed.setText(values[1]);
+
+        if (values[0].equals("Week") || values[0].equals("Month") || values[0].equals("Year")) {
+            timeRange.setText("Data for the last " + values[0]);
+            String currDate = dateRetriever();
+            this.dateRange = dateDecrementer(currDate, values[0]) + "-" + currDate;
+        } else {
+            String firstDate = convertStringToDate(dateReorganizer(values[0].substring(0, 8)));
+            String secondDate = convertStringToDate(dateReorganizer(values[0].substring(9)));
+            timeRange.setText("From " + firstDate + " to " + secondDate);
+            this.dateRange = dateReorganizer(values[0].substring(0, 8)) + "-" + dateReorganizer(values[0].substring(9));
+        }
+        if (values[1].equals("All")) {
+            foodAnalysed.setText("Analyzing all possible values as portions");
+            this.whichGraph = "Pie";
+        } else {
+            foodAnalysed.setText("Analyzing " + values[1] + " in grams");
+        }
+
     }
     public void backFoodGraphPage (View view)
     {
