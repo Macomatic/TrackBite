@@ -204,8 +204,8 @@ public class ExerciseGraph_Page extends AppCompatActivity {
             String currDate = dateRetriever();
             this.dateRange = dateDecrementer(currDate, values[0]) + "-" + currDate;
         } else {
-            String firstDate = convertStringToDate(values[0].substring(0, 8));
-            String secondDate = convertStringToDate(values[0].substring(9));
+            String firstDate = convertStringToDate(dateReorganizer(values[0].substring(0, 8)));
+            String secondDate = convertStringToDate(dateReorganizer(values[0].substring(9)));
             timeRange.setText("From " + firstDate + " to " + secondDate);
             this.dateRange = dateReorganizer(values[0].substring(0, 8)) + "-" + dateReorganizer(values[0].substring(9));
         }
