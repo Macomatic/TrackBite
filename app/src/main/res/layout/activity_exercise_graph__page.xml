@@ -84,6 +84,7 @@
         android:onClick="generateGraph"
         android:text="Generate"
         android:textSize="18dp"
+        android:fontFamily="@font/titillium_web_semibold"
         app:backgroundTint="@color/button_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
