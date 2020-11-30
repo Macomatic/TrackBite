@@ -114,8 +114,22 @@ public class Basic_Input extends AppCompatActivity {
                                 userInfo.put("fibre", fibre);
                                 userInfo.put("calories", calories);
                                 userInfo.put("meal", meal);
+                                // setting additional input
+                                userInfo.put("saturatedFat", "0");
+                                userInfo.put("transFat", "0");
+                                userInfo.put("cholesterol", "0");
+                                userInfo.put("sodium", "0");
+                                userInfo.put("protein", "0");
+                                userInfo.put("calcium", "0");
+                                userInfo.put("potassium", "0");
+                                userInfo.put("iron", "0");
+                                userInfo.put("zinc", "0");
+                                userInfo.put("vitaminA", "0");
+                                userInfo.put("vitaminB", "0");
+                                userInfo.put("vitaminC", "0");
                                 mealRef.set(userInfo);
                             } else {
+                                // setting basic input
                                 userInfo.put("name", name);
                                 userInfo.put("servingSize", addTwoStrings(document.getString("servingSize"), servingSize));
                                 userInfo.put("fats", addTwoStrings(document.getString("fats"), fats));
@@ -124,6 +138,19 @@ public class Basic_Input extends AppCompatActivity {
                                 userInfo.put("fibre", addTwoStrings(document.getString("fibre"), fibre));
                                 userInfo.put("calories", addTwoStrings(document.getString("calories"), calories));
                                 userInfo.put("meal", meal);
+                                // setting additional input
+                                userInfo.put("saturatedFat", document.getString("saturatedFat"));
+                                userInfo.put("transFat", document.getString("transFat"));
+                                userInfo.put("cholesterol", document.getString("cholesterol"));
+                                userInfo.put("sodium", document.getString("sodium"));
+                                userInfo.put("protein", document.getString("protein"));
+                                userInfo.put("calcium", document.getString("calcium"));
+                                userInfo.put("potassium", document.getString("potassium"));
+                                userInfo.put("iron", document.getString("iron"));
+                                userInfo.put("zinc", document.getString("zinc"));
+                                userInfo.put("vitaminA", document.getString("vitaminA"));
+                                userInfo.put("vitaminB", document.getString("vitaminB"));
+                                userInfo.put("vitaminC", document.getString("vitaminC"));
                                 mealRef.set(userInfo);
                             }
                         }
