@@ -10,12 +10,13 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <Button
         android:id="@+id/button20"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/titillium_web_semibold"
         android:background="@drawable/my_button_design"
+        android:fontFamily="@font/titillium_web_semibold"
         android:onClick="backExerciseGraphPage"
         android:text="Back"
         android:textSize="18dp"
@@ -74,6 +75,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/exerciseAnalysis" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="196dp"
+        android:layout_marginEnd="18dp"
+        android:text="Generate"
+        android:onClick="generateGraph"
+        app:layout_constraintBottom_toBottomOf="@+id/button20"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/button20"
+        app:layout_constraintTop_toTopOf="@+id/button20" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
