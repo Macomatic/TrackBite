@@ -7,24 +7,6 @@
     tools:context=".MainActivity">
 
 
-    <Button
-        android:id="@+id/Conversions"
-        android:layout_width="250dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="40dp"
-        android:background="@drawable/my_button_design"
-        android:fontFamily="@font/titillium_web_semibold"
-        android:onClick="extraButtonClick"
-        android:text="Extras"
-        android:textSize="18dp"
-        app:backgroundTint="@color/button_background"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/data_analysis"
-        app:layout_constraintVertical_bias="0.381" />
-
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
@@ -111,6 +93,25 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/data_analysis"
         app:layout_constraintVertical_bias="0.203" />
+
+    <Button
+        android:id="@+id/data_analysis"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/my_button_design"
+        android:fontFamily="@font/titillium_web_semibold"
+        android:onClick="data_analysisButtonClick"
+        android:text="Analysis and Graphs"
+        android:textSize="18dp"
+        app:backgroundTint="@color/button_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/exercise"
+        app:layout_constraintVertical_bias="0.0"
+        tools:ignore="OnClick" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
