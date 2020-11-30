@@ -92,7 +92,14 @@ public class ExerciseGraph_Page extends AppCompatActivity {
                             Map<String,Double> validProperty = new HashMap<>();
                             Map<String,Object> validProperties = new HashMap<>();
                             ArrayList<String> activities = new ArrayList<String>();
-                            boolean displayActiveHours = false;
+                            Bundle extra = getIntent().getExtras();
+                            String[] values = extra.getStringArray("values");
+                            boolean displayActiveHours;
+                            if (values[1].equals("Calories Burned")) {
+                                displayActiveHours = false;
+                            } else {
+                                displayActiveHours = true;
+                            }
 
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 String docId = document.getId();

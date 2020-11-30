@@ -18,12 +18,14 @@ import java.util.List;
 public class ExerciseAnalysis_Page extends AppCompatActivity {
 
     private String currActivityAnalyse, currTimeRange;
+    boolean isCustom;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exercise_analysis__page);
 
+        isCustom = true;
         EditText firstRange = (EditText) findViewById(R.id.firstCustomRange);
         EditText lastRange = (EditText) findViewById(R.id.lastCustomRange);
 
@@ -63,6 +65,7 @@ public class ExerciseAnalysis_Page extends AppCompatActivity {
                     lastRange.setEnabled(true);
                     firstRange.setHint("dd/mm/yyyy");
                     lastRange.setHint("dd/mm/yyyy");
+                    isCustom = true;
                 }
                 else {
                     firstRange.getText().clear();
@@ -71,6 +74,7 @@ public class ExerciseAnalysis_Page extends AppCompatActivity {
                     lastRange.setEnabled(false);
                     firstRange.setHint("N/A");
                     lastRange.setHint("N/A");
+                    isCustom = false;
                 }
             }
 
@@ -101,45 +105,55 @@ public class ExerciseAnalysis_Page extends AppCompatActivity {
         String firstRangeText = firstRange.getText().toString();
         String lastRangeText = lastRange.getText().toString();
 
-        if (this.currActivityAnalyse == null || (this.currTimeRange.equals("None") && (TextUtils.isEmpty(firstRangeText) || TextUtils.isEmpty(lastRangeText)))) {
-            Toast.makeText(getApplicationContext(), "Please fill in all fields", Toast.LENGTH_SHORT).show();
-        } else if (firstRangeText.length() > 8 || lastRangeText.length() > 8) {
-            Toast.makeText(getApplicationContext(), "Too many numbers inputted for date", Toast.LENGTH_SHORT).show();
-        } else if (firstRangeText.length() < 8 || lastRangeText.length() < 8) {
-            Toast.makeText(getApplicationContext(), "Too few numbers inputted for date", Toast.LENGTH_SHORT).show();
-        } else {
-            int firstDate = Integer.parseInt(firstRangeText.substring(4)+firstRangeText.substring(2,4)+firstRangeText.substring(0,2));
-            int lastDate = Integer.parseInt(lastRangeText.substring(4)+lastRangeText.substring(2,4)+lastRangeText.substring(0,2));
-            int firstDay = Integer.parseInt(firstRangeText.substring(0,2));
-            int firstMonth = Integer.parseInt(firstRangeText.substring(2,4));
-            int firstYear = Integer.parseInt(firstRangeText.substring(4));
-            int lastDay = Integer.parseInt(lastRangeText.substring(0,2));
-            int lastMonth = Integer.parseInt(lastRangeText.substring(2,4));
-            int lastYear = Integer.parseInt(lastRangeText.substring(4));
-
-            boolean isDaysProperlyFormatted = (firstDay >= 1 && firstDay <= 31 && lastDay >= 1 && lastDay <= 31);
-            boolean isMonthsProperlyFormatted = (firstMonth >= 1 && firstMonth <= 12 && lastMonth >= 1 && lastMonth <= 12);
-            boolean isYearsProperlyFormatted = (firstYear >= 2020 && lastYear >= 2020);
-            boolean isLastDateTheSameAsFirstDate = (lastDate == firstDate);
-            boolean isLastDateGreaterThanFirstDate = (lastDate > firstDate);
-
-            if ((this.currTimeRange.equals("None") && isDaysProperlyFormatted && isMonthsProperlyFormatted && isYearsProperlyFormatted) == false) {
-                Toast.makeText(getApplicationContext(), "Date is incorrectly formatted", Toast.LENGTH_SHORT).show();
-            } else if (isLastDateTheSameAsFirstDate == true) {
-                Toast.makeText(getApplicationContext(), "Both dates are the exact same", Toast.LENGTH_SHORT).show();
-            } else if (isLastDateGreaterThanFirstDate == false) {
-                Toast.makeText(getApplicationContext(), "The last date comes before the first date", Toast.LENGTH_SHORT).show();
+        if (this.isCustom == true) {
+            if (this.currActivityAnalyse == null || (this.currTimeRange.equals("None") && (TextUtils.isEmpty(firstRangeText) || TextUtils.isEmpty(lastRangeText)))) {
+                Toast.makeText(getApplicationContext(), "Please fill in all fields", Toast.LENGTH_SHORT).show();
+            } else if (firstRangeText.length() > 8 || lastRangeText.length() > 8) {
+                Toast.makeText(getApplicationContext(), "Too many numbers inputted for date", Toast.LENGTH_SHORT).show();
+            } else if (firstRangeText.length() < 8 || lastRangeText.length() < 8) {
+                Toast.makeText(getApplicationContext(), "Too few numbers inputted for date", Toast.LENGTH_SHORT).show();
             } else {
-                String[] graphValues = new String[2];
-                if (this.currTimeRange.equals("None") == false) {
-                    graphValues[0] = this.currTimeRange;
+                int firstDate = Integer.parseInt(firstRangeText.substring(4) + firstRangeText.substring(2, 4) + firstRangeText.substring(0, 2));
+                int lastDate = Integer.parseInt(lastRangeText.substring(4) + lastRangeText.substring(2, 4) + lastRangeText.substring(0, 2));
+                int firstDay = Integer.parseInt(firstRangeText.substring(0, 2));
+                int firstMonth = Integer.parseInt(firstRangeText.substring(2, 4));
+                int firstYear = Integer.parseInt(firstRangeText.substring(4));
+                int lastDay = Integer.parseInt(lastRangeText.substring(0, 2));
+                int lastMonth = Integer.parseInt(lastRangeText.substring(2, 4));
+                int lastYear = Integer.parseInt(lastRangeText.substring(4));
+
+                boolean isDaysProperlyFormatted = (firstDay >= 1 && firstDay <= 31 && lastDay >= 1 && lastDay <= 31);
+                boolean isMonthsProperlyFormatted = (firstMonth >= 1 && firstMonth <= 12 && lastMonth >= 1 && lastMonth <= 12);
+                boolean isYearsProperlyFormatted = (firstYear >= 2020 && lastYear >= 2020);
+                boolean isLastDateTheSameAsFirstDate = (lastDate == firstDate);
+                boolean isLastDateGreaterThanFirstDate = (lastDate > firstDate);
+
+                if ((this.currTimeRange.equals("None") && isDaysProperlyFormatted && isMonthsProperlyFormatted && isYearsProperlyFormatted) == false) {
+                    Toast.makeText(getApplicationContext(), "Date is incorrectly formatted", Toast.LENGTH_SHORT).show();
+                } else if (isLastDateTheSameAsFirstDate == true) {
+                    Toast.makeText(getApplicationContext(), "Both dates are the exact same", Toast.LENGTH_SHORT).show();
+                } else if (isLastDateGreaterThanFirstDate == false) {
+                    Toast.makeText(getApplicationContext(), "The last date comes before the first date", Toast.LENGTH_SHORT).show();
                 } else {
-                    graphValues[0] = firstRangeText + "-" + lastRangeText;
+                    String[] graphValues = new String[2];
+                    if (this.currTimeRange.equals("None") == false) {
+                        graphValues[0] = this.currTimeRange;
+                    } else {
+                        graphValues[0] = firstRangeText + "-" + lastRangeText;
+                    }
+                    graphValues[1] = this.currActivityAnalyse;
+                    Intent intent = new Intent(getApplicationContext(), ExerciseGraph_Page.class);
+                    startActivity(intent.putExtra("values", graphValues));
                 }
-                graphValues[1] = this.currActivityAnalyse;
-                Intent intent = new Intent(getApplicationContext(), ExerciseGraph_Page.class);
-                startActivity(intent.putExtra("values", graphValues));
             }
+        }
+        else {
+            String[] graphValues = new String[2];
+            graphValues[0] = this.currTimeRange;
+            graphValues[1] = this.currActivityAnalyse;
+            Intent intent = new Intent(getApplicationContext(), ExerciseGraph_Page.class);
+            startActivity(intent.putExtra("values", graphValues));
+
         }
     }
 }
