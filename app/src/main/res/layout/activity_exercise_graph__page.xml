@@ -45,22 +45,38 @@
         android:id="@+id/activityTimeRange"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="32dp"
+        android:fontFamily="@font/merriweather_bold"
         android:text="TextView"
         android:textSize="15dp"
-        android:fontFamily="@font/merriweather_bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView27" />
 
     <TextView
+        android:id="@+id/textView23"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="175dp"
+        android:layout_marginEnd="178dp"
+        android:fontFamily="@font/merriweather_bold"
+        android:text="(Screenshot This Page to Save Graph)"
+        android:textColor="#FF0000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/exerciseAnalysis"
+        app:layout_constraintVertical_bias="0.027" />
+
+    <TextView
         android:id="@+id/exerciseAnalysis"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/merriweather_bold"
         android:text="TextView"
         android:textSize="15dp"
-        android:fontFamily="@font/merriweather_bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/activityTimeRange" />
@@ -70,11 +86,12 @@
         android:layout_width="340dp"
         android:layout_height="340dp"
         android:layout_marginStart="35dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="228dp"
         android:layout_marginEnd="36dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/exerciseAnalysis" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/button3"
@@ -94,23 +111,18 @@
         app:layout_constraintVertical_bias="0.976" />
 
     <TextView
-        android:id="@+id/textView23"
+        android:id="@+id/textView31"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="175dp"
-        android:layout_marginLeft="175dp"
-        android:layout_marginEnd="178dp"
-        android:layout_marginRight="178dp"
-        android:layout_marginBottom="11dp"
-        android:fontFamily="@font/merriweather_bold"
-        android:text="(Screenshot This Page to Save Graph)"
+        android:text="(Click Back Before Closing the App)"
         android:textColor="#FF0000"
-        app:layout_constraintBottom_toTopOf="@+id/caloriesPieChart"
+        android:fontFamily="@font/merriweather_bold"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/exerciseAnalysis"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.828" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
