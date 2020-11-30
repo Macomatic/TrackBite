@@ -210,6 +210,8 @@ public class ExerciseGraph_Page extends AppCompatActivity {
     }
 
     public void generateGraph(View view) {
+        Bundle extra = getIntent().getExtras();
+        String[] values = extra.getStringArray("values");
         FirebaseAuth mAuth = FirebaseAuth.getInstance(); //Grabs current instance of database
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         FirebaseUser user = mAuth.getCurrentUser(); //Grabs current user
@@ -293,6 +295,11 @@ public class ExerciseGraph_Page extends AppCompatActivity {
                                 dataEntries.add(new ValueDataEntry("Power Yoga",pYoga));
                             }
                             pie.data(dataEntries);
+                            if (values[1].equals("Calories Burned")) {
+                                pie.title("Pie graph for Calories Burned");
+                            } else {
+                                pie.title("Pie graph for Active Hours");
+                            }
                             anyChartView.setChart(pie);
                         }
                         else {
