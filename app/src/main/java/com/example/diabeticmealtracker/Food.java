@@ -1,126 +1,175 @@
 package com.example.diabeticmealtracker;
 
 public class Food {
-    private String _name, _meal;
-    private float _servingSize, _fat, _carbohydrates, _sugar, _fibre, _calories;
-    private AdditionalInput[] _additionalInput;
+    private String name, meal;
+    // basic input
+    private String servingSize, fats, carbohydrates, sugar, fibre, calories;
+    // additional input
+    private String saturatedFat, TransFat, cholesterol, sodium, protein, calcium, potassium, iron, zinc, vitaminA, vitaminB, vitaminC;
 
     // constructor
     public Food() {
     }
 
     // setter and getter
-    // name
     public String getName() {
-        return _name;
+        return name;
     }
 
     public void setName(String name) {
-        _name = name;
+        this.name = name;
     }
 
-    // meal
     public String getMeal() {
-        return _meal;
+        return meal;
     }
 
     public void setMeal(String meal) {
-        _meal = meal;
+        this.meal = meal;
     }
 
-    // serving size
-    public float getServingSize() {
-        return _servingSize;
+    public String getServingSize() {
+        return servingSize;
     }
 
-    public void setServingSize(float servingSize) {
-        _servingSize = servingSize;
+    public void setServingSize(String servingSize) {
+        this.servingSize = servingSize;
     }
 
-    // fat
-    public float getFat() {
-        return _fat;
+    public String getFats() {
+        return fats;
     }
 
-    public void setFat(float fat) {
-        _fat = fat;
+    public void setFats(String fats) {
+        this.fats = fats;
     }
 
-    // carbs
-    public float getCarbohydrates() {
-        return _carbohydrates;
+    public String getCarbohydrates() {
+        return carbohydrates;
     }
 
-    public void setCarbohydrates(float carbohydrates) {
-        _carbohydrates = carbohydrates;
+    public void setCarbohydrates(String carbohydrates) {
+        this.carbohydrates = carbohydrates;
     }
 
-    // sugar
-    public float getSugar() {
-        return _sugar;
+    public String getSugar() {
+        return sugar;
     }
 
-    public void setSugar(float sugar) {
-        _sugar = sugar;
+    public void setSugar(String sugar) {
+        this.sugar = sugar;
     }
 
-    // fibre
-    public float getFibre() {
-        return _fibre;
+    public String getFibre() {
+        return fibre;
     }
 
-    public void setFibre(float fibre) {
-        _fibre = fibre;
+    public void setFibre(String fibre) {
+        this.fibre = fibre;
     }
 
-    // calories
-    public float getCalories() {
-        return _calories;
+    public String getCalories() {
+        return calories;
     }
 
-    public void setCalories(float calories) {
-        _calories = calories;
+    public void setCalories(String calories) {
+        this.calories = calories;
     }
 
-    // addition input
-
-    public AdditionalInput[] getAdditionalInput() {
-        return _additionalInput;
+    public String getSaturatedFat() {
+        return saturatedFat;
     }
 
-    public void setAdditionInput(AdditionalInput add, int i) {
-        _additionalInput[i] = add;
+    public void setSaturatedFat(String saturatedFat) {
+        this.saturatedFat = saturatedFat;
     }
 
-    // Additional Input Class
-    private class AdditionalInput {
-        private String addName;
-        private float addValue;
-
-        // constructor
-        public AdditionalInput(String name, float value) {
-            addName = name;
-            addValue = value;
-        }
-
-
-        // Addition Info Name
-        public String getAddName() {
-            return addName;
-        }
-
-        public void setAddName(String name) {
-            addName = name;
-        }
-
-        // Addition Info Value
-        public float getAddValue() {
-            return addValue;
-        }
-
-        public void setAddValue(float value) {
-            addValue = value;
-        }
-
+    public String getTransFat() {
+        return TransFat;
     }
+
+    public void setTransFat(String transFat) {
+        TransFat = transFat;
+    }
+
+    public String getCholesterol() {
+        return cholesterol;
+    }
+
+    public void setCholesterol(String cholesterol) {
+        this.cholesterol = cholesterol;
+    }
+
+    public String getSodium() {
+        return sodium;
+    }
+
+    public void setSodium(String sodium) {
+        this.sodium = sodium;
+    }
+
+    public String getProtein() {
+        return protein;
+    }
+
+    public void setProtein(String protein) {
+        this.protein = protein;
+    }
+
+    public String getCalcium() {
+        return calcium;
+    }
+
+    public void setCalcium(String calcium) {
+        this.calcium = calcium;
+    }
+
+    public String getPotassium() {
+        return potassium;
+    }
+
+    public void setPotassium(String potassium) {
+        this.potassium = potassium;
+    }
+
+    public String getIron() {
+        return iron;
+    }
+
+    public void setIron(String iron) {
+        this.iron = iron;
+    }
+
+    public String getZinc() {
+        return zinc;
+    }
+
+    public void setZinc(String zinc) {
+        this.zinc = zinc;
+    }
+
+    public String getVitaminA() {
+        return vitaminA;
+    }
+
+    public void setVitaminA(String vitaminA) {
+        this.vitaminA = vitaminA;
+    }
+
+    public String getVitaminB() {
+        return vitaminB;
+    }
+
+    public void setVitaminB(String vitaminB) {
+        this.vitaminB = vitaminB;
+    }
+
+    public String getVitaminC() {
+        return vitaminC;
+    }
+
+    public void setVitaminC(String vitaminC) {
+        this.vitaminC = vitaminC;
+    }
+
 }

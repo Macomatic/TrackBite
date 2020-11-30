@@ -71,7 +71,7 @@ public class Database_Page extends AppCompatActivity {
             @Override
             protected void onBindViewHolder(@NonNull FoodViewHolder holder, int position, @NonNull Food model) {
                 holder.foodViewName.setText(model.getName());
-                holder.foodViewMeal.setText(model.getMeal() + "");
+                holder.foodViewMeal.setText(model.getMeal());
             }
         };
 
