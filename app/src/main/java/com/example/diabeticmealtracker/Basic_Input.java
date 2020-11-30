@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -87,15 +88,14 @@ public class Basic_Input extends AppCompatActivity {
                 String date = year + month + dateNum;
 
                 // parsing the input from the input fields
-                String name = (String) txtName.getText().toString().trim();
-                float servingSize = Float.parseFloat(txtServingSize.getText().toString().trim());
-                float fats = Float.parseFloat(txtFats.getText().toString().trim());
-                float carbohydrates = Float.parseFloat(txtCarbohydrates.getText().toString().trim());
-                float sugar = Float.parseFloat(txtSugar.getText().toString().trim());
-                float fibre = Float.parseFloat(txtFibre.getText().toString().trim());
-                float calories = Float.parseFloat(txtCalories.getText().toString().trim());
+                String name = txtName.getText().toString().trim();
+                String servingSize = initializeInput(txtServingSize.getText().toString().trim());
+                String fats = initializeInput(txtFats.getText().toString().trim());
+                String carbohydrates = initializeInput(txtCarbohydrates.getText().toString().trim());
+                String sugar = initializeInput(txtSugar.getText().toString().trim());
+                String fibre = initializeInput(txtFibre.getText().toString().trim());
+                String calories = initializeInput(txtCalories.getText().toString().trim());
                 String meal = spnMeal.getSelectedItem().toString();
-
                 // setting the field inputs into the food object
                 Map<String, Object> userInfo = new HashMap<>();
                 userInfo.put("name", name);
@@ -111,9 +111,6 @@ public class Basic_Input extends AppCompatActivity {
                 db.collection("users").document(user.getUid().toString()).collection("userData").document(date).collection("Food").document(name).set(userInfo, SetOptions.merge());
                 Map<String, Object> Date = new HashMap<>();
                 Date.put("Date", date);
-                // notification saying the input has been successfully added to firebase
-                Toast.makeText(Basic_Input.this, "Input Successful", Toast.LENGTH_LONG).show();
-
                 // Total
                 DocumentReference docRef = db.collection("users").document(user.getUid().toString()).collection("userData").document(date).collection("Total").document("Total");
                 docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() { //Does the .get() command with a custom onComplete
@@ -128,12 +125,12 @@ public class Basic_Input extends AppCompatActivity {
                                 totals.put("Total Burned Calories", "0");
                                 totals.put("Total Active Hours", "0");
                                 // basic
-                                totals.put("Total serving size", String.valueOf(servingSize));
-                                totals.put("Total carbs", String.valueOf(carbohydrates));
-                                totals.put("Total fats", String.valueOf(fats));
-                                totals.put("Total calories", String.valueOf(calories));
-                                totals.put("Total fiber", String.valueOf(fibre));
-                                totals.put("Total sugar", String.valueOf(sugar));
+                                totals.put("Total serving size", servingSize);
+                                totals.put("Total carbs", carbohydrates);
+                                totals.put("Total fats", fats);
+                                totals.put("Total calories", calories);
+                                totals.put("Total fiber", fibre);
+                                totals.put("Total sugar", sugar);
                                 // detailed
                                 totals.put("Total saturated fats", "0");
                                 totals.put("Total trans fats", "0");
@@ -158,12 +155,12 @@ public class Basic_Input extends AppCompatActivity {
                                 float totalFibre = Float.parseFloat(document.getString("Total fiber"));
                                 float totalCalories = Float.parseFloat(document.getString("Total calories"));
                                 // adding to the total
-                                totalServingSize += servingSize;
-                                totalFats += fats;
-                                totalCarbs += carbohydrates;
-                                totalSugar += sugar;
-                                totalFibre += fibre;
-                                totalCalories += calories;
+                                totalServingSize += Float.parseFloat(servingSize);
+                                totalFats += Float.parseFloat(fats);
+                                totalCarbs += Float.parseFloat(carbohydrates);
+                                totalSugar += Float.parseFloat(sugar);
+                                totalFibre += Float.parseFloat(fibre);
+                                totalCalories += Float.parseFloat(calories);
                                 totals.put("Total serving size", String.valueOf(totalServingSize));
                                 totals.put("Total fats", String.valueOf(totalFats));
                                 totals.put("Total carbs", String.valueOf(totalCarbs));
@@ -175,6 +172,8 @@ public class Basic_Input extends AppCompatActivity {
                         }
                     }
                 });
+                // notification saying the input has been successfully added to firebase
+                Toast.makeText(Basic_Input.this, "Input Successful", Toast.LENGTH_LONG).show();
             }
         });
         // clear button
@@ -235,6 +234,25 @@ public class Basic_Input extends AppCompatActivity {
             return "12";
         } else {
             return "MONTH ERROR";
+        }
+    }
+
+    // initialize the input
+    public String initializeInput(String field) {
+        Float testFloat;
+        boolean isNum = true;
+        // if they input not a number
+        try {
+            testFloat = Float.parseFloat(field);
+        } catch (NumberFormatException e) {
+            Toast.makeText(Basic_Input.this, "Please enter in a number", Toast.LENGTH_LONG).show();
+            isNum = false;
+        }
+        // if they input empty
+        if (field.equals("") || isNum == false) {
+            return "0";
+        } else {
+            return field;
         }
     }
 
