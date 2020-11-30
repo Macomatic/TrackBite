@@ -21,10 +21,6 @@ public class Exercise_Page extends AppCompatActivity {
         Intent intent = new Intent (getApplicationContext(), MainScreenPage.class);
         startActivity(intent);
     }
-    public void exerciseNotificationsClick (View view){
-        Intent intent = new Intent (getApplicationContext(), Notifcation_setup_exercise.class);
-        startActivity(intent);
-    }
     public void cardioClick (View view){
         Intent intent = new Intent (getApplicationContext(), ExerciseInput.class);
         startActivity(intent);

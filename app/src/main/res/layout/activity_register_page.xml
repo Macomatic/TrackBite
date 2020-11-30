@@ -106,6 +106,7 @@
         android:onClick="backRegisterPage"
         android:text="Back"
         android:textSize="18dp"
+        android:fontFamily="@font/titillium_web_semibold"
         android:background="@drawable/my_button_design"
         app:backgroundTint="@color/button_background"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -3,12 +3,18 @@ package com.example.diabeticmealtracker;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -53,6 +59,24 @@ public class ExerciseGraph_Page extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exercise_graph__page);
+        Button button = (Button) findViewById(R.id.button3);
+        new CountDownTimer(3000, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+                button.setBackgroundResource(R.drawable.my_button_design);
+                button.setText("seconds remaining: " + millisUntilFinished / 1000);
+                button.setTextColor(getApplication().getResources().getColor(R.color.textColor));
+                button.setBackgroundColor(getApplication().getResources().getColor(R.color.button_background2));
+                button.setEnabled(false);
+                button.setBackgroundResource(R.drawable.my_button_design);
+            }
+            public void onFinish() {
+                button.setText("Generate");
+                button.setTextColor(getApplication().getResources().getColor(R.color.white));
+                button.setBackgroundResource(R.drawable.my_button_design);
+                button.setEnabled(true);
+            }
+        }.start();
 
         FirebaseAuth mAuth = FirebaseAuth.getInstance(); //Grabs current instance of database
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -69,7 +93,14 @@ public class ExerciseGraph_Page extends AppCompatActivity {
                             Map<String,Double> validProperty = new HashMap<>();
                             Map<String,Object> validProperties = new HashMap<>();
                             ArrayList<String> activities = new ArrayList<String>();
-                            boolean displayActiveHours = false;
+                            Bundle extra = getIntent().getExtras();
+                            String[] values = extra.getStringArray("values");
+                            boolean displayActiveHours;
+                            if (values[1].equals("Calories Burned")) {
+                                displayActiveHours = false;
+                            } else {
+                                displayActiveHours = true;
+                            }
 
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 String docId = document.getId();
@@ -179,6 +210,8 @@ public class ExerciseGraph_Page extends AppCompatActivity {
     }
 
     public void generateGraph(View view) {
+        Bundle extra = getIntent().getExtras();
+        String[] values = extra.getStringArray("values");
         FirebaseAuth mAuth = FirebaseAuth.getInstance(); //Grabs current instance of database
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         FirebaseUser user = mAuth.getCurrentUser(); //Grabs current user
@@ -262,6 +295,11 @@ public class ExerciseGraph_Page extends AppCompatActivity {
                                 dataEntries.add(new ValueDataEntry("Power Yoga",pYoga));
                             }
                             pie.data(dataEntries);
+                            if (values[1].equals("Calories Burned")) {
+                                pie.title("Pie graph for Calories Burned");
+                            } else {
+                                pie.title("Pie graph for Active Hours");
+                            }
                             anyChartView.setChart(pie);
                         }
                         else {
