@@ -18,8 +18,7 @@ public class Exercise_Page extends AppCompatActivity {
         startActivity(intent);
     }
     public void backExercisePage (View view){
-        Intent intent = new Intent (getApplicationContext(), MainScreenPage.class);
-        startActivity(intent);
+        finish();
     }
     public void cardioClick (View view){
         Intent intent = new Intent (getApplicationContext(), ExerciseInput.class);

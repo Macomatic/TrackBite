@@ -191,8 +191,7 @@ public class ExerciseInput extends AppCompatActivity {
     }
 
     public void backExerciseInput (View view){
-        Intent intent = new Intent (getApplicationContext(), Exercise_Page.class);
-        startActivity(intent);
+        finish();
     }
 
     public void doneInput (View view){

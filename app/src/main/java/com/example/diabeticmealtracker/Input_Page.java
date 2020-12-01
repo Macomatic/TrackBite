@@ -24,8 +24,7 @@ public class Input_Page extends AppCompatActivity {
         startActivity(intent);
     }
     public void backInputPage (View view){
-        Intent intent = new Intent (getApplicationContext(), MainScreenPage.class);
-        startActivity(intent);
+        finish();
     }
     public void canadaFoodGuideClick (View view){
         Intent intent = new Intent (getApplicationContext(), CanadaFoodGuideReference.class);
