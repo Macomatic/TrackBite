@@ -153,6 +153,59 @@ public class YogaInput extends AppCompatActivity {
                 }
             });
 
+            DocumentReference docRef = db.collection("users").document(user.getUid().toString()).collection("userData").document(date).collection("Total").document("Total");
+            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() { //Does the .get() command with a custom onComplete
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult(); //Grab snapshot of requirements
+                        Map<String,Object> totals = new HashMap<>();
+                        //String calories = document.getString("CaloriesBurned").substring(0,document.getString("CaloriesBurned").indexOf("."));
+                        if (!document.exists()) {
+                            double calories = caloriesBurned(METS(currActivity),duration);
+                            totals.put("Total Burned Calories", String.valueOf(calories));
+                            totals.put("Total Active Hours", String.valueOf(duration));
+                            // basic
+                            totals.put("Total serving size", "");
+                            totals.put("Total carbs", "");
+                            totals.put("Total fats", "");
+                            totals.put("Total calories", "");
+                            totals.put("Total fiber", "");
+                            totals.put("Total sugar", "");
+                            // detailed
+                            totals.put("Total sfat", "");
+                            totals.put("Total tfat", "");
+                            totals.put("Total cholesterol", "");
+                            totals.put("Total sodium", "");
+                            totals.put("Total protein", "");
+                            totals.put("Total calcium", "");
+                            totals.put("Total potassium", "");
+                            totals.put("Total iron", "");
+                            totals.put("Total zinc", "");
+                            totals.put("Total vitamin a", "");
+                            totals.put("Total vitamin b", "");
+                            totals.put("Total vitamin c", "");
+                            db.collection("users").document(user.getUid()).collection("userData").document(date).collection("Total").document("Total").set(totals);
+                        }
+                        else {
+                            double calories = Float.parseFloat(document.getString("Total Burned Calories"));
+                            double activeHours = Double.parseDouble(document.getString("Total Active Hours"));
+                            calories+=caloriesBurned(METS(currActivity), duration);
+                            activeHours+=duration;
+                            totals.put("Total Burned Calories",String.valueOf(calories));
+                            totals.put("Total Active Hours", String.valueOf(activeHours));
+                            db.collection("users").document(user.getUid().toString()).collection("userData").document(date).collection("Total").document("Total").set(totals, SetOptions.merge());
+
+                        }
+                    }
+                }
+            });
+
+            Map<String,Object> Date = new HashMap<>();
+            Date.put("Date",date);
+//            db.collection("users").document(user.getUid().toString()).set(date);
+            db.collection("users").document(user.getUid().toString()).collection("userData").document(date).set(Date);
+
             finish();
             //Opening success page
             Intent intent = new Intent(getApplicationContext(), SuccessExerciseInput_Page.class);
