@@ -45,6 +45,12 @@ public class Database_Page extends AppCompatActivity implements foodDatabaseDial
     private String nameOfFood;
     private String date;
 
+    // Variables for saving food
+    private Map<String, Object> addFood = new HashMap<>();
+    private String name, meal, servingSize, carbohydrates, fats, calories, fibre, sugar;
+    private String saturatedFat, transFat, cholesterol, sodium, protein, calcium, potassium, iron, zinc;
+    private String vitaminA, vitaminB, vitaminC;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -183,8 +189,42 @@ public class Database_Page extends AppCompatActivity implements foodDatabaseDial
     public void add(boolean add, String serving) {
         DocumentReference foodRef = db.collection("users").document(user.getUid().toString()).collection("userData").document("savedMeals").collection("Food").document(nameOfFood);
         DocumentReference setRef = db.collection("users").document(user.getUid().toString()).collection("userData").document(date).collection("Food").document(nameOfFood);
+        // if the user agrees to add meal to daily intake
         if (add == true) {
+            // gets information from saved meal and the amount of servings that the user added
             foodRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() { //Does the .get() command with a custom onComplete
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult(); //Grab snapshot of requirements
+                        // exercise
+                        name = document.getString("name");
+                        meal = document.getString("meal");
+                        // basic
+                        servingSize = serving;
+                        carbohydrates = document.getString("carbohydrates");
+                        fats = document.getString("fats");
+                        calories = document.getString("calories");
+                        fibre = document.getString("fibre");
+                        sugar = document.getString("sugar");
+                        // detailed
+                        saturatedFat = document.getString("saturatedFat");
+                        transFat = document.getString("transFat");
+                        cholesterol = document.getString("cholesterol");
+                        sodium = document.getString("sodium");
+                        protein = document.getString("protein");
+                        calcium = document.getString("calcium");
+                        potassium = document.getString("potassium");
+                        iron = document.getString("iron");
+                        zinc = document.getString("zinc");
+                        vitaminA = document.getString("vitaminA");
+                        vitaminB = document.getString("vitaminB");
+                        vitaminC = document.getString("vitaminC");
+                    }
+                }
+            });
+            // updated the servings on the daily food document
+            setRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() { //Does the .get() command with a custom onComplete
                 @Override
                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                     if (task.isSuccessful()) {
@@ -192,28 +232,28 @@ public class Database_Page extends AppCompatActivity implements foodDatabaseDial
                         Map<String, Object> addFood = new HashMap<>();
                         if (!document.exists()) {
                             // exercise
-                            addFood.put("name", document.getString("name"));
-                            addFood.put("meal", document.getString("meal"));
+                            addFood.put("name", name);
+                            addFood.put("meal", name);
                             // basic
-                            addFood.put("servingSize", document.getString("servingSize"));
-                            addFood.put("carbohydrates", document.getString("carbohydrates"));
-                            addFood.put("fats", document.getString("fats"));
-                            addFood.put("calories", document.getString("calories"));
-                            addFood.put("fibre", document.getString("fibre"));
-                            addFood.put("sugar", document.getString("sugar"));
+                            addFood.put("servingSize", serving);
+                            addFood.put("carbohydrates", carbohydrates);
+                            addFood.put("fats", fats);
+                            addFood.put("calories", calories);
+                            addFood.put("fibre", fibre);
+                            addFood.put("sugar", sugar);
                             // detailed
-                            addFood.put("saturatedFat", document.getString("saturatedFat"));
-                            addFood.put("transFat", document.getString("transFat"));
-                            addFood.put("cholesterol", document.getString("cholesterol"));
-                            addFood.put("sodium", document.getString("sodium"));
-                            addFood.put("protein", document.getString("protein"));
-                            addFood.put("calcium", document.getString("calcium"));
-                            addFood.put("potassium", document.getString("potassium"));
-                            addFood.put("iron", document.getString("iron"));
-                            addFood.put("zinc", document.getString("zinc"));
-                            addFood.put("vitaminA", document.getString("vitaminA"));
-                            addFood.put("vitaminB", document.getString("vitaminB"));
-                            addFood.put("vitaminC", document.getString("vitaminC"));
+                            addFood.put("saturatedFat", saturatedFat);
+                            addFood.put("transFat", transFat);
+                            addFood.put("cholesterol", cholesterol);
+                            addFood.put("sodium", sodium);
+                            addFood.put("protein", protein);
+                            addFood.put("calcium", calcium);
+                            addFood.put("potassium", potassium);
+                            addFood.put("iron", iron);
+                            addFood.put("zinc", zinc);
+                            addFood.put("vitaminA", vitaminA);
+                            addFood.put("vitaminB", vitaminB);
+                            addFood.put("vitaminC", vitaminC);
                             // Add to the daily food document
                             setRef.set(addFood);
                         } else {
@@ -222,24 +262,24 @@ public class Database_Page extends AppCompatActivity implements foodDatabaseDial
                             addFood.put("meal", document.getString("meal"));
                             // basic
                             addFood.put("servingSize", addTwoStrings(serving, document.getString("servingSize")));
-                            addFood.put("carbohydrates", multipleTwoStrings(serving, document.getString("carbohydrates")));
-                            addFood.put("fats", multipleTwoStrings(serving, document.getString("fats")));
-                            addFood.put("calories", multipleTwoStrings(serving, document.getString("calories")));
-                            addFood.put("fibre", multipleTwoStrings(serving, document.getString("fibre")));
-                            addFood.put("sugar", multipleTwoStrings(serving, document.getString("sugar")));
+                            addFood.put("carbohydrates", carbohydrates);
+                            addFood.put("fats", fats);
+                            addFood.put("calories", calories);
+                            addFood.put("fibre", fibre);
+                            addFood.put("sugar", sugar);
                             // detailed
-                            addFood.put("saturatedFat", multipleTwoStrings(serving, document.getString("saturatedFat")));
-                            addFood.put("transFat", multipleTwoStrings(serving, document.getString("transFat")));
-                            addFood.put("cholesterol", multipleTwoStrings(serving, document.getString("cholesterol")));
-                            addFood.put("sodium", multipleTwoStrings(serving, document.getString("sodium")));
-                            addFood.put("protein", multipleTwoStrings(serving, document.getString("protein")));
-                            addFood.put("calcium", multipleTwoStrings(serving, document.getString("calcium")));
-                            addFood.put("potassium", multipleTwoStrings(serving, document.getString("potassium")));
-                            addFood.put("iron", multipleTwoStrings(serving, document.getString("iron")));
-                            addFood.put("zinc", multipleTwoStrings(serving, document.getString("zinc")));
-                            addFood.put("vitaminA", multipleTwoStrings(serving, document.getString("vitaminA")));
-                            addFood.put("vitaminB", multipleTwoStrings(serving, document.getString("vitaminB")));
-                            addFood.put("vitaminC", multipleTwoStrings(serving, document.getString("vitaminC")));
+                            addFood.put("saturatedFat", saturatedFat);
+                            addFood.put("transFat", transFat);
+                            addFood.put("cholesterol", cholesterol);
+                            addFood.put("sodium", sodium);
+                            addFood.put("protein", protein);
+                            addFood.put("calcium", calcium);
+                            addFood.put("potassium", potassium);
+                            addFood.put("iron", iron);
+                            addFood.put("zinc", zinc);
+                            addFood.put("vitaminA", vitaminA);
+                            addFood.put("vitaminB", vitaminB);
+                            addFood.put("vitaminC", vitaminC);
                             // Add to the daily food document
                             setRef.set(addFood);
                         }
