@@ -44,7 +44,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="Saturated Fats"
+            android:hint="Saturated Fats (g)"
             android:fontFamily="@font/merriweather_bold"
             android:inputType="textPersonName"
             android:textSize="14sp" />
@@ -54,7 +54,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="Trans Fats"
+            android:hint="Trans Fats (g)"
             android:fontFamily="@font/merriweather_bold"
             android:inputType="textPersonName"
             android:textSize="14sp" />
@@ -64,7 +64,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="Cholesterol"
+            android:hint="Cholesterol (g)"
             android:fontFamily="@font/merriweather_bold"
             android:inputType="textPersonName"
             android:textSize="14sp" />
@@ -74,7 +74,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="Sodium"
+            android:hint="Sodium (g)"
             android:inputType="textPersonName"
             android:fontFamily="@font/merriweather_bold"
             android:textSize="14sp" />
@@ -84,7 +84,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="Protein"
+            android:hint="Protein (g)"
             android:fontFamily="@font/merriweather_bold"
             android:inputType="textPersonName"
             android:textSize="14sp" />
@@ -94,7 +94,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="Calcium"
+            android:hint="Calcium (%)"
             android:fontFamily="@font/merriweather_bold"
             android:inputType="textPersonName"
             android:textSize="14sp" />
@@ -104,7 +104,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="Potassium"
+            android:hint="Potassium (%)"
             android:fontFamily="@font/merriweather_bold"
             android:inputType="textPersonName"
             android:textSize="14sp" />
@@ -114,7 +114,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="Iron"
+            android:hint="Iron (%)"
             android:fontFamily="@font/merriweather_bold"
             android:inputType="textPersonName"
             android:textSize="14sp" />
@@ -124,7 +124,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="Zinc"
+            android:hint="Zinc (%)"
             android:fontFamily="@font/merriweather_bold"
             android:inputType="textPersonName"
             android:textSize="14sp" />
@@ -134,7 +134,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="Vitamin A"
+            android:hint="Vitamin A (%)"
             android:fontFamily="@font/merriweather_bold"
             android:inputType="textPersonName"
             android:textSize="14sp" />
@@ -144,7 +144,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="Vitamin B"
+            android:hint="Vitamin B (%)"
             android:fontFamily="@font/merriweather_bold"
             android:inputType="textPersonName"
             android:textSize="14sp" />
@@ -154,7 +154,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="Vitamin C"
+            android:hint="Vitamin C (%)"
             android:fontFamily="@font/merriweather_bold"
             android:inputType="textPersonName"
             android:textSize="14sp" />
@@ -215,7 +215,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:fontFamily="@font/merriweather_bold"
-            android:hint="Total Fats"
+            android:hint="Total Fats (g)"
             android:inputType="textPersonName"
             android:textSize="14sp" />
 
@@ -225,7 +225,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:fontFamily="@font/merriweather_bold"
-            android:hint="Total Carbohydrates"
+            android:hint="Total Carbohydrates (g)"
             android:inputType="textPersonName"
             android:textSize="14sp" />
 
@@ -235,7 +235,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:fontFamily="@font/merriweather_bold"
-            android:hint="Total Sugar"
+            android:hint="Total Sugar (g)"
             android:inputType="textPersonName"
             android:textSize="14sp" />
 
@@ -245,7 +245,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:fontFamily="@font/merriweather_bold"
-            android:hint="Total Fibre"
+            android:hint="Total Fibre (g)"
             android:inputType="textPersonName"
             android:textSize="14sp" />
 
