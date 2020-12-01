@@ -38,7 +38,9 @@ public class Basic_Input extends AppCompatActivity implements newSaveDialog.newS
     // element variables
     EditText txtName, txtServingSize, txtFats, txtCarbohydrates, txtSugar, txtFibre, txtCalories;
     Button done, clear;
-    Boolean newSave = true;
+    private boolean newSave;
+    private Map<String, Object> userInfo;
+    private DocumentReference savedMeals;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,13 +106,13 @@ public class Basic_Input extends AppCompatActivity implements newSaveDialog.newS
                 // check if the the meal already exists and if it does, add to the current one.
                 DocumentReference mealRef = db.collection("users").document(user.getUid().toString()).collection("userData").document(date).collection("Food").document(name);
                 // save food to an all time database
-                DocumentReference savedMeals = db.collection("users").document(user.getUid().toString()).collection("userData").document("savedMeals").collection("Food").document(name);
+                savedMeals = db.collection("users").document(user.getUid().toString()).collection("userData").document("savedMeals").collection("Food").document(name);
                 mealRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                         if (task.isSuccessful()) {
                             DocumentSnapshot document = task.getResult(); //Grab snapshot of requirements
-                            Map<String, Object> userInfo = new HashMap<>();
+                            userInfo = new HashMap<>();
                             if (!document.exists()) {
                                 userInfo.put("name", name);
                                 userInfo.put("servingSize", servingSize);
@@ -136,8 +138,8 @@ public class Basic_Input extends AppCompatActivity implements newSaveDialog.newS
                                 mealRef.set(userInfo);
                                 // Open Dialog that asks user if they want to save a new food to an all time database.
                                 newSaveDialog();
-                                if (newSave){
-                                 savedMeals.set(userInfo);
+                                if (newSave == true) {
+                                    savedMeals.set(userInfo);
                                 }
                             } else {
                                 // setting basic input
@@ -333,5 +335,12 @@ public class Basic_Input extends AppCompatActivity implements newSaveDialog.newS
     @Override
     public void save(boolean save) {
         newSave = save;
+        if (newSave == true) {
+            setMeal(savedMeals, userInfo);
+        }
+    }
+
+    public void setMeal(DocumentReference dr, Map<String, Object> map) {
+        dr.set(map);
     }
 }
