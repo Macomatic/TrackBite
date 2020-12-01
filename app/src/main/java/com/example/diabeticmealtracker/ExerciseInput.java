@@ -70,7 +70,7 @@ public class ExerciseInput extends AppCompatActivity {
         formattedDate = formattedDate.replace(",", "");
         String[] splitDate = formattedDate.split(" ");
         String month = convertMonthNum(splitDate[0]);
-        String dateNum = splitDate[1];
+        String dateNum = formatDate(splitDate[1]);
         String year = splitDate[2];
         String date = year + month + dateNum;
 
@@ -324,6 +324,16 @@ public class ExerciseInput extends AppCompatActivity {
             return "12";
         } else {
             return "MONTH ERROR";
+        }
+    }
+
+    public String formatDate(String date){
+        String newDate;
+        if (date.length() == 1){
+            newDate = "0" + date;
+            return newDate;
+        }else{
+            return date;
         }
     }
 }
