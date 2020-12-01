@@ -83,7 +83,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/my_button_design"
         android:fontFamily="@font/titillium_web_semibold"
-        android:onClick="generateLineGraph"
+        android:onClick="generateNewLineGraph"
         android:text="Generate"
         android:textSize="18dp"
         app:backgroundTint="@color/button_background"

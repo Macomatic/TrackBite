@@ -298,7 +298,7 @@ public class FoodGraph_Page extends AppCompatActivity {
     }
 
 
-    public void generateLineGraph(View view) {
+    public void generateNewLineGraph(View view) {
         Bundle extra = getIntent().getExtras();
         String[] values = extra.getStringArray("values");
         FirebaseAuth mAuth = FirebaseAuth.getInstance(); //Grabs current instance of database
@@ -325,9 +325,8 @@ public class FoodGraph_Page extends AppCompatActivity {
                                             if (task.isSuccessful()) {
                                                 for (QueryDocumentSnapshot document : task.getResult()) {
                                                     String docId = document.getId();
-                                                    if (!docId.equals("FoodAnalysis") && !docId.equals("profile") && !docId.equals("Analysis") && docId.equals("LineAnalysis")) {
+                                                    if (!docId.equals("FoodAnalysis") && !docId.equals("profile") && !docId.equals("Analysis") && !docId.equals("LineAnalysis")) {
                                                         if (dbValuesThree.containsKey(docId)) {
-                                                            Toast.makeText(getApplicationContext(), docId, Toast.LENGTH_SHORT).show();
                                                             seriesData.add(new ValueDataEntry(convertStringToDate(docId), (Number) dbValuesThree.get(docId)));
                                                         }
                                                     }
@@ -339,6 +338,7 @@ public class FoodGraph_Page extends AppCompatActivity {
                                                         .yStroke((Stroke)null,null,null,(String)null,(String)null);
                                                 foodCartesian.tooltip().positionMode(TooltipPositionMode.POINT);
                                                 foodCartesian.xAxis(0).title("Date");
+                                                foodCartesian.title("Line graph for Total "+values[1]);
                                                 foodCartesian.data(seriesData);
                                                 anyChartViewThree.setChart(foodCartesian);
                                             }
