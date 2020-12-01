@@ -31,7 +31,7 @@ public class Input_Page extends AppCompatActivity {
         startActivity(intent);
     }
     public void viewMoreButtonClick (View view){
-        Intent intent = new Intent (getApplicationContext(), DailyInakePage.class);
+        Intent intent = new Intent (getApplicationContext(), DailyIntakePage.class);
         startActivity(intent);
     }
 }

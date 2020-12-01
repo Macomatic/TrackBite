@@ -3,12 +3,8 @@ package com.example.diabeticmealtracker;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -23,12 +19,12 @@ import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-public class DailyInakePage extends AppCompatActivity {
+public class DailyIntakePage extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_daily_inake_page);
+        setContentView(R.layout.activity_daily_intake_page);
 
         Date currentTime = Calendar.getInstance().getTime();
         String formattedDate = DateFormat.getDateInstance(DateFormat.LONG).format(currentTime);
