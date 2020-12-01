@@ -137,6 +137,9 @@ public class DanceInput extends AppCompatActivity {
         if (TextUtils.isEmpty(durationInput.getText())) {
             Toast.makeText(getApplicationContext(), "Please put an hour input", Toast.LENGTH_SHORT).show();
         }
+        else if(Integer.parseInt(durationInput.getText().toString()) >=10) {
+            Toast.makeText(getApplicationContext(), "Please put a realistic duration", Toast.LENGTH_SHORT).show();
+        }
         else {
             float duration = Float.parseFloat(durationInput.getText().toString().trim());
 
@@ -195,10 +198,10 @@ public class DanceInput extends AppCompatActivity {
     }
 
     public double METS(String activity){
-        if(activity.equals("Ballroom, slow")){
+        if(activity.equals("Ballroom (slow)")){
             return 3;
         }
-        else if(activity.equals("Ballroom, fast")){
+        else if(activity.equals("Ballroom (fast)")){
             return 5.5;
         }
         else if(activity.equals("Caribbean")){
@@ -207,16 +210,16 @@ public class DanceInput extends AppCompatActivity {
         else if(activity.equals("Tap")){
             return 4.8;
         }
-        else if(activity.equals("Modern/Ballet/Jazz")){
+        else if(activity.equals("Modern")){
             return 5;
         }
         else if(activity.equals("Aerobic 4-inch step")){
             return 5.5;
         }
-        else if(activity.equals("Aerobic, general")){
+        else if(activity.equals("Aerobic (General)")){
             return 7.3;
         }
-        else if(activity.equals("Aerobic, low impact")){
+        else if(activity.equals("Aerobic (Low Impact)")){
             return 5;
         }
         else{

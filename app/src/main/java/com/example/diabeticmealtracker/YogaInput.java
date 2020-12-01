@@ -103,6 +103,9 @@ public class YogaInput extends AppCompatActivity {
         if (TextUtils.isEmpty(durationInput.getText())) {
             Toast.makeText(getApplicationContext(), "Please put an hour input", Toast.LENGTH_SHORT).show();
         }
+        else if(Integer.parseInt(durationInput.getText().toString()) >=10) {
+            Toast.makeText(getApplicationContext(), "Please put a realistic duration", Toast.LENGTH_SHORT).show();
+        }
         else {
             float duration = Float.parseFloat(durationInput.getText().toString().trim());
 
@@ -168,7 +171,7 @@ public class YogaInput extends AppCompatActivity {
         else if(activity.equals("Hatha")){
             return 2.5;
         }
-        else if(activity.equals("Sitting/Stretching")){
+        else if(activity.equals("Sitting & Stretching")){
             return 2.8;
         }
         else if(activity.equals("Surya Namaskar")){
