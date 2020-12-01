@@ -142,11 +142,11 @@ public class Basic_Input extends AppCompatActivity implements newSaveDialog.newS
                                 // setting basic input
                                 userInfo.put("name", name);
                                 userInfo.put("servingSize", addTwoStrings(document.getString("servingSize"), servingSize));
-                                userInfo.put("fats", addTwoStrings(document.getString("fats"), fats));
-                                userInfo.put("carbohydrates", addTwoStrings(document.getString("carbohydrates"), carbohydrates));
-                                userInfo.put("sugar", addTwoStrings(document.getString("sugar"), sugar));
-                                userInfo.put("fibre", addTwoStrings(document.getString("fibre"), fibre));
-                                userInfo.put("calories", addTwoStrings(document.getString("calories"), calories));
+                                userInfo.put("fats", fats);
+                                userInfo.put("carbohydrates", carbohydrates);
+                                userInfo.put("sugar", sugar);
+                                userInfo.put("fibre", fibre);
+                                userInfo.put("calories", calories);
                                 userInfo.put("meal", meal);
                                 // setting additional input
                                 userInfo.put("saturatedFat", document.getString("saturatedFat"));
@@ -186,11 +186,11 @@ public class Basic_Input extends AppCompatActivity implements newSaveDialog.newS
                                 totals.put("Total Active Hours", "0");
                                 // basic
                                 totals.put("Total serving size", servingSize);
-                                totals.put("Total carbs", carbohydrates);
-                                totals.put("Total fats", fats);
-                                totals.put("Total calories", calories);
-                                totals.put("Total fiber", fibre);
-                                totals.put("Total sugar", sugar);
+                                totals.put("Total carbs", multipleTwoStrings(servingSize, carbohydrates));
+                                totals.put("Total fats", multipleTwoStrings(servingSize, fats));
+                                totals.put("Total calories", multipleTwoStrings(servingSize, calories));
+                                totals.put("Total fiber", multipleTwoStrings(servingSize, fibre));
+                                totals.put("Total sugar", multipleTwoStrings(servingSize, sugar));
                                 // detailed
                                 totals.put("Total saturated fats", "0");
                                 totals.put("Total trans fats", "0");
@@ -216,11 +216,11 @@ public class Basic_Input extends AppCompatActivity implements newSaveDialog.newS
                                 float totalCalories = Float.parseFloat(document.getString("Total calories"));
                                 // adding to the total
                                 totalServingSize += Float.parseFloat(servingSize);
-                                totalFats += Float.parseFloat(fats);
-                                totalCarbs += Float.parseFloat(carbohydrates);
-                                totalSugar += Float.parseFloat(sugar);
-                                totalFibre += Float.parseFloat(fibre);
-                                totalCalories += Float.parseFloat(calories);
+                                totalFats += Float.parseFloat(multipleTwoStrings(servingSize, fats));
+                                totalCarbs += Float.parseFloat(multipleTwoStrings(servingSize, carbohydrates));
+                                totalSugar += Float.parseFloat(multipleTwoStrings(servingSize, sugar));
+                                totalFibre += Float.parseFloat(multipleTwoStrings(servingSize, fibre));
+                                totalCalories += Float.parseFloat(multipleTwoStrings(servingSize, calories));
                                 totals.put("Total serving size", String.valueOf(totalServingSize));
                                 totals.put("Total fats", String.valueOf(totalFats));
                                 totals.put("Total carbs", String.valueOf(totalCarbs));
@@ -318,6 +318,11 @@ public class Basic_Input extends AppCompatActivity implements newSaveDialog.newS
     // add two numerical string values
     public String addTwoStrings(String value1, String value2) {
         return String.valueOf(Float.parseFloat(value1) + Float.parseFloat(value2));
+    }
+
+    // add two numerical string values
+    public String multipleTwoStrings(String value1, String value2) {
+        return String.valueOf(Float.parseFloat(value1) * Float.parseFloat(value2));
     }
 
     // basic input dialog method

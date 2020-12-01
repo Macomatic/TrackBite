@@ -54,7 +54,7 @@ public class Database_Page extends AppCompatActivity {
         mFirestoreList = findViewById(R.id.foodRecyclerView);
 
         // Query
-        Query query = db.collection("users").document(user.getUid().toString()).collection("userData").document(date).collection("Food");
+        Query query = db.collection("users").document(user.getUid().toString()).collection("userData").document("savedMeals").collection("Food");
         //RecyclerOptions
         FirestoreRecyclerOptions<Food> options = new FirestoreRecyclerOptions.Builder<Food>()
                 .setQuery(query, Food.class)
