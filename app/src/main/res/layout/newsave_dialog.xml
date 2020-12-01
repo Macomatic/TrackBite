@@ -1,34 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent" android:layout_height="match_parent">
-
-    <Button
-        android:id="@+id/newSaveYes"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_centerInParent="true"
-        android:layout_marginStart="102dp"
-        android:layout_marginTop="274dp"
-        android:text="Yes"
-        android:textColor="#000000"
-        android:visibility="visible"
-        app:backgroundTint="#03A9F4" />
-
-    <Button
-        android:id="@+id/newSaveNo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_centerInParent="true"
-        android:layout_marginStart="220dp"
-        android:layout_marginBottom="409dp"
-        android:text="No"
-        android:textColor="#000000"
-        app:backgroundTint="#7A7A7A" />
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF">
 
     <TextView
         android:id="@+id/newSaveText"

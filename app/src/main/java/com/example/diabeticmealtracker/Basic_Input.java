@@ -1,8 +1,11 @@
 package com.example.diabeticmealtracker;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -30,11 +33,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Basic_Input extends AppCompatActivity {
+public class Basic_Input extends AppCompatActivity implements newSaveDialog.newSaveDialogListener {
 
     // element variables
     EditText txtName, txtServingSize, txtFats, txtCarbohydrates, txtSugar, txtFibre, txtCalories;
     Button done, clear;
+    Boolean newSave;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,6 +103,8 @@ public class Basic_Input extends AppCompatActivity {
                 // push food object onto firebase based on the meal time selected
                 // check if the the meal already exists and if it does, add to the current one.
                 DocumentReference mealRef = db.collection("users").document(user.getUid().toString()).collection("userData").document(date).collection("Food").document(name);
+                // save food to an all time database
+                DocumentReference savedMeals = db.collection("users").document(user.getUid().toString()).collection("userData").document("savedMeals");
                 mealRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -130,7 +136,11 @@ public class Basic_Input extends AppCompatActivity {
                                 mealRef.set(userInfo);
                                 // Open Dialog that asks user if they want to save a new food to an all time database.
                                 newSaveDialog();
-
+                                /*
+                                if (newSave == true){
+                                    savedMeals.set(userInfo);
+                                }
+                                */
                             } else {
                                 // setting basic input
                                 userInfo.put("name", name);
@@ -313,11 +323,17 @@ public class Basic_Input extends AppCompatActivity {
 
     // basic input dialog method
     public void newSaveDialog() {
-
-    };
+        newSaveDialog newSaveDialog = new newSaveDialog();
+        newSaveDialog.show(getSupportFragmentManager(), "new save dialog");
+    }
 
     public void backBasicInputPage(View view) {
         finish();
     }
 
+    // When they click yes on the dialog
+    @Override
+    public void save(boolean save) {
+        newSave = save;
+    }
 }
