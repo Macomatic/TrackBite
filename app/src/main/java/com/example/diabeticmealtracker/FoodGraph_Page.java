@@ -10,16 +10,33 @@ import android.speech.tts.TextToSpeech;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.anychart.AnyChart;
+import com.anychart.AnyChartView;
+import com.anychart.chart.common.dataentry.DataEntry;
+import com.anychart.chart.common.dataentry.ValueDataEntry;
+import com.anychart.charts.Cartesian;
+import com.anychart.enums.TooltipPositionMode;
+import com.anychart.graphics.vector.Stroke;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class FoodGraph_Page extends AppCompatActivity {
 
@@ -53,6 +70,87 @@ public class FoodGraph_Page extends AppCompatActivity {
         FirebaseAuth mAuth = FirebaseAuth.getInstance(); //Grabs current instance of database
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         FirebaseUser user = mAuth.getCurrentUser(); //Grabs current user
+        db.collection("users").document(user.getUid().toString()).collection("userData")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            ArrayList<String> validDatesArray = new ArrayList<>();
+                            Map<String, Double> validPortions = new HashMap<>();
+                            Map<String, Double> validTrend = new HashMap<>();
+                            ArrayList<String> activities = new ArrayList<String>();
+                            Bundle extra = getIntent().getExtras();
+                            String[] values = extra.getStringArray("values");
+                            boolean displayActiveHours;
+                            if (values[1].equals("All")) {
+                                whichGraph = "Pie";
+                                displayedContent = "All";
+                            } else {
+                                whichGraph = "Line";
+                                displayedContent = values[1];
+                            }
+
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                String docId = document.getId();
+                                if (!docId.equals("profile") && !docId.equals("Analysis") && !docId.equals("LineAnalysis") && !docId.equals("FoodAnalysis")) {
+                                    int documentDate = Integer.parseInt(docId);
+                                    if (documentDate >= Integer.parseInt(dateRange.substring(0, 8)) && documentDate <= Integer.parseInt(dateRange.substring(9))) {
+                                        validDatesArray.add(docId);
+                                        db.collection("users").document(user.getUid()).collection("userData").document(docId).collection("Total").document("Total")
+                                                .get()
+                                                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                                        if (task.isSuccessful()) {
+                                                            DocumentSnapshot document = task.getResult();
+                                                            if (!validTrend.containsKey(docId)) {
+                                                                if (displayedContent == "Carbohydrates") {
+                                                                    Double tCarb = Double.parseDouble(document.getString("Total carbs"));
+                                                                    validTrend.put(docId, tCarb);
+                                                                } else if (displayedContent == "Fats") {
+                                                                    Double tFat = Double.parseDouble(document.getString("Total fats"));
+                                                                    validTrend.put(docId, tFat);
+                                                                } else if (displayedContent == "Protein") {
+                                                                    Double tProt = Double.parseDouble(document.getString("Total protein"));
+                                                                    validTrend.put(docId, tProt);
+                                                                } else if (displayedContent == "Calories") {
+                                                                    Double tCal = Double.parseDouble(document.getString("Total calories"));
+                                                                    validTrend.put(docId, tCal);
+                                                                } else {
+                                                                    Double tSugar = Double.parseDouble(document.getString("Total sugar"));
+                                                                    validTrend.put(docId, tSugar);
+                                                                }
+                                                            } else {
+                                                                if (displayedContent == "Carbohydrates") {
+                                                                    Double tCarb = Double.parseDouble(document.getString("Total carbs"));
+                                                                    validTrend.put(docId, validTrend.get(tCarb));
+                                                                } else if (displayedContent == "Fats") {
+                                                                    Double tFat = Double.parseDouble(document.getString("Total fats"));
+                                                                    validTrend.put(docId, validTrend.get(tFat));
+                                                                } else if (displayedContent == "Protein") {
+                                                                    Double tProt = Double.parseDouble(document.getString("Total protein"));
+                                                                    validTrend.put(docId, validTrend.get(tProt));
+                                                                } else if (displayedContent == "Calories") {
+                                                                    Double tCal = Double.parseDouble(document.getString("Total calories"));
+                                                                    validTrend.put(docId, validTrend.get(tCal));
+                                                                } else {
+                                                                    Double tSugar = Double.parseDouble(document.getString("Total sugar"));
+                                                                    validTrend.put(docId, validTrend.get(tSugar));
+                                                                }
+                                                            }
+                                                            db.collection("users").document(user.getUid()).collection("userData").document("FoodAnalysis").set(validTrend);
+                                                        } else {
+                                                            Toast.makeText(getApplicationContext(), "Error in retrieving documents from database", Toast.LENGTH_SHORT).show();
+                                                        }
+                                                    }
+                                                });
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
     }
 
     protected void onStart() {
@@ -84,14 +182,11 @@ public class FoodGraph_Page extends AppCompatActivity {
         if (values[1].equals("All")) {
             foodAnalysed.setText("Analyzing all possible values as portions");
             this.whichGraph = "Pie";
+            this.displayedContent = "All";
         } else {
             foodAnalysed.setText("Analyzing " + values[1] + " in grams");
         }
 
-    }
-    public void backFoodGraphPage (View view)
-    {
-        finish();
     }
 
     public void switchGraph(View view) {
@@ -198,12 +293,59 @@ public class FoodGraph_Page extends AppCompatActivity {
         return this.months[monthIndex] + " " + date.substring(6) + ", " + date.substring(0,4);
     }
 
-    public void generatePieGraph(View view) {
 
-    }
-
-    public void generateLineGraph(View view) {
-
+    public void generateNewLineGraph(View view) {
+        Bundle extra = getIntent().getExtras();
+        String[] values = extra.getStringArray("values");
+        FirebaseAuth mAuth = FirebaseAuth.getInstance(); //Grabs current instance of database
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        FirebaseUser user = mAuth.getCurrentUser(); //Grabs current user
+        //Line Graph Creation
+        db.collection("users").document(user.getUid()).collection("userData").document("FoodAnalysis")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot document = task.getResult();
+                            Map<String,Object> dbValuesThree = document.getData();
+                            AnyChartView anyChartViewThree = findViewById(R.id.foodLineChart);
+                            Cartesian foodCartesian = AnyChart.line();
+                            foodCartesian.yAxis(0).title("Total "+values[1]);
+                            List<DataEntry> seriesData = new ArrayList<>();
+                            db.collection("users").document(user.getUid().toString()).collection("userData")
+                                    .get()
+                                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                            if (task.isSuccessful()) {
+                                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                                    String docId = document.getId();
+                                                    if (!docId.equals("FoodAnalysis") && !docId.equals("profile") && !docId.equals("Analysis") && !docId.equals("LineAnalysis")) {
+                                                        if (dbValuesThree.containsKey(docId)) {
+                                                            seriesData.add(new ValueDataEntry(convertStringToDate(docId), (Number) dbValuesThree.get(docId)));
+                                                        }
+                                                    }
+                                                }
+                                                foodCartesian.animation(true);
+                                                foodCartesian.crosshair().enabled(true);
+                                                foodCartesian.crosshair()
+                                                        .yLabel(true)
+                                                        .yStroke((Stroke)null,null,null,(String)null,(String)null);
+                                                foodCartesian.tooltip().positionMode(TooltipPositionMode.POINT);
+                                                foodCartesian.xAxis(0).title("Date");
+                                                foodCartesian.title("Line graph for Total "+values[1]);
+                                                foodCartesian.data(seriesData);
+                                                anyChartViewThree.setChart(foodCartesian);
+                                            }
+                                            else {
+                                                Toast.makeText(getApplicationContext(), "Failed", Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
+                                    });
+                        }
+                    }
+                });
     }
 
     public void backExerciseGraphPage (View view){
@@ -211,26 +353,12 @@ public class FoodGraph_Page extends AppCompatActivity {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         FirebaseUser user = mAuth.getCurrentUser(); //Grabs current user
 
-        db.collection("users").document(user.getUid()).collection("userData").document("Analysis")
+        db.collection("users").document(user.getUid()).collection("userData").document("FoodAnalysis")
                 .delete()
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        db.collection("users").document(user.getUid()).collection("userData").document("LineAnalysis")
-                                .delete()
-                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void aVoid) {
-                                        finish();
-                                    }
-                                })
-                                .addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-
-                                    }
-                                });
-
+                        finish();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {

@@ -137,6 +137,9 @@ public class DanceInput extends AppCompatActivity {
         if (TextUtils.isEmpty(durationInput.getText())) {
             Toast.makeText(getApplicationContext(), "Please put an hour input", Toast.LENGTH_SHORT).show();
         }
+        else if(Integer.parseInt(durationInput.getText().toString()) >=10) {
+            Toast.makeText(getApplicationContext(), "Please put a realistic duration", Toast.LENGTH_SHORT).show();
+        }
         else {
             float duration = Float.parseFloat(durationInput.getText().toString().trim());
 
@@ -183,7 +186,53 @@ public class DanceInput extends AppCompatActivity {
                     }
                 }
             });
+            DocumentReference docRef = db.collection("users").document(user.getUid().toString()).collection("userData").document(date).collection("Total").document("Total");
+            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() { //Does the .get() command with a custom onComplete
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult(); //Grab snapshot of requirements
+                        Map<String,Object> totals = new HashMap<>();
+                        //String calories = document.getString("CaloriesBurned").substring(0,document.getString("CaloriesBurned").indexOf("."));
+                        if (!document.exists()) {
+                            double calories = caloriesBurned(METS(currActivity),duration);
+                            totals.put("Total Burned Calories", String.valueOf(calories));
+                            totals.put("Total Active Hours", String.valueOf(duration));
+                            // basic
+                            totals.put("Total serving size", "");
+                            totals.put("Total carbs", "");
+                            totals.put("Total fats", "");
+                            totals.put("Total calories", "");
+                            totals.put("Total fiber", "");
+                            totals.put("Total sugar", "");
+                            // detailed
+                            totals.put("Total sfat", "");
+                            totals.put("Total tfat", "");
+                            totals.put("Total cholesterol", "");
+                            totals.put("Total sodium", "");
+                            totals.put("Total protein", "");
+                            totals.put("Total calcium", "");
+                            totals.put("Total potassium", "");
+                            totals.put("Total iron", "");
+                            totals.put("Total zinc", "");
+                            totals.put("Total vitamin a", "");
+                            totals.put("Total vitamin b", "");
+                            totals.put("Total vitamin c", "");
+                            db.collection("users").document(user.getUid()).collection("userData").document(date).collection("Total").document("Total").set(totals);
+                        }
+                        else {
+                            double calories = Float.parseFloat(document.getString("Total Burned Calories"));
+                            double activeHours = Double.parseDouble(document.getString("Total Active Hours"));
+                            calories+=caloriesBurned(METS(currActivity), duration);
+                            activeHours+=duration;
+                            totals.put("Total Burned Calories",String.valueOf(calories));
+                            totals.put("Total Active Hours", String.valueOf(activeHours));
+                            db.collection("users").document(user.getUid().toString()).collection("userData").document(date).collection("Total").document("Total").set(totals, SetOptions.merge());
 
+                        }
+                    }
+                }
+            });
             finish();
             //Opening success page
             Intent intent = new Intent(getApplicationContext(), SuccessExerciseInput_Page.class);
@@ -195,10 +244,10 @@ public class DanceInput extends AppCompatActivity {
     }
 
     public double METS(String activity){
-        if(activity.equals("Ballroom, slow")){
+        if(activity.equals("Ballroom (slow)")){
             return 3;
         }
-        else if(activity.equals("Ballroom, fast")){
+        else if(activity.equals("Ballroom (fast)")){
             return 5.5;
         }
         else if(activity.equals("Caribbean")){
@@ -207,16 +256,16 @@ public class DanceInput extends AppCompatActivity {
         else if(activity.equals("Tap")){
             return 4.8;
         }
-        else if(activity.equals("Modern/Ballet/Jazz")){
+        else if(activity.equals("Modern")){
             return 5;
         }
         else if(activity.equals("Aerobic 4-inch step")){
             return 5.5;
         }
-        else if(activity.equals("Aerobic, general")){
+        else if(activity.equals("Aerobic (General)")){
             return 7.3;
         }
-        else if(activity.equals("Aerobic, low impact")){
+        else if(activity.equals("Aerobic (Low Impact)")){
             return 5;
         }
         else{

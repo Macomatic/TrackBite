@@ -94,12 +94,8 @@ public class ExerciseGraph_Page extends AppCompatActivity {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             ArrayList<String> validDatesArray = new ArrayList<>();
-                            Map<String, Object> validDates = new HashMap<>();
-                            Map<String, Object> validActivities = new HashMap<>();
                             Map<String, Double> validProperty = new HashMap<>();
-                            Map<String, Object> validProperties = new HashMap<>();
                             Map<String, Double> validTrend = new HashMap<>();
-                            ArrayList<String> trend = new ArrayList<>();
                             ArrayList<String> activities = new ArrayList<String>();
                             Bundle extra = getIntent().getExtras();
                             String[] values = extra.getStringArray("values");
@@ -112,7 +108,7 @@ public class ExerciseGraph_Page extends AppCompatActivity {
 
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 String docId = document.getId();
-                                if (!docId.equals("profile") && !docId.equals("Analysis") && !docId.equals("LineAnalysis")) {
+                                if (!docId.equals("FoodAnalysis")&&!docId.equals("profile") && !docId.equals("Analysis") && !docId.equals("LineAnalysis")) {
                                     int documentDate = Integer.parseInt(docId);
                                     if (documentDate >= Integer.parseInt(dateRange.substring(0, 8)) && documentDate <= Integer.parseInt(dateRange.substring(9))) {
                                         validDatesArray.add(docId);
@@ -169,16 +165,12 @@ public class ExerciseGraph_Page extends AppCompatActivity {
                                                                         });
                                                             }
                                                         }
-                                                        //validActivities.put("activities", activities);
-                                                        //db.collection("users").document(user.getUid()).collection("userData").document("Analysis").set(validActivities, SetOptions.merge());
                                                     }
 
                                                 });
                                     }
                                 }
                             }
-                            //validDates.put("validDates",validDatesArray);
-                            //db.collection("users").document(user.getUid()).collection("userData").document("Analysis").set(validDates, SetOptions.merge());
                         } else {
                             Toast.makeText(getApplicationContext(), "Error in retrieving documents from database", Toast.LENGTH_SHORT).show();
                         }

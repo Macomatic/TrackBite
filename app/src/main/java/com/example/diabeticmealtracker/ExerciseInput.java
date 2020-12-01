@@ -191,14 +191,16 @@ public class ExerciseInput extends AppCompatActivity {
     }
 
     public void backExerciseInput (View view){
-        Intent intent = new Intent (getApplicationContext(), Exercise_Page.class);
-        startActivity(intent);
+        finish();
     }
 
     public void doneInput (View view){
         EditText durationInput = (EditText) findViewById(R.id.yogahoursInput);
         if (TextUtils.isEmpty(durationInput.getText())) {
             Toast.makeText(getApplicationContext(), "Please put an hour input", Toast.LENGTH_SHORT).show();
+        }
+        else if(Integer.parseInt(durationInput.getText().toString()) >=10) {
+            Toast.makeText(getApplicationContext(), "Please put a realistic duration", Toast.LENGTH_SHORT).show();
         }
         else {
             this.duration = Float.parseFloat(durationInput.getText().toString().trim());

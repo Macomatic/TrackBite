@@ -82,8 +82,7 @@ public class SuccessExerciseInput_Page extends AppCompatActivity {
 
 
     public void finishExerciseEntry (View view){
-        Intent intent = new Intent (getApplicationContext(), Exercise_Page.class);
-        startActivity(intent);
+        finish();
     }
 
     public String convertMonthNum(String month) {

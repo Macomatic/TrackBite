@@ -47,8 +47,7 @@ public class CanadaFoodGuideReference extends AppCompatActivity {
         anyChartView.setChart(pie);
     }
     public void backCanadaFoodGuideReference (View view){
-        Intent intent = new Intent (getApplicationContext(), Input_Page.class);
-        startActivity(intent);
+        finish();
     }
 
     public void onlineCFG (View view){

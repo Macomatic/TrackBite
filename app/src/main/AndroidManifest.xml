@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DiabeticMealTracker">
         <activity android:name=".CanadaFoodGuideReference"></activity>
-        <activity android:name=".DailyInakePage" />
+        <activity android:name=".DailyIntakePage" />
         <activity android:name=".YogaInput" />
         <activity android:name=".MainScreenPage" />
         <activity android:name=".RegisterPage" />
