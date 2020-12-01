@@ -107,7 +107,7 @@ public class Detailed_Input extends AppCompatActivity {
                 String date = year + month + dateNum;
 
                 // parsing the input from the input fields
-                String name = txtName.getText().toString().trim();
+                String name = txtName.getText().toString().trim().toLowerCase();
                 String servingSize = initializeInput(txtServingSize.getText().toString().trim());
                 String fats = initializeInput(txtFats.getText().toString().trim());
                 String carbohydrates = initializeInput(txtCarbohydrates.getText().toString().trim());

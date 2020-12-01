@@ -320,7 +320,7 @@ public class Basic_Input extends AppCompatActivity implements newSaveDialog.newS
         return String.valueOf(Float.parseFloat(value1) + Float.parseFloat(value2));
     }
 
-    // add two numerical string values
+    // multiply two numerical string values
     public String multipleTwoStrings(String value1, String value2) {
         return String.valueOf(Float.parseFloat(value1) * Float.parseFloat(value2));
     }
