@@ -29,7 +29,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Detailed_Input extends AppCompatActivity {
+public class Detailed_Input extends AppCompatActivity implements newSaveDialog.newSaveDialogListener, updateSaveDialog.updateSaveDialogListener {
 
     // element variables
     // Basic Inputs
@@ -40,11 +40,15 @@ public class Detailed_Input extends AppCompatActivity {
     // Buttons
     Button done, clear;
 
+    // variables for dialog funtionality
+    private boolean newSave, updateSave;
+    private DocumentReference savedMeals;
+
     // Firestore
-    FirebaseAuth mAuth = FirebaseAuth.getInstance(); //Grabs current instance of database
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
-    FirebaseUser user = mAuth.getCurrentUser(); //Grabs current user
-    Map<String, Object> userInfo = new HashMap<>(); //Hashmap push
+    private FirebaseAuth mAuth = FirebaseAuth.getInstance(); //Grabs current instance of database
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private FirebaseUser user = mAuth.getCurrentUser(); //Grabs current user
+    private Map<String, Object> userInfo = new HashMap<>(); //Hashmap push
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,6 +98,8 @@ public class Detailed_Input extends AppCompatActivity {
 
         // done button
         done.setOnClickListener(new View.OnClickListener() {
+            String savedServingSize;
+
             @Override
             public void onClick(View view) {
                 // The current date when the button was pressed
@@ -129,6 +135,8 @@ public class Detailed_Input extends AppCompatActivity {
                 String vitaminB = initializeInput(txtVitB.getText().toString().trim());
                 String vitaminC = initializeInput(txtVitC.getText().toString().trim());
                 // push food object onto firebase based on the meal time selected
+                // save food to an all time database
+                savedMeals = db.collection("users").document(user.getUid().toString()).collection("userData").document("savedMeals").collection("Food").document(name);
                 // check if the the meal already exists and if it does, add to the current one.
                 DocumentReference mealRef = db.collection("users").document(user.getUid().toString()).collection("userData").document(date).collection("Food").document(name);
                 mealRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -136,7 +144,9 @@ public class Detailed_Input extends AppCompatActivity {
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                         if (task.isSuccessful()) {
                             DocumentSnapshot document = task.getResult(); //Grab snapshot of requirements
-                            Map<String, Object> userInfo = new HashMap<>();
+                            userInfo = new HashMap<>();
+                            // save new serving size in-case they want to update database
+                            savedServingSize = servingSize;
                             if (!document.exists()) {
                                 // setting basic input
                                 userInfo.put("name", name);
@@ -165,26 +175,44 @@ public class Detailed_Input extends AppCompatActivity {
                                 // basic
                                 userInfo.put("name", name);
                                 userInfo.put("servingSize", addTwoStrings(document.getString("servingSize"), servingSize));
-                                userInfo.put("fats", addTwoStrings(document.getString("fats"), fats));
-                                userInfo.put("carbohydrates", addTwoStrings(document.getString("carbohydrates"), carbohydrates));
-                                userInfo.put("sugar", addTwoStrings(document.getString("sugar"), sugar));
-                                userInfo.put("fibre", addTwoStrings(document.getString("fibre"), fibre));
-                                userInfo.put("calories", addTwoStrings(document.getString("calories"), calories));
+                                userInfo.put("fats", fats);
+                                userInfo.put("carbohydrates", carbohydrates);
+                                userInfo.put("sugar", sugar);
+                                userInfo.put("fibre", fibre);
+                                userInfo.put("calories", calories);
                                 userInfo.put("meal", meal);
                                 // setting additional input
-                                userInfo.put("saturatedFat", addTwoStrings(document.getString("saturatedFat"), sFat));
-                                userInfo.put("transFat", addTwoStrings(document.getString("transFat"), tFat));
-                                userInfo.put("cholesterol", addTwoStrings(document.getString("cholesterol"), cholesterol));
-                                userInfo.put("sodium", addTwoStrings(document.getString("sodium"), sodium));
-                                userInfo.put("protein", addTwoStrings(document.getString("protein"), protein));
-                                userInfo.put("calcium", addTwoStrings(document.getString("calcium"), calcium));
-                                userInfo.put("potassium", addTwoStrings(document.getString("potassium"), potassium));
-                                userInfo.put("iron", addTwoStrings(document.getString("iron"), iron));
-                                userInfo.put("zinc", addTwoStrings(document.getString("zinc"), zinc));
-                                userInfo.put("vitaminA", addTwoStrings(document.getString("vitaminA"), vitaminA));
-                                userInfo.put("vitaminB", addTwoStrings(document.getString("vitaminB"), vitaminB));
-                                userInfo.put("vitaminC", addTwoStrings(document.getString("vitaminC"), vitaminC));
+                                userInfo.put("saturatedFat", sFat);
+                                userInfo.put("transFat", tFat);
+                                userInfo.put("cholesterol", cholesterol);
+                                userInfo.put("sodium", sodium);
+                                userInfo.put("protein", protein);
+                                userInfo.put("calcium", calcium);
+                                userInfo.put("potassium", potassium);
+                                userInfo.put("iron", iron);
+                                userInfo.put("zinc", zinc);
+                                userInfo.put("vitaminA", vitaminA);
+                                userInfo.put("vitaminB", vitaminB);
+                                userInfo.put("vitaminC", vitaminC);
                                 mealRef.set(userInfo);
+                            }
+                        }
+                    }
+                });
+                // Check if the meal is a saved meal
+                savedMeals.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot document = task.getResult(); //Grab snapshot of requirements
+                            if (!document.exists()) {
+                                // Open Dialog that asks user if they want to save a new food to an all time database.
+                                userInfo.put("servingSize", savedServingSize);
+                                newSaveDialog();
+                            } else {
+                                // Open Dialog that asks user if they want to update the food in their database
+                                userInfo.put("servingSize", savedServingSize);
+                                updateSaveDialog();
                             }
                         }
                     }
@@ -253,11 +281,11 @@ public class Detailed_Input extends AppCompatActivity {
                                 // adding to the total
                                 // basic
                                 totalServingSize += Float.parseFloat(servingSize);
-                                totalFats += Float.parseFloat(fats);
-                                totalCarbs += Float.parseFloat(carbohydrates);
-                                totalSugar += Float.parseFloat(sugar);
-                                totalFibre += Float.parseFloat(fibre);
-                                totalCalories += Float.parseFloat(calories);
+                                totalFats += Float.parseFloat(multipleTwoStrings(servingSize,fats));
+                                totalCarbs += Float.parseFloat(multipleTwoStrings(servingSize,carbohydrates));
+                                totalSugar += Float.parseFloat(multipleTwoStrings(servingSize,sugar));
+                                totalFibre += Float.parseFloat(multipleTwoStrings(servingSize,fibre));
+                                totalCalories += Float.parseFloat(multipleTwoStrings(servingSize,calories));
                                 totals.put("Total serving size", String.valueOf(totalServingSize));
                                 totals.put("Total fats", String.valueOf(totalFats));
                                 totals.put("Total carbs", String.valueOf(totalCarbs));
@@ -265,18 +293,18 @@ public class Detailed_Input extends AppCompatActivity {
                                 totals.put("Total fiber", String.valueOf(totalFibre));
                                 totals.put("Total calories", String.valueOf(totalCalories));
                                 // detailed
-                                totalSFat += Float.parseFloat(sFat);
-                                totalTFat += Float.parseFloat(tFat);
-                                totalCholesterol += Float.parseFloat(cholesterol);
-                                totalSodium += Float.parseFloat(sodium);
-                                totalProtein += Float.parseFloat(protein);
-                                totalCalcium += Float.parseFloat(calcium);
-                                totalPotassium += Float.parseFloat(potassium);
-                                totalIron += Float.parseFloat(iron);
-                                totalZinc += Float.parseFloat(zinc);
-                                totalVitaminA += Float.parseFloat(vitaminA);
-                                totalVitaminB += Float.parseFloat(vitaminB);
-                                totalVitaminC += Float.parseFloat(vitaminC);
+                                totalSFat += Float.parseFloat(multipleTwoStrings(servingSize,sFat));
+                                totalTFat += Float.parseFloat(multipleTwoStrings(servingSize,tFat));
+                                totalCholesterol += Float.parseFloat(multipleTwoStrings(servingSize,cholesterol));
+                                totalSodium += Float.parseFloat(multipleTwoStrings(servingSize,sodium));
+                                totalProtein += Float.parseFloat(multipleTwoStrings(servingSize,protein));
+                                totalCalcium += Float.parseFloat(multipleTwoStrings(servingSize,calcium));
+                                totalPotassium += Float.parseFloat(multipleTwoStrings(servingSize,potassium));
+                                totalIron += Float.parseFloat(multipleTwoStrings(servingSize,iron));
+                                totalZinc += Float.parseFloat(multipleTwoStrings(servingSize,zinc));
+                                totalVitaminA += Float.parseFloat(multipleTwoStrings(servingSize,vitaminA));
+                                totalVitaminB += Float.parseFloat(multipleTwoStrings(servingSize,vitaminB));
+                                totalVitaminC += Float.parseFloat(multipleTwoStrings(servingSize,vitaminC));
                                 totals.put("Total saturated fats", String.valueOf(totalSFat));
                                 totals.put("Total trans fats", String.valueOf(totalTFat));
                                 totals.put("Total cholesterol", String.valueOf(totalCholesterol));
@@ -372,12 +400,12 @@ public class Detailed_Input extends AppCompatActivity {
         }
     }
 
-    public String formatDate(String date){
+    public String formatDate(String date) {
         String newDate;
-        if (date.length() == 1){
+        if (date.length() == 1) {
             newDate = "0" + date;
             return newDate;
-        }else{
+        } else {
             return date;
         }
     }
@@ -404,6 +432,48 @@ public class Detailed_Input extends AppCompatActivity {
     // add two numerical string values
     public String addTwoStrings(String value1, String value2) {
         return String.valueOf(Float.parseFloat(value1) + Float.parseFloat(value2));
+    }
+
+    // multiply two numerical string values
+    public String multipleTwoStrings(String value1, String value2) {
+        return String.valueOf(Float.parseFloat(value1) * Float.parseFloat(value2));
+    }
+
+    // basic input dialog method
+
+    // saving new food dialog
+    public void newSaveDialog() {
+        newSaveDialog newSaveDialog = new newSaveDialog();
+        newSaveDialog.show(getSupportFragmentManager(), "new save dialog");
+    }
+
+    // When they click yes to saving new food
+    @Override
+    public void save(boolean save) {
+        newSave = save;
+        if (newSave == true) {
+            setMeal(savedMeals, userInfo);
+        }
+    }
+
+    // updating old food dialog
+    public void updateSaveDialog() {
+        updateSaveDialog updateSaveDialog = new updateSaveDialog();
+        updateSaveDialog.show(getSupportFragmentManager(), "new save dialog");
+    }
+
+    // when they click yes to updating new food
+    @Override
+    public void update(boolean update) {
+        updateSave = update;
+        if (updateSave == true) {
+            setMeal(savedMeals, userInfo);
+        }
+    }
+
+    // used to set a hash map into a document reference
+    public void setMeal(DocumentReference dr, Map<String, Object> map) {
+        dr.set(map);
     }
 
     public void backDetailedInputPage(View view) {
