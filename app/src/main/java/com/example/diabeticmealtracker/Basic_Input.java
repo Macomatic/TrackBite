@@ -33,12 +33,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Basic_Input extends AppCompatActivity implements newSaveDialog.newSaveDialogListener {
+public class Basic_Input extends AppCompatActivity implements newSaveDialog.newSaveDialogListener, updateSaveDialog.updateSaveDialogListener {
 
     // element variables
     EditText txtName, txtServingSize, txtFats, txtCarbohydrates, txtSugar, txtFibre, txtCalories;
     Button done, clear;
-    private boolean newSave;
+    private boolean newSave, updateSave;
     private Map<String, Object> userInfo;
     private DocumentReference savedMeals;
 
@@ -94,7 +94,7 @@ public class Basic_Input extends AppCompatActivity implements newSaveDialog.newS
                 String date = year + month + dateNum;
 
                 // parsing the input from the input fields
-                String name = txtName.getText().toString().trim();
+                String name = txtName.getText().toString().trim().toLowerCase(); // convert all names to only lowercase
                 String servingSize = initializeInput(txtServingSize.getText().toString().trim());
                 String fats = initializeInput(txtFats.getText().toString().trim());
                 String carbohydrates = initializeInput(txtCarbohydrates.getText().toString().trim());
@@ -107,7 +107,7 @@ public class Basic_Input extends AppCompatActivity implements newSaveDialog.newS
                 DocumentReference mealRef = db.collection("users").document(user.getUid().toString()).collection("userData").document(date).collection("Food").document(name);
                 // save food to an all time database
                 savedMeals = db.collection("users").document(user.getUid().toString()).collection("userData").document("savedMeals").collection("Food").document(name);
-                mealRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                savedMeals.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                         if (task.isSuccessful()) {
@@ -138,9 +138,6 @@ public class Basic_Input extends AppCompatActivity implements newSaveDialog.newS
                                 mealRef.set(userInfo);
                                 // Open Dialog that asks user if they want to save a new food to an all time database.
                                 newSaveDialog();
-                                if (newSave == true) {
-                                    savedMeals.set(userInfo);
-                                }
                             } else {
                                 // setting basic input
                                 userInfo.put("name", name);
@@ -165,6 +162,8 @@ public class Basic_Input extends AppCompatActivity implements newSaveDialog.newS
                                 userInfo.put("vitaminB", document.getString("vitaminB"));
                                 userInfo.put("vitaminC", document.getString("vitaminC"));
                                 mealRef.set(userInfo);
+                                // Open Dialog that asks user if they want to update the food in their database
+                                updateSaveDialog();
                             }
                         }
                     }
@@ -322,16 +321,14 @@ public class Basic_Input extends AppCompatActivity implements newSaveDialog.newS
     }
 
     // basic input dialog method
+
+    // saving new food dialog
     public void newSaveDialog() {
         newSaveDialog newSaveDialog = new newSaveDialog();
         newSaveDialog.show(getSupportFragmentManager(), "new save dialog");
     }
 
-    public void backBasicInputPage(View view) {
-        finish();
-    }
-
-    // When they click yes on the dialog
+    // When they click yes to saving new food
     @Override
     public void save(boolean save) {
         newSave = save;
@@ -340,7 +337,29 @@ public class Basic_Input extends AppCompatActivity implements newSaveDialog.newS
         }
     }
 
+    // updating old food dialog
+    public void updateSaveDialog() {
+        updateSaveDialog updateSaveDialog = new updateSaveDialog();
+        updateSaveDialog.show(getSupportFragmentManager(), "new save dialog");
+    }
+
+    // when they click yes to updating new food
+    @Override
+    public void update(boolean update) {
+        updateSave = update;
+        if (updateSave == true) {
+            setMeal(savedMeals, userInfo);
+        }
+    }
+
+    // used to set a hash map into a document reference
     public void setMeal(DocumentReference dr, Map<String, Object> map) {
         dr.set(map);
     }
+
+    //back button
+    public void backBasicInputPage(View view) {
+        finish();
+    }
+
 }
