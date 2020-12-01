@@ -38,7 +38,7 @@ public class Basic_Input extends AppCompatActivity implements newSaveDialog.newS
     // element variables
     EditText txtName, txtServingSize, txtFats, txtCarbohydrates, txtSugar, txtFibre, txtCalories;
     Button done, clear;
-    Boolean newSave;
+    Boolean newSave = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,7 +104,7 @@ public class Basic_Input extends AppCompatActivity implements newSaveDialog.newS
                 // check if the the meal already exists and if it does, add to the current one.
                 DocumentReference mealRef = db.collection("users").document(user.getUid().toString()).collection("userData").document(date).collection("Food").document(name);
                 // save food to an all time database
-                DocumentReference savedMeals = db.collection("users").document(user.getUid().toString()).collection("userData").document("savedMeals");
+                DocumentReference savedMeals = db.collection("users").document(user.getUid().toString()).collection("userData").document("savedMeals").collection("Food").document(name);
                 mealRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -136,11 +136,9 @@ public class Basic_Input extends AppCompatActivity implements newSaveDialog.newS
                                 mealRef.set(userInfo);
                                 // Open Dialog that asks user if they want to save a new food to an all time database.
                                 newSaveDialog();
-                                /*
-                                if (newSave == true){
-                                    savedMeals.set(userInfo);
+                                if (newSave){
+                                 savedMeals.set(userInfo);
                                 }
-                                */
                             } else {
                                 // setting basic input
                                 userInfo.put("name", name);

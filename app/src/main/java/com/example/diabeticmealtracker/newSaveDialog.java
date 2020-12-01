@@ -13,7 +13,6 @@ import androidx.appcompat.app.AppCompatDialogFragment;
 public class newSaveDialog extends AppCompatDialogFragment {
 
     // variables
-    boolean save; // boolean for whether the user chooses to save or not
     private newSaveDialogListener listener;
 
     @Override
@@ -30,14 +29,14 @@ public class newSaveDialog extends AppCompatDialogFragment {
                 .setNegativeButton("No", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        save = false;
+                        boolean save = false;
                         listener.save(save);
                     }
                 })
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        save = true;
+                        boolean save = true;
                         listener.save(save);
                     }
                 });
@@ -54,7 +53,7 @@ public class newSaveDialog extends AppCompatDialogFragment {
         }
     }
 
-    public interface newSaveDialogListener {
+    public interface newSaveDialogListener{
         void save(boolean save);
     }
 }
