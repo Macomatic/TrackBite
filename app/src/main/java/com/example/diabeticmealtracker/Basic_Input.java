@@ -89,7 +89,7 @@ public class Basic_Input extends AppCompatActivity implements newSaveDialog.newS
                 formattedDate = formattedDate.replace(",", "");
                 String[] splitDate = formattedDate.split(" ");
                 String month = convertMonthNum(splitDate[0]);
-                String dateNum = splitDate[1];
+                String dateNum = formatDate(splitDate[1]);
                 String year = splitDate[2];
                 String date = year + month + dateNum;
 
@@ -141,7 +141,7 @@ public class Basic_Input extends AppCompatActivity implements newSaveDialog.newS
                             } else {
                                 // setting basic input
                                 userInfo.put("name", name);
-                                userInfo.put("servingSize", addTwoStrings(document.getString("servingSize"), servingSize));
+                                userInfo.put("servingSize", servingSize);
                                 userInfo.put("fats", fats);
                                 userInfo.put("carbohydrates", carbohydrates);
                                 userInfo.put("sugar", sugar);
@@ -293,6 +293,16 @@ public class Basic_Input extends AppCompatActivity implements newSaveDialog.newS
             return "12";
         } else {
             return "MONTH ERROR";
+        }
+    }
+
+    public String formatDate(String date){
+        String newDate;
+        if (date.length() == 1){
+            newDate = "0" + date;
+            return newDate;
+        }else{
+            return date;
         }
     }
 

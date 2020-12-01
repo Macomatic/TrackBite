@@ -26,7 +26,7 @@ public class foodDatabaseDialog extends AppCompatDialogFragment {
 
         builder.setView(view)
                 .setTitle("Add food to your daily intake?")
-                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         boolean add = false;

@@ -56,7 +56,7 @@ public class Database_Page extends AppCompatActivity implements foodDatabaseDial
         formattedDate = formattedDate.replace(",", "");
         String[] splitDate = formattedDate.split(" ");
         String month = convertMonthNum(splitDate[0]);
-        String dateNum = splitDate[1];
+        String dateNum = formatDate(splitDate[1]);
         String year = splitDate[2];
         date = year + month + dateNum;
 
@@ -155,6 +155,16 @@ public class Database_Page extends AppCompatActivity implements foodDatabaseDial
             return "12";
         } else {
             return "MONTH ERROR";
+        }
+    }
+
+    public String formatDate(String date){
+        String newDate;
+        if (date.length() == 1){
+            newDate = "0" + date;
+            return newDate;
+        }else{
+            return date;
         }
     }
 
