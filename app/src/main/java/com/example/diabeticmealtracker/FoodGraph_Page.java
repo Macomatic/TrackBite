@@ -188,10 +188,6 @@ public class FoodGraph_Page extends AppCompatActivity {
         }
 
     }
-    public void backFoodGraphPage (View view)
-    {
-        finish();
-    }
 
     public void switchGraph(View view) {
 

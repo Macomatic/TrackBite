@@ -65,7 +65,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/my_button_design"
         android:fontFamily="@font/titillium_web_semibold"
-        android:onClick="backFoodGraphPage"
+        android:onClick="backExerciseGraphPage"
         android:text="Back"
         android:textSize="18dp"
         app:backgroundTint="@color/button_background"
