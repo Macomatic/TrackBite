@@ -216,8 +216,8 @@ public class Detailed_Input extends AppCompatActivity {
                                 totals.put("Total fiber", fibre);
                                 totals.put("Total sugar", sugar);
                                 // detailed
-                                totals.put("Total sfat", sFat);
-                                totals.put("Total tfat", tFat);
+                                totals.put("Total saturated fats", sFat);
+                                totals.put("Total trans fats", tFat);
                                 totals.put("Total cholesterol", cholesterol);
                                 totals.put("Total sodium", sodium);
                                 totals.put("Total protein", protein);
@@ -238,8 +238,8 @@ public class Detailed_Input extends AppCompatActivity {
                                 float totalFibre = Float.parseFloat(document.getString("Total fiber"));
                                 float totalCalories = Float.parseFloat(document.getString("Total calories"));
                                 // detailed
-                                float totalSFat = Float.parseFloat(document.getString("Total sfat"));
-                                float totalTFat = Float.parseFloat(document.getString("Total tfat"));
+                                float totalSFat = Float.parseFloat(document.getString("Total saturated fats"));
+                                float totalTFat = Float.parseFloat(document.getString("Total trans fats"));
                                 float totalCholesterol = Float.parseFloat(document.getString("Total cholesterol"));
                                 float totalSodium = Float.parseFloat(document.getString("Total sodium"));
                                 float totalProtein = Float.parseFloat(document.getString("Total protein"));
@@ -277,8 +277,8 @@ public class Detailed_Input extends AppCompatActivity {
                                 totalVitaminA += Float.parseFloat(vitaminA);
                                 totalVitaminB += Float.parseFloat(vitaminB);
                                 totalVitaminC += Float.parseFloat(vitaminC);
-                                totals.put("Total sfat", String.valueOf(totalSFat));
-                                totals.put("Total tfat", String.valueOf(totalTFat));
+                                totals.put("Total saturated fats", String.valueOf(totalSFat));
+                                totals.put("Total trans fats", String.valueOf(totalTFat));
                                 totals.put("Total cholesterol", String.valueOf(totalCholesterol));
                                 totals.put("Total sodium", String.valueOf(totalSodium));
                                 totals.put("Total protein", String.valueOf(totalProtein));
