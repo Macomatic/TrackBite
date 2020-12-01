@@ -81,6 +81,8 @@ public class Basic_Input extends AppCompatActivity implements newSaveDialog.newS
 
         // done button
         done.setOnClickListener(new View.OnClickListener() {
+            String savedServingSize;
+
             @Override
             public void onClick(View view) {
                 // The current date when the button was pressed
@@ -107,12 +109,14 @@ public class Basic_Input extends AppCompatActivity implements newSaveDialog.newS
                 DocumentReference mealRef = db.collection("users").document(user.getUid().toString()).collection("userData").document(date).collection("Food").document(name);
                 // save food to an all time database
                 savedMeals = db.collection("users").document(user.getUid().toString()).collection("userData").document("savedMeals").collection("Food").document(name);
-                savedMeals.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                mealRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                         if (task.isSuccessful()) {
                             DocumentSnapshot document = task.getResult(); //Grab snapshot of requirements
                             userInfo = new HashMap<>();
+                            // save new serving size in-case they want to update database
+                            savedServingSize = servingSize;
                             if (!document.exists()) {
                                 userInfo.put("name", name);
                                 userInfo.put("servingSize", servingSize);
@@ -136,12 +140,10 @@ public class Basic_Input extends AppCompatActivity implements newSaveDialog.newS
                                 userInfo.put("vitaminB", "0");
                                 userInfo.put("vitaminC", "0");
                                 mealRef.set(userInfo);
-                                // Open Dialog that asks user if they want to save a new food to an all time database.
-                                newSaveDialog();
                             } else {
                                 // setting basic input
                                 userInfo.put("name", name);
-                                userInfo.put("servingSize", servingSize);
+                                userInfo.put("servingSize", addTwoStrings(servingSize, document.getString("servingSize")));
                                 userInfo.put("fats", fats);
                                 userInfo.put("carbohydrates", carbohydrates);
                                 userInfo.put("sugar", sugar);
@@ -162,7 +164,23 @@ public class Basic_Input extends AppCompatActivity implements newSaveDialog.newS
                                 userInfo.put("vitaminB", document.getString("vitaminB"));
                                 userInfo.put("vitaminC", document.getString("vitaminC"));
                                 mealRef.set(userInfo);
+                            }
+                        }
+                    }
+                });
+                // Check if the meal is a saved meal
+                savedMeals.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot document = task.getResult(); //Grab snapshot of requirements
+                            if (!document.exists()) {
+                                // Open Dialog that asks user if they want to save a new food to an all time database.
+                                userInfo.put("servingSize", savedServingSize);
+                                newSaveDialog();
+                            } else {
                                 // Open Dialog that asks user if they want to update the food in their database
+                                userInfo.put("servingSize", savedServingSize);
                                 updateSaveDialog();
                             }
                         }
@@ -296,12 +314,12 @@ public class Basic_Input extends AppCompatActivity implements newSaveDialog.newS
         }
     }
 
-    public String formatDate(String date){
+    public String formatDate(String date) {
         String newDate;
-        if (date.length() == 1){
+        if (date.length() == 1) {
             newDate = "0" + date;
             return newDate;
-        }else{
+        } else {
             return date;
         }
     }

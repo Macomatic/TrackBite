@@ -81,7 +81,6 @@ public class Database_Page extends AppCompatActivity implements foodDatabaseDial
             @Override
             protected void onBindViewHolder(@NonNull FoodViewHolder holder, int position, @NonNull Food model) {
                 holder.foodViewName.setText(model.getName());
-                holder.foodViewMeal.setText(model.getMeal());
             }
         };
 
@@ -102,7 +101,6 @@ public class Database_Page extends AppCompatActivity implements foodDatabaseDial
             super(itemView);
 
             foodViewName = itemView.findViewById(R.id.foodViewName);
-            foodViewMeal = itemView.findViewById(R.id.foodViewMeal);
 
             foodViewName.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -158,12 +156,12 @@ public class Database_Page extends AppCompatActivity implements foodDatabaseDial
         }
     }
 
-    public String formatDate(String date){
+    public String formatDate(String date) {
         String newDate;
-        if (date.length() == 1){
+        if (date.length() == 1) {
             newDate = "0" + date;
             return newDate;
-        }else{
+        } else {
             return date;
         }
     }
@@ -182,7 +180,7 @@ public class Database_Page extends AppCompatActivity implements foodDatabaseDial
 
     // gets what the user selected from the dialog
     @Override
-    public void add(boolean add) {
+    public void add(boolean add, String serving) {
         DocumentReference foodRef = db.collection("users").document(user.getUid().toString()).collection("userData").document("savedMeals").collection("Food").document(nameOfFood);
         DocumentReference setRef = db.collection("users").document(user.getUid().toString()).collection("userData").document(date).collection("Food").document(nameOfFood);
         if (add == true) {
@@ -216,33 +214,33 @@ public class Database_Page extends AppCompatActivity implements foodDatabaseDial
                             addFood.put("vitaminA", document.getString("vitaminA"));
                             addFood.put("vitaminB", document.getString("vitaminB"));
                             addFood.put("vitaminC", document.getString("vitaminC"));
-                            // Add to the database
+                            // Add to the daily food document
                             setRef.set(addFood);
                         } else {
                             // exercise
                             addFood.put("name", document.getString("name"));
                             addFood.put("meal", document.getString("meal"));
                             // basic
-                            addFood.put("servingSize", multipleTwoStrings("2", document.getString("servingSize")));
-                            addFood.put("carbohydrates", multipleTwoStrings("2", document.getString("carbohydrates")));
-                            addFood.put("fats", multipleTwoStrings("2", document.getString("fats")));
-                            addFood.put("calories", multipleTwoStrings("2", document.getString("calories")));
-                            addFood.put("fibre", multipleTwoStrings("2", document.getString("fibre")));
-                            addFood.put("sugar", multipleTwoStrings("2", document.getString("sugar")));
+                            addFood.put("servingSize", addTwoStrings(serving, document.getString("servingSize")));
+                            addFood.put("carbohydrates", multipleTwoStrings(serving, document.getString("carbohydrates")));
+                            addFood.put("fats", multipleTwoStrings(serving, document.getString("fats")));
+                            addFood.put("calories", multipleTwoStrings(serving, document.getString("calories")));
+                            addFood.put("fibre", multipleTwoStrings(serving, document.getString("fibre")));
+                            addFood.put("sugar", multipleTwoStrings(serving, document.getString("sugar")));
                             // detailed
-                            addFood.put("saturatedFat", multipleTwoStrings("2", document.getString("saturatedFat")));
-                            addFood.put("transFat", multipleTwoStrings("2", document.getString("transFat")));
-                            addFood.put("cholesterol", multipleTwoStrings("2", document.getString("cholesterol")));
-                            addFood.put("sodium", multipleTwoStrings("2", document.getString("sodium")));
-                            addFood.put("protein", multipleTwoStrings("2", document.getString("protein")));
-                            addFood.put("calcium", multipleTwoStrings("2", document.getString("calcium")));
-                            addFood.put("potassium", multipleTwoStrings("2", document.getString("potassium")));
-                            addFood.put("iron", multipleTwoStrings("2", document.getString("iron")));
-                            addFood.put("zinc", multipleTwoStrings("2", document.getString("zinc")));
-                            addFood.put("vitaminA", multipleTwoStrings("2", document.getString("vitaminA")));
-                            addFood.put("vitaminB", multipleTwoStrings("2", document.getString("vitaminB")));
-                            addFood.put("vitaminC", multipleTwoStrings("2", document.getString("vitaminC")));
-                            // Add to the database
+                            addFood.put("saturatedFat", multipleTwoStrings(serving, document.getString("saturatedFat")));
+                            addFood.put("transFat", multipleTwoStrings(serving, document.getString("transFat")));
+                            addFood.put("cholesterol", multipleTwoStrings(serving, document.getString("cholesterol")));
+                            addFood.put("sodium", multipleTwoStrings(serving, document.getString("sodium")));
+                            addFood.put("protein", multipleTwoStrings(serving, document.getString("protein")));
+                            addFood.put("calcium", multipleTwoStrings(serving, document.getString("calcium")));
+                            addFood.put("potassium", multipleTwoStrings(serving, document.getString("potassium")));
+                            addFood.put("iron", multipleTwoStrings(serving, document.getString("iron")));
+                            addFood.put("zinc", multipleTwoStrings(serving, document.getString("zinc")));
+                            addFood.put("vitaminA", multipleTwoStrings(serving, document.getString("vitaminA")));
+                            addFood.put("vitaminB", multipleTwoStrings(serving, document.getString("vitaminB")));
+                            addFood.put("vitaminC", multipleTwoStrings(serving, document.getString("vitaminC")));
+                            // Add to the daily food document
                             setRef.set(addFood);
                         }
                     }

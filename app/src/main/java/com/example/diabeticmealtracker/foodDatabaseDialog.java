@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.EditText;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDialogFragment;
@@ -14,6 +15,7 @@ public class foodDatabaseDialog extends AppCompatDialogFragment {
 
     // variables
     private foodDatabaseDialogListener listener;
+    private EditText servingSize;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -29,17 +31,22 @@ public class foodDatabaseDialog extends AppCompatDialogFragment {
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        String serving = servingSize.getText().toString().trim();
                         boolean add = false;
-                        listener.add(add);
+                        listener.add(add, serving);
                     }
                 })
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        String serving = servingSize.getText().toString().trim();
                         boolean add = true;
-                        listener.add(add);
+                        listener.add(add, serving);
                     }
                 });
+
+        servingSize = (EditText) view.findViewById(R.id.foodDatabaseServing);
+
         return builder.create();
     }
 
@@ -53,7 +60,7 @@ public class foodDatabaseDialog extends AppCompatDialogFragment {
         }
     }
 
-    public interface foodDatabaseDialogListener{
-        void add(boolean add);
+    public interface foodDatabaseDialogListener {
+        void add(boolean add, String servingSize);
     }
 }
