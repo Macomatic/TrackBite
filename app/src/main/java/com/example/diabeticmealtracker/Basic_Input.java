@@ -128,6 +128,9 @@ public class Basic_Input extends AppCompatActivity {
                                 userInfo.put("vitaminB", "0");
                                 userInfo.put("vitaminC", "0");
                                 mealRef.set(userInfo);
+                                // Open Dialog that asks user if they want to save a new food to an all time database.
+                                newSaveDialog();
+
                             } else {
                                 // setting basic input
                                 userInfo.put("name", name);
@@ -251,7 +254,6 @@ public class Basic_Input extends AppCompatActivity {
         Date.put("Date", date);
         // db.collection("users").document(user.getUid().toString()).set(date);
         db.collection("users").document(user.getUid().toString()).collection("userData").document(date).set(Date);
-
     }
 
     // converts the month into its numeric form
@@ -308,6 +310,11 @@ public class Basic_Input extends AppCompatActivity {
     public String addTwoStrings(String value1, String value2) {
         return String.valueOf(Float.parseFloat(value1) + Float.parseFloat(value2));
     }
+
+    // basic input dialog method
+    public void newSaveDialog() {
+
+    };
 
     public void backBasicInputPage(View view) {
         finish();
