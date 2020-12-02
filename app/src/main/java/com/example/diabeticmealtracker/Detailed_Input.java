@@ -113,7 +113,7 @@ public class Detailed_Input extends AppCompatActivity implements newSaveDialog.n
                 String date = year + month + dateNum;
 
                 // parsing the input from the input fields
-                String name = txtName.getText().toString().trim().toLowerCase();
+                String name = initializeName(txtName.getText().toString());
                 String servingSize = initializeInput(txtServingSize.getText().toString().trim());
                 String fats = initializeInput(txtFats.getText().toString().trim());
                 String carbohydrates = initializeInput(txtCarbohydrates.getText().toString().trim());
@@ -426,6 +426,14 @@ public class Detailed_Input extends AppCompatActivity implements newSaveDialog.n
             return "0";
         } else {
             return field;
+        }
+    }
+
+    public String initializeName(String name) {
+        if (!name.equals(null) && !name.equals("")) {
+            return name.trim().toLowerCase();
+        } else {
+            return "unnamedfood";
         }
     }
 

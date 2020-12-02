@@ -96,7 +96,7 @@ public class Basic_Input extends AppCompatActivity implements newSaveDialog.newS
                 String date = year + month + dateNum;
 
                 // parsing the input from the input fields
-                String name = txtName.getText().toString().trim().toLowerCase(); // convert all names to only lowercase
+                String name = initializeName(txtName.getText().toString()); // convert all names to only lowercase
                 String servingSize = initializeInput(txtServingSize.getText().toString().trim());
                 String fats = initializeInput(txtFats.getText().toString().trim());
                 String carbohydrates = initializeInput(txtCarbohydrates.getText().toString().trim());
@@ -339,9 +339,18 @@ public class Basic_Input extends AppCompatActivity implements newSaveDialog.newS
         if (field.equals("") || isNum == false) {
             return "0";
         } else {
-            return field;
+            return field.trim();
         }
     }
+
+    public String initializeName(String name) {
+        if (!name.equals(null) && !name.equals("")) {
+            return name.trim().toLowerCase();
+        } else {
+            return "unnamedfood";
+        }
+    }
+
 
     // add two numerical string values
     public String addTwoStrings(String value1, String value2) {
