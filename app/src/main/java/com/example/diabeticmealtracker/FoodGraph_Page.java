@@ -48,7 +48,7 @@ public class FoodGraph_Page extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food_graph__page);
         Button button = (Button) findViewById(R.id.button9);
-        new CountDownTimer(3000, 1000) {
+        new CountDownTimer(5000, 1000) {
 
             public void onTick(long millisUntilFinished) {
                 button.setBackgroundResource(R.drawable.my_button_design);
