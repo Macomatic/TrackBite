@@ -239,7 +239,7 @@ public class FoodGraph_Page extends AppCompatActivity {
         formattedDate = formattedDate.replace(",", "");
         String[] splitDate = formattedDate.split(" ");
         String month = convertMonthNum(splitDate[0]);
-        String dateNum = splitDate[1];
+        String dateNum = formatDate(splitDate[1]);
         String year = splitDate[2];
         String date = year + month + dateNum;
         return date;
@@ -263,7 +263,7 @@ public class FoodGraph_Page extends AppCompatActivity {
                     day = daysPerMonth[month-1];
                 }
                 else {
-                    day = daysPerMonth[month-1]-day;
+                    day = daysPerMonth[month-1]+day;
                 }
             }
 
@@ -273,12 +273,14 @@ public class FoodGraph_Page extends AppCompatActivity {
             if (month == 0) {
                 year-=1;
                 month = 12;
-                day = daysPerMonth[month-1];
             }
 
         }
         else { // Year
             year-=1;
+        }
+        if (day < 10) {
+            return String.valueOf(year)+String.valueOf(month)+"0"+String.valueOf(day);
         }
         newDate = String.valueOf(year)+String.valueOf(month)+String.valueOf(day);
         return newDate;
@@ -346,6 +348,16 @@ public class FoodGraph_Page extends AppCompatActivity {
                         }
                     }
                 });
+    }
+
+    public String formatDate(String date){
+        String newDate;
+        if (date.length() == 1){
+            newDate = "0" + date;
+            return newDate;
+        }else{
+            return date;
+        }
     }
 
     public void backExerciseGraphPage (View view){

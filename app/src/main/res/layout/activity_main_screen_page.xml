@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/merriweather_bold"
         android:gravity="center"
-        android:text="Diabetic Meal Tracker"
+        android:text="TrackBite"
         android:textSize="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.491"
