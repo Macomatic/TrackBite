@@ -62,7 +62,7 @@ public class YogaInput extends AppCompatActivity {
         formattedDate = formattedDate.replace(",", "");
         String[] splitDate = formattedDate.split(" ");
         String month = convertMonthNum(splitDate[0]);
-        String dateNum = splitDate[1];
+        String dateNum = formatDate(splitDate[1]);
         String year = splitDate[2];
         String date = year + month + dateNum;
 
