@@ -108,7 +108,7 @@ public class ExerciseGraph_Page extends AppCompatActivity {
 
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 String docId = document.getId();
-                                if (!docId.equals("FoodAnalysis")&&!docId.equals("profile") && !docId.equals("Analysis") && !docId.equals("LineAnalysis")) {
+                                if (!docId.equals("FoodAnalysis")&&!docId.equals("profile") && !docId.equals("Analysis") && !docId.equals("LineAnalysis") && !docId.equals("savedMeals")) {
                                     int documentDate = Integer.parseInt(docId);
                                     if (documentDate >= Integer.parseInt(dateRange.substring(0, 8)) && documentDate <= Integer.parseInt(dateRange.substring(9))) {
                                         validDatesArray.add(docId);
