@@ -25,7 +25,7 @@
 
     <Button
         android:id="@+id/basicinput"
-        android:layout_width="250dp"
+        android:layout_width="285dp"
         android:layout_height="50dp"
         android:background="@drawable/my_button_design"
         android:fontFamily="@font/titillium_web_semibold"
@@ -42,7 +42,7 @@
 
     <Button
         android:id="@+id/detailedinput"
-        android:layout_width="250dp"
+        android:layout_width="285dp"
         android:layout_height="50dp"
         android:background="@drawable/my_button_design"
         android:fontFamily="@font/titillium_web_semibold"
@@ -72,6 +72,24 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.976" />
+
+    <Button
+        android:id="@+id/database"
+        android:layout_width="285dp"
+        android:layout_height="50dp"
+        android:background="@drawable/my_button_design"
+        android:fontFamily="@font/titillium_web_semibold"
+        android:onClick="databaseButtonClick"
+        android:text="My Previous Meals"
+        android:textSize="18dp"
+        app:backgroundTint="@color/button_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.56"
+        tools:layout_conversion_absoluteHeight="48dp"
+        tools:layout_conversion_absoluteWidth="111dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

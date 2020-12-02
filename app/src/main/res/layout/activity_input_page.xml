@@ -24,24 +24,6 @@
         tools:layout_conversion_absoluteHeight="60dp"
         tools:layout_conversion_absoluteWidth="301dp" />
 
-    <Button
-        android:id="@+id/database"
-        android:layout_width="285dp"
-        android:layout_height="50dp"
-        android:background="@drawable/my_button_design"
-        android:fontFamily="@font/titillium_web_semibold"
-        android:onClick="databaseButtonClick"
-        android:text="My Previous Meals"
-        android:textSize="18dp"
-        app:backgroundTint="@color/button_background"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.507"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.544"
-        tools:layout_conversion_absoluteHeight="48dp"
-        tools:layout_conversion_absoluteWidth="111dp" />
 
     <Button
         android:id="@+id/button5"
@@ -55,9 +37,10 @@
         app:backgroundTint="@color/button_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.507"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.681" />
+        app:layout_constraintVertical_bias="0.537" />
 
     <Button
         android:id="@+id/manualinput"
