@@ -42,6 +42,15 @@ public class Basic_Input extends AppCompatActivity implements newSaveDialog.newS
     private Map<String, Object> userInfo;
     private DocumentReference savedMeals;
 
+    // initialize
+    String name = "";
+    String servingSize = "0";
+    String fats = "0";
+    String carbohydrates = "0";
+    String sugar = "0";
+    String fibre = "0";
+    String calories = "0";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,13 +105,13 @@ public class Basic_Input extends AppCompatActivity implements newSaveDialog.newS
                 String date = year + month + dateNum;
 
                 // parsing the input from the input fields
-                String name = initializeName(txtName.getText().toString()); // convert all names to only lowercase
-                String servingSize = initializeInput(txtServingSize.getText().toString().trim());
-                String fats = initializeInput(txtFats.getText().toString().trim());
-                String carbohydrates = initializeInput(txtCarbohydrates.getText().toString().trim());
-                String sugar = initializeInput(txtSugar.getText().toString().trim());
-                String fibre = initializeInput(txtFibre.getText().toString().trim());
-                String calories = initializeInput(txtCalories.getText().toString().trim());
+                name = initializeName(txtName.getText().toString()); // convert all names to only lowercase
+                servingSize = initializeInput(txtServingSize.getText().toString().trim());
+                fats = initializeInput(txtFats.getText().toString().trim());
+                carbohydrates = initializeInput(txtCarbohydrates.getText().toString().trim());
+                sugar = initializeInput(txtSugar.getText().toString().trim());
+                fibre = initializeInput(txtFibre.getText().toString().trim());
+                calories = initializeInput(txtCalories.getText().toString().trim());
                 String meal = spnMeal.getSelectedItem().toString();
                 // push food object onto firebase based on the meal time selected
                 // check if the the meal already exists and if it does, add to the current one.

@@ -40,6 +40,27 @@ public class Detailed_Input extends AppCompatActivity implements newSaveDialog.n
     // Buttons
     Button done, clear;
 
+    // initialize
+    String name = "";
+    String servingSize = "0";
+    String fats = "0";
+    String carbohydrates = "0";
+    String sugar = "0";
+    String fibre = "0";
+    String calories = "0";
+    String sFat = "0";
+    String tFat = "0";
+    String cholesterol = "0";
+    String sodium = "0";
+    String protein = "0";
+    String calcium = "0";
+    String potassium = "0";
+    String iron = "0";
+    String zinc = "0";
+    String vitaminA = "0";
+    String vitaminB = "0";
+    String vitaminC = "0";
+
     // variables for dialog funtionality
     private boolean newSave, updateSave;
     private DocumentReference savedMeals;
