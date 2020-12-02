@@ -134,27 +134,27 @@ public class Detailed_Input extends AppCompatActivity implements newSaveDialog.n
                 String date = year + month + dateNum;
 
                 // parsing the input from the input fields
-                String name = initializeName(txtName.getText().toString());
-                String servingSize = initializeInput(txtServingSize.getText().toString().trim());
-                String fats = initializeInput(txtFats.getText().toString().trim());
-                String carbohydrates = initializeInput(txtCarbohydrates.getText().toString().trim());
-                String sugar = initializeInput(txtSugar.getText().toString().trim());
-                String fibre = initializeInput(txtFibre.getText().toString().trim());
-                String calories = initializeInput(txtCalories.getText().toString().trim());
+                name = initializeName(txtName.getText().toString());
+                servingSize = initializeInput(txtServingSize.getText().toString().trim());
+                fats = initializeInput(txtFats.getText().toString().trim());
+                carbohydrates = initializeInput(txtCarbohydrates.getText().toString().trim());
+                sugar = initializeInput(txtSugar.getText().toString().trim());
+                fibre = initializeInput(txtFibre.getText().toString().trim());
+                calories = initializeInput(txtCalories.getText().toString().trim());
                 String meal = spnMeal.getSelectedItem().toString();
                 // parsing detailed input
-                String sFat = initializeInput(txtSFat.getText().toString().trim());
-                String tFat = initializeInput(txtTFat.getText().toString().trim());
-                String cholesterol = initializeInput(txtCholesterol.getText().toString().trim());
-                String sodium = initializeInput(txtSodium.getText().toString().trim());
-                String protein = initializeInput(txtProtein.getText().toString().trim());
-                String calcium = initializeInput(txtCalcium.getText().toString().trim());
-                String potassium = initializeInput(txtPotassium.getText().toString().trim());
-                String iron = initializeInput(txtIron.getText().toString().trim());
-                String zinc = initializeInput(txtZinc.getText().toString().trim());
-                String vitaminA = initializeInput(txtVitA.getText().toString().trim());
-                String vitaminB = initializeInput(txtVitB.getText().toString().trim());
-                String vitaminC = initializeInput(txtVitC.getText().toString().trim());
+                sFat = initializeInput(txtSFat.getText().toString().trim());
+                tFat = initializeInput(txtTFat.getText().toString().trim());
+                cholesterol = initializeInput(txtCholesterol.getText().toString().trim());
+                sodium = initializeInput(txtSodium.getText().toString().trim());
+                protein = initializeInput(txtProtein.getText().toString().trim());
+                calcium = initializeInput(txtCalcium.getText().toString().trim());
+                potassium = initializeInput(txtPotassium.getText().toString().trim());
+                iron = initializeInput(txtIron.getText().toString().trim());
+                zinc = initializeInput(txtZinc.getText().toString().trim());
+                vitaminA = initializeInput(txtVitA.getText().toString().trim());
+                vitaminB = initializeInput(txtVitB.getText().toString().trim());
+                vitaminC = initializeInput(txtVitC.getText().toString().trim());
                 // push food object onto firebase based on the meal time selected
                 // save food to an all time database
                 savedMeals = db.collection("users").document(user.getUid().toString()).collection("userData").document("savedMeals").collection("Food").document(name);
@@ -302,11 +302,11 @@ public class Detailed_Input extends AppCompatActivity implements newSaveDialog.n
                                 // adding to the total
                                 // basic
                                 totalServingSize += Float.parseFloat(servingSize);
-                                totalFats += Float.parseFloat(multipleTwoStrings(servingSize,fats));
-                                totalCarbs += Float.parseFloat(multipleTwoStrings(servingSize,carbohydrates));
-                                totalSugar += Float.parseFloat(multipleTwoStrings(servingSize,sugar));
-                                totalFibre += Float.parseFloat(multipleTwoStrings(servingSize,fibre));
-                                totalCalories += Float.parseFloat(multipleTwoStrings(servingSize,calories));
+                                totalFats += Float.parseFloat(multipleTwoStrings(servingSize, fats));
+                                totalCarbs += Float.parseFloat(multipleTwoStrings(servingSize, carbohydrates));
+                                totalSugar += Float.parseFloat(multipleTwoStrings(servingSize, sugar));
+                                totalFibre += Float.parseFloat(multipleTwoStrings(servingSize, fibre));
+                                totalCalories += Float.parseFloat(multipleTwoStrings(servingSize, calories));
                                 totals.put("Total serving size", String.valueOf(totalServingSize));
                                 totals.put("Total fats", String.valueOf(totalFats));
                                 totals.put("Total carbs", String.valueOf(totalCarbs));
@@ -314,18 +314,18 @@ public class Detailed_Input extends AppCompatActivity implements newSaveDialog.n
                                 totals.put("Total fiber", String.valueOf(totalFibre));
                                 totals.put("Total calories", String.valueOf(totalCalories));
                                 // detailed
-                                totalSFat += Float.parseFloat(multipleTwoStrings(servingSize,sFat));
-                                totalTFat += Float.parseFloat(multipleTwoStrings(servingSize,tFat));
-                                totalCholesterol += Float.parseFloat(multipleTwoStrings(servingSize,cholesterol));
-                                totalSodium += Float.parseFloat(multipleTwoStrings(servingSize,sodium));
-                                totalProtein += Float.parseFloat(multipleTwoStrings(servingSize,protein));
-                                totalCalcium += Float.parseFloat(multipleTwoStrings(servingSize,calcium));
-                                totalPotassium += Float.parseFloat(multipleTwoStrings(servingSize,potassium));
-                                totalIron += Float.parseFloat(multipleTwoStrings(servingSize,iron));
-                                totalZinc += Float.parseFloat(multipleTwoStrings(servingSize,zinc));
-                                totalVitaminA += Float.parseFloat(multipleTwoStrings(servingSize,vitaminA));
-                                totalVitaminB += Float.parseFloat(multipleTwoStrings(servingSize,vitaminB));
-                                totalVitaminC += Float.parseFloat(multipleTwoStrings(servingSize,vitaminC));
+                                totalSFat += Float.parseFloat(multipleTwoStrings(servingSize, sFat));
+                                totalTFat += Float.parseFloat(multipleTwoStrings(servingSize, tFat));
+                                totalCholesterol += Float.parseFloat(multipleTwoStrings(servingSize, cholesterol));
+                                totalSodium += Float.parseFloat(multipleTwoStrings(servingSize, sodium));
+                                totalProtein += Float.parseFloat(multipleTwoStrings(servingSize, protein));
+                                totalCalcium += Float.parseFloat(multipleTwoStrings(servingSize, calcium));
+                                totalPotassium += Float.parseFloat(multipleTwoStrings(servingSize, potassium));
+                                totalIron += Float.parseFloat(multipleTwoStrings(servingSize, iron));
+                                totalZinc += Float.parseFloat(multipleTwoStrings(servingSize, zinc));
+                                totalVitaminA += Float.parseFloat(multipleTwoStrings(servingSize, vitaminA));
+                                totalVitaminB += Float.parseFloat(multipleTwoStrings(servingSize, vitaminB));
+                                totalVitaminC += Float.parseFloat(multipleTwoStrings(servingSize, vitaminC));
                                 totals.put("Total saturated fats", String.valueOf(totalSFat));
                                 totals.put("Total trans fats", String.valueOf(totalTFat));
                                 totals.put("Total cholesterol", String.valueOf(totalCholesterol));
