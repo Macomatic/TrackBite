@@ -44,6 +44,7 @@ public class Basic_Input extends AppCompatActivity implements newSaveDialog.newS
 
     // initialize
     String name = "";
+    String meal = "";
     String servingSize = "0";
     String fats = "0";
     String carbohydrates = "0";
@@ -112,7 +113,7 @@ public class Basic_Input extends AppCompatActivity implements newSaveDialog.newS
                 sugar = initializeInput(txtSugar.getText().toString().trim());
                 fibre = initializeInput(txtFibre.getText().toString().trim());
                 calories = initializeInput(txtCalories.getText().toString().trim());
-                String meal = spnMeal.getSelectedItem().toString();
+                meal = spnMeal.getSelectedItem().toString();
                 // push food object onto firebase based on the meal time selected
                 // check if the the meal already exists and if it does, add to the current one.
                 DocumentReference mealRef = db.collection("users").document(user.getUid().toString()).collection("userData").document(date).collection("Food").document(name);

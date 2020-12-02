@@ -48,7 +48,7 @@ public class Database_Page extends AppCompatActivity implements foodDatabaseDial
     // Variables for saving food
     private Map<String, Object> addFood = new HashMap<>();
     String name = "";
-    String meal = "0";
+    String meal = "";
     String servingSize = "0";
     String carbohydrates = "0";
     String fats = "0";

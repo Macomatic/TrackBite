@@ -42,6 +42,7 @@ public class Detailed_Input extends AppCompatActivity implements newSaveDialog.n
 
     // initialize
     String name = "";
+    String meal = "";
     String servingSize = "0";
     String fats = "0";
     String carbohydrates = "0";
@@ -141,7 +142,7 @@ public class Detailed_Input extends AppCompatActivity implements newSaveDialog.n
                 sugar = initializeInput(txtSugar.getText().toString().trim());
                 fibre = initializeInput(txtFibre.getText().toString().trim());
                 calories = initializeInput(txtCalories.getText().toString().trim());
-                String meal = spnMeal.getSelectedItem().toString();
+                meal = spnMeal.getSelectedItem().toString();
                 // parsing detailed input
                 sFat = initializeInput(txtSFat.getText().toString().trim());
                 tFat = initializeInput(txtTFat.getText().toString().trim());
