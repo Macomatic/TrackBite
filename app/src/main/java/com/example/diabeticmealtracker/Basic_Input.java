@@ -187,11 +187,11 @@ public class Basic_Input extends AppCompatActivity implements newSaveDialog.newS
                             DocumentSnapshot document = task.getResult(); //Grab snapshot of requirements
                             if (!document.exists()) {
                                 // Open Dialog that asks user if they want to save a new food to an all time database.
-                                userInfo.put("servingSize", savedServingSize);
+                                //userInfo.put("servingSize", savedServingSize);
                                 newSaveDialog();
                             } else {
                                 // Open Dialog that asks user if they want to update the food in their database
-                                userInfo.put("servingSize", savedServingSize);
+                                //userInfo.put("servingSize", savedServingSize);
                                 updateSaveDialog();
                             }
                         }
