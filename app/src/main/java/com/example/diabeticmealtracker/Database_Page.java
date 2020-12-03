@@ -47,26 +47,26 @@ public class Database_Page extends AppCompatActivity implements foodDatabaseDial
 
     // Variables for saving food
     private Map<String, Object> addFood = new HashMap<>();
-    String name = "";
-    String meal = "";
-    String servingSize = "0";
-    String carbohydrates = "0";
-    String fats = "0";
-    String calories = "0";
-    String fibre = "0";
-    String sugar = "0";
-    String saturatedFat = "0";
-    String transFat = "0";
-    String cholesterol = "0";
-    String sodium = "0";
-    String protein = "0";
-    String calcium = "0";
-    String potassium = "0";
-    String iron = "0";
-    String zinc = "0";
-    String vitaminA = "0";
-    String vitaminB = "0";
-    String vitaminC = "0";
+    private String name = "";
+    private String meal = "";
+    private String servingSize = "0";
+    private String carbohydrates = "0";
+    private String fats = "0";
+    private String calories = "0";
+    private String fibre = "0";
+    private String sugar = "0";
+    private String saturatedFat = "0";
+    private String transFat = "0";
+    private String cholesterol = "0";
+    private String sodium = "0";
+    private String protein = "0";
+    private String calcium = "0";
+    private String potassium = "0";
+    private String iron = "0";
+    private String zinc = "0";
+    private String vitaminA = "0";
+    private String vitaminB = "0";
+    private String vitaminC = "0";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

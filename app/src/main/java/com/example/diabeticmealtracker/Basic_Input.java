@@ -43,16 +43,16 @@ public class Basic_Input extends AppCompatActivity implements newSaveDialog.newS
     private DocumentReference savedMeals;
 
     // initialize
-    String name = "";
-    String meal = "";
-    String servingSize = "0";
-    String fats = "0";
-    String carbohydrates = "0";
-    String sugar = "0";
-    String fibre = "0";
-    String calories = "0";
+    private String name = "";
+    private String meal = "";
+    private String servingSize = "0";
+    private String fats = "0";
+    private String carbohydrates = "0";
+    private String sugar = "0";
+    private String fibre = "0";
+    private String calories = "0";
 
-    String savedServingSize = "0";
+    private String savedServingSize = "0";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
