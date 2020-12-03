@@ -203,7 +203,7 @@ public class Database_Page extends AppCompatActivity implements foodDatabaseDial
 
     // gets what the user selected from the dialog
     @Override
-    public void add(boolean add, String serving) {
+    public void add(boolean add, String serving, String mealName) {
         DocumentReference foodRef = db.collection("users").document(user.getUid().toString()).collection("userData").document("savedMeals").collection("Food").document(nameOfFood);
         DocumentReference setRef = db.collection("users").document(user.getUid().toString()).collection("userData").document(date).collection("Food").document(nameOfFood);
         // if the user agrees to add meal to daily intake
@@ -216,7 +216,7 @@ public class Database_Page extends AppCompatActivity implements foodDatabaseDial
                         DocumentSnapshot document = task.getResult(); //Grab snapshot of requirements
                         // exercise
                         name = document.getString("name");
-                        meal = document.getString("meal");
+                        meal = mealName;
                         // basic
                         servingSize = serving;
                         carbohydrates = document.getString("carbohydrates");

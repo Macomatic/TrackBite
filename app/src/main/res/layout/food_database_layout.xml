@@ -15,4 +15,12 @@
         android:gravity="center_horizontal"
         android:hint="Serving Size"
         android:inputType="number" />
+
+    <Spinner
+        android:id="@+id/databaseSpinner"
+        android:layout_width="211dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="55dp" />
 </RelativeLayout>
