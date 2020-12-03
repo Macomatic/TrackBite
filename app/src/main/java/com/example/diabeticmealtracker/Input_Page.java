@@ -19,10 +19,6 @@ public class Input_Page extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void databaseButtonClick (View view){
-        Intent intent = new Intent (getApplicationContext(), Database_Page.class);
-        startActivity(intent);
-    }
     public void backInputPage (View view){
         finish();
     }

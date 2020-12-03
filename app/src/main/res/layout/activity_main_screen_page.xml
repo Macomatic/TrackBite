@@ -85,7 +85,7 @@
         android:background="@drawable/my_button_design"
         android:fontFamily="@font/titillium_web_semibold"
         android:onClick="data_analysisButtonClick"
-        android:text="Analysis and Graphs"
+        android:text="Analyze My Data"
         android:textSize="18dp"
         app:backgroundTint="@color/button_background"
         app:layout_constraintBottom_toBottomOf="parent"

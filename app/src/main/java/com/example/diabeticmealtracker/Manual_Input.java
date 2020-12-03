@@ -19,6 +19,10 @@ public class Manual_Input extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void databaseButtonClick (View view){
+        Intent intent = new Intent (getApplicationContext(), Database_Page.class);
+        startActivity(intent);
+    }
     public void onDetailedInput(View view){
         Intent intent = new Intent (Manual_Input.this, Detailed_Input.class);
         startActivity(intent);
