@@ -215,7 +215,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:fontFamily="@font/merriweather_bold"
-            android:hint="Total Fats (g)"
+            android:hint="Fats per Serving (g)"
             android:inputType="textPersonName"
             android:textSize="14sp" />
 
@@ -225,7 +225,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:fontFamily="@font/merriweather_bold"
-            android:hint="Total Carbohydrates (g)"
+            android:hint="Carbs per Serving (g)"
             android:inputType="textPersonName"
             android:textSize="14sp" />
 
@@ -235,7 +235,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:fontFamily="@font/merriweather_bold"
-            android:hint="Total Sugar (g)"
+            android:hint="Sugar per Serving (g)"
             android:inputType="textPersonName"
             android:textSize="14sp" />
 
@@ -245,7 +245,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:fontFamily="@font/merriweather_bold"
-            android:hint="Total Fibre (g)"
+            android:hint="Fibre per Serving (g)"
             android:inputType="textPersonName"
             android:textSize="14sp" />
 
@@ -255,7 +255,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:fontFamily="@font/merriweather_bold"
-            android:hint="Total Calories"
+            android:hint="Calories per Serving (g)"
             android:inputType="textPersonName"
             android:textSize="14sp" />
 

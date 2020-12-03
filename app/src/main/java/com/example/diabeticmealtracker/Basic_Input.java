@@ -52,6 +52,8 @@ public class Basic_Input extends AppCompatActivity implements newSaveDialog.newS
     String fibre = "0";
     String calories = "0";
 
+    String savedServingSize = "0";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,7 +93,6 @@ public class Basic_Input extends AppCompatActivity implements newSaveDialog.newS
 
         // done button
         done.setOnClickListener(new View.OnClickListener() {
-            String savedServingSize;
 
             @Override
             public void onClick(View view) {

@@ -62,6 +62,8 @@ public class Detailed_Input extends AppCompatActivity implements newSaveDialog.n
     String vitaminB = "0";
     String vitaminC = "0";
 
+    String savedServingSize = "0";
+
     // variables for dialog funtionality
     private boolean newSave, updateSave;
     private DocumentReference savedMeals;
@@ -120,7 +122,6 @@ public class Detailed_Input extends AppCompatActivity implements newSaveDialog.n
 
         // done button
         done.setOnClickListener(new View.OnClickListener() {
-            String savedServingSize;
 
             @Override
             public void onClick(View view) {
