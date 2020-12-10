@@ -11,5 +11,5 @@ Fred Wei <br>
 David Ajayi <br>
 
 <b>TrackBite User Manual</b><br>
-Check our user manual below<br>
+The User Manual for the Application can be seen at the following URL:<br>
 https://drive.google.com/file/d/1uW4qcxRXQXJjR0JfQfWQAvjkaDPm8X3f/view?usp=sharing
