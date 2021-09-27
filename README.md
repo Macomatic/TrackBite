@@ -1,6 +1,7 @@
 # TrackBite
 <b>Repository Created by TrackBite for GNG 2101</b><br>
 TrackBite is an android application that allows users to input, track and analyze their meal and exercise data.
+It was made in Java through Android Studio.
   
 <b>Our Team!</b><br>
 Farid Nastaran Tehrani <br>
